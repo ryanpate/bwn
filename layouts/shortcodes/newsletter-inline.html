@@ -1,0 +1,27 @@
+<div class="newsletter-inline">
+  <h3>Get daily crypto briefs</h3>
+  <p>One short email with the biggest crypto moves. No spam, unsubscribe anytime.</p>
+
+  {{/* ConvertKit example */}}
+  {{ if .Site.Params.newsletter.provider | eq "convertkit" }}
+    <form action="https://app.convertkit.com/forms/{{ .Site.Params.newsletter.form_id }}/subscriptions" method="post" data-sv-form="{{ .Site.Params.newsletter.form_id }}" data-uid="{{ .Site.Params.newsletter.form_uid }}">
+      <input type="email" name="email_address" placeholder="you@example.com" required>
+      <button type="submit">Subscribe</button>
+    </form>
+  {{ end }}
+
+  {{/* MailerLite example */}}
+  {{ if .Site.Params.newsletter.provider | eq "mailerlite" }}
+    <form action="https://assets.mailerlite.com/jsonp/submit/{{ .Site.Params.newsletter.form_id }}" method="post">
+      <input type="email" name="fields[email]" placeholder="you@example.com" required>
+      <button type="submit">Subscribe</button>
+    </form>
+  {{ end }}
+</div>
+
+<style>
+.newsletter-inline{border:1px solid #e5e7eb;padding:1rem;border-radius:.5rem;margin:1rem 0}
+.newsletter-inline form{display:flex;gap:.5rem;flex-wrap:wrap}
+.newsletter-inline input{flex:1;min-width:220px;padding:.6rem .8rem;border:1px solid #d1d5db;border-radius:.375rem}
+.newsletter-inline button{padding:.6rem .9rem;border:1px solid #111;border-radius:.375rem;background:#111;color:#fff}
+</style>

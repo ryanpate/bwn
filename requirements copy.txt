@@ -1,0 +1,9 @@
+openai>=1.40.0
+feedparser>=6.0.10
+beautifulsoup4>=4.12.3
+lxml>=5.2.2
+python-slugify>=8.0.4
+requests>=2.32.3
+PyYAML>=6.0.2
+tenacity>=8.4.2
+trafilatura>=1.8.0

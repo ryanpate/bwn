@@ -1,0 +1,31 @@
+{{- $ledger := site.Params.affiliates.ledger | default "YOUR_LEDGER_ID" -}}
+{{- $trezor := site.Params.affiliates.trezor | default "YOUR_TREZOR_ID" -}}
+
+<div class="callout callout-info">
+    <strong>Secure your crypto</strong>
+    <div>
+        Protect your assets with a hardware wallet. <b>Readers often choose</b>:
+        <ul>
+            <li><a href="https://shop.ledger.com/?r={{ $ledger }}">Ledger Nano X</a></li>
+            <li><a href="https://trezor.io/?offer_id={{ $trezor }}">Trezor Model T</a></li>
+        </ul>
+        <em>(affiliate links)</em>
+    </div>
+</div>
+
+<style>
+    .callout {
+        padding: 1rem;
+        border-radius: .5rem;
+        border: 1px solid #ddd;
+        margin: 1rem 0;
+    }
+
+    .callout-info {
+        background: #f7fbff;
+    }
+
+    .callout ul {
+        margin: .5rem 0 0 1rem;
+    }
+</style>
