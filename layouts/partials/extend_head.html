@@ -1,44 +1,222 @@
-<!-- Google AdSense -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5523870768931777" crossorigin="anonymous"></script>
+{{- /* Performance: Preconnect to external domains */ -}}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-{{- /* Resolve description */ -}}
-{{- $desc := .Params.seo.meta_description | default .Params.description | default .Summary | default .Site.Params.description -}}
-<meta name="description" content="{{ $desc }}">
+{{- /* Modern font loading with fallback */ -}}
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"></noscript>
 
-{{- /* Canonical URL: prefer front-matter .canonicalURL, else .Permalink */ -}}
+{{- /* Resolve SEO metadata */ -}}
+{{- $desc := .Params.seo.meta_description | default .Params.description | default .Summary | default .Site.Params.description | truncate 160 -}}
+{{- $keywords := .Params.keywords | default .Site.Params.keywords -}}
+{{- $author := .Params.author | default .Site.Author.name | default "BlockWireNews Team" -}}
+
+{{- /* Canonical URL */ -}}
 {{- $canon := .Params.canonicalURL | default .Permalink -}}
-<link rel="canonical" href="{{ $canon }}"/>
+<link rel="canonical" href="{{ $canon }}">
 
-{{- /* Pick an OG image: page param .images (array), or .Params.cover.image (PaperMod), else site default */ -}}
-{{- $pageImg := (index .Params.images 0) | default .Params.cover.image -}}
-{{- $siteImg := .Site.Params.images | default slice -}}
-{{- $ogimg := $pageImg | default (index $siteImg 0) -}}
+{{- /* Basic Meta Tags */ -}}
+<meta name="description" content="{{ $desc }}">
+<meta name="author" content="{{ $author }}">
+{{- if $keywords }}<meta name="keywords" content="{{ delimit $keywords ", " }}">{{ end }}
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 
-<!-- Open Graph -->
-<meta property="og:title" content="{{ .Title }}">
+{{- /* Open Graph */ -}}
+{{- $ogImage := (index .Params.images 0) | default .Params.cover.image | default .Site.Params.images.0 | default "/img/post-default.jpg" | absURL -}}
+<meta property="og:title" content="{{ .Title }} | {{ .Site.Title }}">
 <meta property="og:description" content="{{ $desc }}">
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
 <meta property="og:url" content="{{ $canon }}">
-{{- if $ogimg }}<meta property="og:image" content="{{ $ogimg }}">{{ end }}
+<meta property="og:image" content="{{ $ogImage }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="{{ .Site.Title }}">
+{{- if .IsPage }}
+<meta property="article:published_time" content="{{ .PublishDate.Format "2006-01-02T15:04:05Z07:00" }}">
+<meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">
+<meta property="article:author" content="{{ $author }}">
+{{- range .Params.tags }}<meta property="article:tag" content="{{ . }}">{{ end }}
+{{- end }}
 
-<!-- Twitter -->
+{{- /* Twitter Card */ -}}
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{{ .Title }}">
+<meta name="twitter:title" content="{{ .Title }} | {{ .Site.Title }}">
 <meta name="twitter:description" content="{{ $desc }}">
-{{- if $ogimg }}<meta name="twitter:image" content="{{ $ogimg }}">{{ end }}
+<meta name="twitter:image" content="{{ $ogImage }}">
+{{- with .Site.Params.twitter }}<meta name="twitter:site" content="@{{ . }}">{{ end }}
+{{- with .Site.Params.twitter }}<meta name="twitter:creator" content="@{{ . }}">{{ end }}
 
-<!-- Article JSON-LD (posts only) -->
-{{ if .IsPage }}
+{{- /* JSON-LD Structured Data */ -}}
 <script type="application/ld+json">
 {
- "@context":"https://schema.org",
- "@type":"NewsArticle",
- "headline": {{ .Title | jsonify }},
- "datePublished": "{{ .PublishDate | default .Date }}",
- "dateModified": "{{ .Lastmod }}",
- "mainEntityOfPage": {{ $canon | jsonify }},
- "author": [{"@type":"Organization","name":"BlockWireNews"}],
- "publisher":{"@type":"Organization","name":"BlockWireNews"}
+  "@context": "https://schema.org",
+  "@type": "{{ if .IsPage }}NewsArticle{{ else }}WebSite{{ end }}",
+  {{- if .IsPage }}
+  "headline": {{ .Title | jsonify }},
+  "description": {{ $desc | jsonify }},
+  "image": {{ $ogImage | jsonify }},
+  "datePublished": "{{ .PublishDate.Format "2006-01-02T15:04:05Z07:00" }}",
+  "dateModified": "{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}",
+  "author": {
+    "@type": "Organization",
+    "name": "BlockWireNews",
+    "url": "{{ .Site.BaseURL }}"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "BlockWireNews",
+    "url": "{{ .Site.BaseURL }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ .Site.BaseURL }}img/logo.png",
+      "width": 600,
+      "height": 60
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": {{ $canon | jsonify }}
+  },
+  {{- if .Params.tags }}
+  "keywords": {{ delimit .Params.tags ", " | jsonify }},
+  {{- end }}
+  "articleSection": "Cryptocurrency News",
+  "wordCount": {{ .WordCount }},
+  "inLanguage": "en-US"
+  {{- else }}
+  "name": "BlockWireNews",
+  "description": "Real-time cryptocurrency news, market analysis, and expert insights",
+  "url": "{{ .Site.BaseURL }}",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "{{ .Site.BaseURL }}search?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  },
+  "sameAs": [
+    {{- with .Site.Params.social.twitter }}"https://twitter.com/{{ . }}",{{ end }}
+    {{- with .Site.Params.social.github }}"https://github.com/{{ . }}",{{ end }}
+    {{- with .Site.Params.social.linkedin }}"https://linkedin.com/company/{{ . }}"{{ end }}
+  ]
+  {{- end }}
 }
 </script>
-{{ end }}
+
+{{- /* BreadcrumbList for better navigation in search results */ -}}
+{{- if and .IsPage (not .IsHome) }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "{{ .Site.BaseURL }}"
+    },
+    {{- if .Parent }}
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "{{ .Parent.Title }}",
+      "item": "{{ .Parent.Permalink }}"
+    },
+    {{- end }}
+    {
+      "@type": "ListItem",
+      "position": {{ if .Parent }}3{{ else }}2{{ end }},
+      "name": "{{ .Title }}",
+      "item": "{{ .Permalink }}"
+    }
+  ]
+}
+</script>
+{{- end }}
+
+{{- /* FAQ Schema for FAQ pages */ -}}
+{{- if .Params.faq }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {{- range $i, $item := .Params.faq }}
+    {{- if $i }},{{ end }}
+    {
+      "@type": "Question",
+      "name": {{ $item.question | jsonify }},
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": {{ $item.answer | jsonify }}
+      }
+    }
+    {{- end }}
+  ]
+}
+</script>
+{{- end }}
+
+{{- /* Performance: Preload critical assets */ -}}
+{{- $css := resources.Get "css/extended/hero.css" | minify | fingerprint }}
+{{- if $css }}
+<link rel="preload" href="{{ $css.Permalink }}" as="style">
+{{- end }}
+
+{{- /* PWA manifest */ -}}
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0066ff">
+
+{{- /* Favicon set */ -}}
+<link rel="icon" type="image/x-icon" href="/img/logo.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/logo-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/img/logo-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/img/logo-180.png">
+
+{{- /* RSS Feed */ -}}
+{{ range .AlternativeOutputFormats -}}
+  {{ printf `<link rel="%s" type="%s" href="%s" title="%s">` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+{{ end -}}
+
+{{- /* Google AdSense - Load asynchronously */ -}}
+{{- with .Site.Params.adsense }}
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ . }}" crossorigin="anonymous"></script>
+{{- end }}
+
+{{- /* Critical inline CSS for above-fold content */ -}}
+<style>
+  /* Critical CSS for immediate render */
+  :root {
+    --primary: #0066ff;
+    --accent: #00d4ff;
+    --dark: #0a0e27;
+    --light: #ffffff;
+  }
+  
+  body {
+    margin: 0;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    color: var(--light);
+    background: var(--dark);
+  }
+  
+  /* Prevent layout shift */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Font loading optimization */
+  .fonts-loaded body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+</style>
+
+{{- /* Font loading detection */ -}}
+<script>
+  if ('fonts' in document) {
+    document.fonts.ready.then(function() {
+      document.documentElement.classList.add('fonts-loaded');
+    });
+  }
+</script>

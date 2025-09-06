@@ -1,89 +1,282 @@
-baseURL = "https://blockwirenews.com/"
-languageCode = "en-us"
-title = "BlockWire News"
+baseURL = "https://www.blockwirenews.com/"
+title = "BlockWireNews"
 theme = "PaperMod"
+languageCode = "en-us"
+defaultContentLanguage = "en"
+paginate = 12
 enableRobotsTXT = true
+enableGitInfo = true
+enableEmoji = true
 
-# PaperMod outputs
+# Build settings
+[build]
+  writeStats = true
+
+# Minification
+[minify]
+  minifyOutput = true
+  disableCSS = false
+  disableHTML = false
+  disableJS = false
+  disableJSON = false
+  disableSVG = false
+  disableXML = false
+
+# Permalinks
+[permalinks]
+  news = "/news/:year/:month/:slug/"
+  pages = "/:slug/"
+
+# Taxonomies
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+  author = "authors"
+
+# Outputs
 [outputs]
-  home    = ["HTML", "RSS", "JSON"]
+  home = ["HTML", "JSON", "RSS", "WebAppManifest"]
+  page = ["HTML"]
   section = ["HTML", "RSS"]
-  taxonomy= ["HTML"]
-  term    = ["HTML"]
+  taxonomy = ["HTML", "RSS"]
+  term = ["HTML", "RSS"]
 
-# Site params (PaperMod)
+# Output formats
+[outputFormats]
+  [outputFormats.WebAppManifest]
+    mediaType = "application/manifest+json"
+    rel = "manifest"
+
+# Media types
+[mediaTypes]
+  [mediaTypes."application/manifest+json"]
+    suffixes = ["webmanifest"]
+
+# Sitemap configuration
+[sitemap]
+  changefreq = "daily"
+  priority = 0.8
+  filename = "sitemap.xml"
+
+# Privacy settings
+[privacy]
+  [privacy.googleAnalytics]
+    disable = false
+    respectDoNotTrack = true
+    useSessionStorage = false
+  [privacy.twitter]
+    disable = false
+    enableDNT = true
+    simple = false
+
+# Services
+[services]
+  [services.googleAnalytics]
+    ID = "G-XXXXXXXXXX"  # Replace with your GA4 ID
+
+# Params
 [params]
   env = "production"
-  description = "Daily crypto briefs: Bitcoin, DeFi, Web3, regulation & markets."
-  defaultTheme = "auto"
+  title = "BlockWireNews"
+  description = "Real-time cryptocurrency news, market analysis, and expert insights. Stay informed with the latest blockchain developments and crypto market trends."
+  keywords = ["cryptocurrency", "bitcoin", "ethereum", "blockchain", "defi", "crypto news", "market analysis", "digital assets"]
+  author = "BlockWireNews Team"
+  defaultTheme = "dark"
+  disableThemeToggle = false
+  DateFormat = "January 2, 2006"
   ShowReadingTime = true
   ShowShareButtons = true
-  ShowBreadCrumbs = true
   ShowPostNavLinks = true
-  disableSpecial1stPost = true
-  mainSections = ["news"]          # show news on the home page
-
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+  ShowWordCount = false
+  ShowRssButtonInSectionTermList = true
+  UseHugoToc = true
+  disableSpecial1stPost = false
+  disableScrollToTop = false
+  comments = false
+  hidemeta = false
+  hideSummary = false
+  showtoc = true
+  tocopen = false
+  
+  # Images
+  images = ["https://www.blockwirenews.com/img/og-image.jpg"]
+  
+  # Home info
+  [params.homeInfoParams]
+    Title = "BlockWireNews"
+    Content = "Your trusted source for cryptocurrency intelligence"
+  
+  # Social icons
+  [[params.socialIcons]]
+    name = "twitter"
+    url = "https://twitter.com/blockwirenews"
+  [[params.socialIcons]]
+    name = "github"
+    url = "https://github.com/ryanpate/bwn"
+  [[params.socialIcons]]
+    name = "rss"
+    url = "/index.xml"
+  
+  # Analytics
+  [params.analytics]
+    google = "G-XXXXXXXXXX"  # Replace with your GA4 ID
+  
+  # Assets
   [params.assets]
-    favicon = "/favicon.ico"
-    favicon16x16 = "/favicon.ico"
-    favicon32x32 = "/favicon.ico"
-    apple_touch_icon = "/favicon.ico"
-    safari_pinned_tab = "/favicon.ico"
-    ogImage = "/img/post-default.jpg"
-
+    disableHLJS = false
+    disableFingerprinting = false
+    favicon = "/img/logo.ico"
+    favicon16x16 = "/img/logo-16.png"
+    favicon32x32 = "/img/logo-32.png"
+    apple_touch_icon = "/img/logo-180.png"
+    safari_pinned_tab = "/img/logo.svg"
+  
+  # Label
   [params.label]
-    text = "BlockWire"
-    icon = "/img/logo.png"
-    iconHeight = 32
-
+    text = "BlockWireNews"
+    icon = "/img/logo.svg"
+    iconHeight = 35
+  
+  # Profile mode
+  [params.profileMode]
+    enabled = false
+    title = "BlockWireNews"
+    subtitle = "Real-time Crypto Intelligence"
+    imageUrl = "/img/logo.png"
+    imageWidth = 120
+    imageHeight = 120
+    imageTitle = "BlockWireNews Logo"
+  
+  # Cover
   [params.cover]
     hidden = false
     hiddenInList = false
     hiddenInSingle = false
-    defaultImage = "/img/post-default.jpg"
-
-  # Homepage hero
-  [params.homeInfoParams]
-    Title = "BlockWire News"
-    Content = "Daily crypto briefs: Bitcoin • DeFi • Web3 • Regulation. Fast, factual, no fluff."
-
-  # Optional hero buttons
-  [[params.homeInfoParams.buttons]]
-    name = "Latest posts"
-    url  = "/news/"
-
-  [[params.homeInfoParams.buttons]]
-    name = "Subscribe"
-    url  = "/subscribe/"
-
+    linkFullImages = true
+    responsiveImages = true
+  
+  # Edit post
+  [params.editPost]
+    URL = "https://github.com/ryanpate/bwn/tree/main/content"
+    Text = "Suggest Changes"
+    appendFilePath = true
+  
+  # SEO
+  [params.seo]
+    keywords = ["cryptocurrency", "bitcoin", "ethereum", "blockchain", "crypto news"]
+  
+  # Ads
+  [params.adsense]
+    client = "ca-pub-5523870768931777"
+  
+  # Affiliates
+  [params.affiliates]
+    ledger = "LEDGER_AFFILIATE_ID"
+    trezor = "TREZOR_AFFILIATE_ID"
+  
   # Newsletter
   [params.newsletter]
-    provider = "convertkit"       # or "mailerlite"
-    form_id  = "YOUR_FORM_ID"
-    form_uid = "YOUR_FORM_UID"    # ConvertKit only
-
-  # Sponsor (optional)
+    provider = "convertkit"
+    form_id = "YOUR_FORM_ID"
+    form_uid = "YOUR_FORM_UID"
+  
+  # Sponsor
   [params.sponsor]
-    name = ""
-    url  = ""
+    name = "Sponsor Name"
+    url = "https://sponsor.com"
 
-# Menu (optional polish)
-[[menu.main]]
-  name = "News"
-  url  = "/news/"
-  weight = 10
+# Menu
+[menu]
+  [[menu.main]]
+    name = "News"
+    url = "/news/"
+    weight = 10
+  
+  [[menu.main]]
+    name = "Markets"
+    url = "/markets/"
+    weight = 20
+  
+  [[menu.main]]
+    name = "Learn"
+    url = "/learn/"
+    weight = 30
+  
+  [[menu.main]]
+    name = "About"
+    url = "/about/"
+    weight = 40
+  
+  [[menu.main]]
+    name = "Search"
+    url = "/search/"
+    weight = 50
 
-[[menu.main]]
-  name = "Subscribe"
-  url  = "/subscribe/"
-  weight = 20
+# Markup
+[markup]
+  defaultMarkdownHandler = "goldmark"
+  
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+    [markup.goldmark.extensions]
+      definitionList = true
+      footnote = true
+      linkify = true
+      strikethrough = true
+      table = true
+      taskList = true
+      typographer = true
+  
+  [markup.highlight]
+    anchorLineNos = false
+    codeFences = true
+    guessSyntax = true
+    hl_Lines = ""
+    lineAnchors = ""
+    lineNoStart = 1
+    lineNos = false
+    lineNumbersInTable = false
+    noClasses = false
+    style = "monokai"
+    tabWidth = 4
+  
+  [markup.tableOfContents]
+    endLevel = 3
+    ordered = false
+    startLevel = 2
 
-# Sitemap settings
-[sitemap]
-  changefreq = "daily"
-  priority   = 0.7
-  filename   = "sitemap.xml"
+# Related content
+[related]
+  includeNewer = true
+  indices = [
+    {name = "tags", weight = 100},
+    {name = "categories", weight = 70}
+  ]
+  threshold = 80
+  toLower = false
 
-# NEW Hugo pagination key (replaces deprecated `paginate`)
-[pagination]
-  pagerSize = 12
+# Image processing
+[imaging]
+  anchor = "smart"
+  bgColor = "#ffffff"
+  hint = "photo"
+  quality = 85
+  resampleFilter = "lanczos"
+
+# Caches
+[caches]
+  [caches.getjson]
+    dir = ":cacheDir/:project"
+    maxAge = "10s"
+  [caches.getcsv]
+    dir = ":cacheDir/:project"
+    maxAge = "10s"
+  [caches.images]
+    dir = ":resourceDir/_gen"
+    maxAge = "720h"
+  [caches.assets]
+    dir = ":resourceDir/_gen"
+    maxAge = "720h"

@@ -1,78 +1,140 @@
 <div class="hero-banner">
-  <div class="grid-background"></div>
-  <div class="particles" id="particles"></div>
+  <div class="grid-background" aria-hidden="true"></div>
+  <div class="particles" id="particles" aria-hidden="true"></div>
 
+  <div class="hero-content">
     <h1 class="logo">
-        <!-- minimal inline icon -->
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="46" height="46"
-            style="vertical-align:middle;margin-right:14px">
-            <defs>
-                <linearGradient id="bw-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#00ffff" />
-                    <stop offset="100%" stop-color="#ff00ff" />
-                </linearGradient>
-            </defs>
-            <circle cx="32" cy="32" r="29" fill="url(#bw-grad)" stroke="#0ff" stroke-width="2.5" />
-            <path d="M20 32h24M32 20v24" stroke="#ffffff" stroke-width="3" stroke-linecap="round" />
-        </svg>
-        BLOCKWIRENEWS
-    </h1>    
-    <p class="tagline">REAL-TIME CRYPTO INTELLIGENCE</p>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="48" height="48" 
+           style="vertical-align:middle;margin-right:12px" aria-label="BlockWireNews Logo">
+        <defs>
+          <linearGradient id="bw-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#00d4ff" />
+            <stop offset="100%" stop-color="#0066ff" />
+          </linearGradient>
+        </defs>
+        <rect x="8" y="8" width="48" height="48" rx="8" fill="url(#bw-grad)" />
+        <path d="M22 32h20M32 22v20" stroke="#ffffff" stroke-width="3" stroke-linecap="round" />
+        <path d="M20 20l24 24M44 20l-24 24" stroke="#ffffff" stroke-width="1.5" opacity="0.3" />
+      </svg>
+      BLOCKWIRENEWS
+    </h1>
+    
+    <p class="tagline">Real-Time Cryptocurrency Intelligence</p>
 
     <div class="highlights">
-        <div class="highlight-item">
-            <div class="highlight-icon"></div><span>24/7 Market Coverage</span>
-        </div>
-        <div class="highlight-item">
-            <div class="highlight-icon"></div><span>Institutional Analysis</span>
-        </div>
-        <div class="highlight-item">
-            <div class="highlight-icon"></div><span>Breaking News Alerts</span>
-        </div>
+      <div class="highlight-item">
+        <div class="highlight-icon" aria-hidden="true"></div>
+        <span>24/7 Market Coverage</span>
+      </div>
+      <div class="highlight-item">
+        <div class="highlight-icon" aria-hidden="true"></div>
+        <span>Expert Analysis</span>
+      </div>
+      <div class="highlight-item">
+        <div class="highlight-icon" aria-hidden="true"></div>
+        <span>Breaking News Alerts</span>
+      </div>
     </div>
 
-<div class="cta-container">
-    <a href="/subscribe/" class="cta-button cta-primary">Get Daily Briefs</a>
-    <a href="/news/" class="cta-button cta-secondary">Explore Markets</a>
-</div>
     <div class="cta-container">
-      <a href="/subscribe/" class="cta-button cta-primary">Get Daily Briefs</a>
-      <a href="/news/" class="cta-button cta-secondary">Explore Markets</a>
+      <a href="/subscribe/" class="cta-button cta-primary" aria-label="Subscribe to daily briefs">
+        Get Daily Briefs
+      </a>
+      <a href="/news/" class="cta-button cta-secondary" aria-label="Explore crypto markets">
+        Explore Markets
+      </a>
     </div>
 
-    <div class="ticker-container">
-      <div class="ticker-content">
-        <div class="ticker-item positive"><span>BTC:</span>$68,432 ▲ 2.3%</div>
-        <div class="ticker-item positive"><span>ETH:</span>$4,368 ▲ 1.8%</div>
-        <div class="ticker-item negative"><span>SOL:</span>$142.50 ▼ 0.5%</div>
-        <div class="ticker-item positive"><span>XRP:</span>$0.58 ▲ 3.2%</div>
-        <div class="ticker-item positive"><span>AVAX:</span>$38.20 ▲ 1.2%</div>
-        <div class="ticker-item negative"><span>MATIC:</span>$0.92 ▼ 1.1%</div>
-        <!-- duplicate for seamless scroll -->
-        <div class="ticker-item positive"><span>BTC:</span>$68,432 ▲ 2.3%</div>
-        <div class="ticker-item positive"><span>ETH:</span>$4,368 ▲ 1.8%</div>
-        <div class="ticker-item negative"><span>SOL:</span>$142.50 ▼ 0.5%</div>
-        <div class="ticker-item positive"><span>XRP:</span>$0.58 ▲ 3.2%</div>
-        <div class="ticker-item positive"><span>AVAX:</span>$38.20 ▲ 1.2%</div>
-        <div class="ticker-item negative"><span>MATIC:</span>$0.92 ▼ 1.1%</div>
+    <!-- Live price ticker -->
+    <div class="ticker-container" role="region" aria-label="Live cryptocurrency prices">
+      <div class="ticker-content" id="ticker-content">
+        <!-- Prices will be dynamically loaded -->
+        <div class="ticker-item"><span>Loading prices...</span></div>
       </div>
     </div>
   </div>
 </div>
 
 <script>
-(function(){
-  // Generate floating particles
+(function() {
+  // Particle generation with performance optimization
   const container = document.getElementById('particles');
-  if(!container) return;
-  const n = 20;
-  for(let i=0;i<n;i++){
-    const el = document.createElement('div');
-    el.className = 'particle';
-    el.style.left = (Math.random()*100) + '%';
-    el.style.animationDelay = (Math.random()*15) + 's';
-    el.style.animationDuration = (15 + Math.random()*10) + 's';
-    container.appendChild(el);
+  if (!container) return;
+  
+  // Reduce particles on mobile for better performance
+  const isMobile = window.innerWidth < 768;
+  const particleCount = isMobile ? 10 : 20;
+  
+  requestAnimationFrame(() => {
+    const fragment = document.createDocumentFragment();
+    for (let i = 0; i < particleCount; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      particle.style.left = (Math.random() * 100) + '%';
+      particle.style.animationDelay = (Math.random() * 20) + 's';
+      particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+      fragment.appendChild(particle);
+    }
+    container.appendChild(fragment);
+  });
+
+  // Simulated live ticker data (replace with real API)
+  const tickerData = [
+    { symbol: 'BTC', price: 98432, change: 2.3 },
+    { symbol: 'ETH', price: 3368, change: 1.8 },
+    { symbol: 'SOL', price: 142.50, change: -0.5 },
+    { symbol: 'XRP', price: 0.58, change: 3.2 },
+    { symbol: 'AVAX', price: 38.20, change: 1.2 },
+    { symbol: 'MATIC', price: 0.92, change: -1.1 },
+    { symbol: 'ADA', price: 0.45, change: 2.1 },
+    { symbol: 'DOT', price: 5.32, change: -0.8 }
+  ];
+
+  // Format price with proper decimals
+  function formatPrice(price) {
+    if (price >= 1000) return '$' + price.toLocaleString();
+    if (price >= 1) return '$' + price.toFixed(2);
+    return '$' + price.toFixed(4);
+  }
+
+  // Populate ticker
+  function populateTicker() {
+    const ticker = document.getElementById('ticker-content');
+    if (!ticker) return;
+
+    const tickerHTML = tickerData.map(item => {
+      const changeClass = item.change >= 0 ? 'positive' : 'negative';
+      const arrow = item.change >= 0 ? '▲' : '▼';
+      return `
+        <div class="ticker-item ${changeClass}">
+          <span>${item.symbol}:</span>${formatPrice(item.price)} ${arrow} ${Math.abs(item.change)}%
+        </div>
+      `;
+    }).join('');
+
+    // Duplicate for seamless scroll
+    ticker.innerHTML = tickerHTML + tickerHTML;
+  }
+
+  // Initialize ticker after DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', populateTicker);
+  } else {
+    populateTicker();
+  }
+
+  // Pause ticker on hover for accessibility
+  const tickerContainer = document.querySelector('.ticker-container');
+  const tickerContent = document.querySelector('.ticker-content');
+  
+  if (tickerContainer && tickerContent) {
+    tickerContainer.addEventListener('mouseenter', () => {
+      tickerContent.style.animationPlayState = 'paused';
+    });
+    
+    tickerContainer.addEventListener('mouseleave', () => {
+      tickerContent.style.animationPlayState = 'running';
+    });
   }
 })();
 </script>

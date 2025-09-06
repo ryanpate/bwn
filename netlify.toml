@@ -1,7 +1,150 @@
 [build]
   publish = "public"
-  command = "hugo --gc --minify"
+  command = "hugo --gc --minify --enableGitInfo"
 
 [build.environment]
-  HUGO_VERSION = "0.148.1"
-  HUGO_EXTENDED = "true"
+  HUGO_VERSION = "0.120.0"
+  HUGO_ENV = "production"
+  HUGO_ENABLEGITINFO = "true"
+
+[context.production]
+  command = "hugo --gc --minify --enableGitInfo"
+  
+[context.deploy-preview]
+  command = "hugo --gc --minify --buildFuture -b $DEPLOY_PRIME_URL"
+
+[context.branch-deploy]
+  command = "hugo --gc --minify -b $DEPLOY_PRIME_URL"
+
+# Security Headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+    Content-Security-Policy = """
+      default-src 'self';
+      script-src 'self' 'unsafe-inline' https://pagead2.googlesyndication.com https://www.googletagmanager.com;
+      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+      font-src 'self' https://fonts.gstatic.com;
+      img-src 'self' data: https: blob:;
+      connect-src 'self' https://api.coingecko.com https://api.coinmarketcap.com;
+      frame-src 'self' https://www.youtube.com;
+    """
+
+# Cache Control for static assets
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
+
+[[headers]]
+  for = "/*.webp"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.woff2"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# HTML pages - shorter cache
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+    Link = """
+      </css/main.css>; rel=preload; as=style,
+      </js/main.js>; rel=preload; as=script,
+      <https://fonts.googleapis.com>; rel=preconnect,
+      <https://fonts.gstatic.com>; rel=preconnect; crossorigin
+    """
+
+# Redirects for common patterns
+[[redirects]]
+  from = "/feed"
+  to = "/index.xml"
+  status = 301
+
+[[redirects]]
+  from = "/rss"
+  to = "/index.xml"
+  status = 301
+
+[[redirects]]
+  from = "/sitemap"
+  to = "/sitemap.xml"
+  status = 301
+
+# Page redirects for SEO
+[[redirects]]
+  from = "https://blockwirenews.netlify.app/*"
+  to = "https://www.blockwirenews.com/:splat"
+  status = 301
+  force = true
+
+# Plugins
+[[plugins]]
+  package = "@netlify/plugin-lighthouse"
+  
+  [plugins.inputs]
+    output_path = "reports/lighthouse.html"
+    thresholds.performance = 0.9
+    thresholds.accessibility = 0.95
+    thresholds.best-practices = 0.95
+    thresholds.seo = 1.0
+
+[[plugins]]
+  package = "netlify-plugin-submit-sitemap"
+  
+  [plugins.inputs]
+    baseUrl = "https://www.blockwirenews.com"
+    sitemapPath = "/sitemap.xml"
+    providers = [
+      "google",
+      "bing"
+    ]
+
+[[plugins]]
+  package = "netlify-plugin-image-optim"
+
+# Asset optimization
+[build.processing]
+  skip_processing = false
+
+[build.processing.css]
+  bundle = true
+  minify = true
+
+[build.processing.js]
+  bundle = true
+  minify = true
+
+[build.processing.html]
+  pretty_urls = true
+
+[build.processing.images]
+  compress = true
+
+# Functions (if you add any serverless functions later)
+[functions]
+  directory = "functions"
+  node_bundler = "esbuild"
