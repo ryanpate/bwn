@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlockWireNews Hero Banner</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: #0a0a0a;
+            overflow-x: hidden;
+        }
+
+        .hero-banner {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            overflow: hidden;
+        }
+
+        /* Animated Background Grid */
+        .grid-background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: linear-gradient(45deg, #00ffff, #ff00ff);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        /* Hero Content */
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo-container {
+            margin-bottom: 2rem;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .logo {
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #00ffff, #ff00ff, #00ffff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease infinite;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            filter: drop-shadow(0 0 30px rgba(0, 255, 255, 0.5));
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            color: #e0e0e0;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease-out 0.3s both;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .highlights {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .highlight-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #a0a0a0;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .highlight-item:hover {
+            color: #00ffff;
+            transform: translateY(-2px);
+        }
+
+        .highlight-icon {
+            width: 24px;
+            height: 24px;
+            border: 2px solid currentColor;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .highlight-icon::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: currentColor;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.5);
+                opacity: 0.5;
+            }
+        }
+
+        .cta-container {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 0.9s both;
+        }
+
+        .cta-button {
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-primary {
+            background: linear-gradient(135deg, #00ffff, #0080ff);
+            color: #000;
+            box-shadow: 0 4px 20px rgba(0, 255, 255, 0.4);
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 30px rgba(0, 255, 255, 0.6);
+        }
+
+        .cta-secondary {
+            background: transparent;
+            color: #00ffff;
+            border: 2px solid #00ffff;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+        }
+
+        .cta-secondary:hover {
+            background: rgba(0, 255, 255, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.4);
+        }
+
+        /* Live ticker */
+        .ticker-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            border-top: 1px solid rgba(0, 255, 255, 0.3);
+        }
+
+        .ticker-content {
+            display: flex;
+            animation: scroll 30s linear infinite;
+            white-space: nowrap;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .ticker-item {
+            display: inline-flex;
+            align-items: center;
+            margin-right: 3rem;
+            color: #a0a0a0;
+            font-size: 0.9rem;
+        }
+
+        .ticker-item span:first-child {
+            color: #00ffff;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+
+        .ticker-item.positive {
+            color: #00ff88;
+        }
+
+        .ticker-item.negative {
+            color: #ff4444;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.5rem;
+            }
+            
+            .tagline {
+                font-size: 1.1rem;
+            }
+            
+            .highlights {
+                gap: 1.5rem;
+            }
+            
+            .cta-button {
+                padding: 0.8rem 2rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero-banner">
+        <!-- Animated Grid Background -->
+        <div class="grid-background"></div>
+        
+        <!-- Floating Particles -->
+        <div class="particles" id="particles"></div>
+        
+        <!-- Main Content -->
+        <div class="hero-content">
+            <div class="logo-container">
+                <h1 class="logo">BlockWireNews</h1>
+            </div>
+            
+            <p class="tagline">REAL-TIME CRYPTO INTELLIGENCE</p>
+            
+            <div class="highlights">
+                <div class="highlight-item">
+                    <div class="highlight-icon"></div>
+                    <span>24/7 Market Coverage</span>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon"></div>
+                    <span>Institutional Analysis</span>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon"></div>
+                    <span>Breaking News Alerts</span>
+                </div>
+            </div>
+            
+            <div class="cta-container">
+                <a href="#" class="cta-button cta-primary">Get Daily Briefs</a>
+                <a href="#" class="cta-button cta-secondary">Explore Markets</a>
+            </div>
+        </div>
+        
+        <!-- Live Ticker -->
+        <div class="ticker-container">
+            <div class="ticker-content">
+                <div class="ticker-item positive">
+                    <span>BTC:</span> $68,432 ▲ 2.3%
+                </div>
+                <div class="ticker-item positive">
+                    <span>ETH:</span> $4,368 ▲ 1.8%
+                </div>
+                <div class="ticker-item negative">
+                    <span>SOL:</span> $142.50 ▼ 0.5%
+                </div>
+                <div class="ticker-item positive">
+                    <span>XRP:</span> $0.58 ▲ 3.2%
+                </div>
+                <div class="ticker-item positive">
+                    <span>AVAX:</span> $38.20 ▲ 1.2%
+                </div>
+                <div class="ticker-item negative">
+                    <span>MATIC:</span> $0.92 ▼ 1.1%
+                </div>
+                <!-- Duplicate for seamless scrolling -->
+                <div class="ticker-item positive">
+                    <span>BTC:</span> $68,432 ▲ 2.3%
+                </div>
+                <div class="ticker-item positive">
+                    <span>ETH:</span> $4,368 ▲ 1.8%
+                </div>
+                <div class="ticker-item negative">
+                    <span>SOL:</span> $142.50 ▼ 0.5%
+                </div>
+                <div class="ticker-item positive">
+                    <span>XRP:</span> $0.58 ▲ 3.2%
+                </div>
+                <div class="ticker-item positive">
+                    <span>AVAX:</span> $38.20 ▲ 1.2%
+                </div>
+                <div class="ticker-item negative">
+                    <span>MATIC:</span> $0.92 ▼ 1.1%
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Generate floating particles
+        const particlesContainer = document.getElementById('particles');
+        const numberOfParticles = 20;
+        
+        for (let i = 0; i < numberOfParticles; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Add hover effect to CTA buttons
+        document.querySelectorAll('.cta-button').forEach(button => {
+            button.addEventListener('mouseenter', function(e) {
+                const ripple = document.createElement('span');
+                ripple.style.position = 'absolute';
+                ripple.style.width = '100%';
+                ripple.style.height = '100%';
+                ripple.style.top = '0';
+                ripple.style.left = '0';
+                ripple.style.background = 'radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%)';
+                ripple.style.animation = 'rippleEffect 0.6s ease-out';
+                ripple.style.pointerEvents = 'none';
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Add ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes rippleEffect {
+                0% {
+                    transform: scale(0);
+                    opacity: 1;
+                }
+                100% {
+                    transform: scale(2);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

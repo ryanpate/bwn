@@ -1,0 +1,78 @@
+<div class="hero-banner">
+  <div class="grid-background"></div>
+  <div class="particles" id="particles"></div>
+
+    <h1 class="logo">
+        <!-- minimal inline icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="46" height="46"
+            style="vertical-align:middle;margin-right:14px">
+            <defs>
+                <linearGradient id="bw-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#00ffff" />
+                    <stop offset="100%" stop-color="#ff00ff" />
+                </linearGradient>
+            </defs>
+            <circle cx="32" cy="32" r="29" fill="url(#bw-grad)" stroke="#0ff" stroke-width="2.5" />
+            <path d="M20 32h24M32 20v24" stroke="#ffffff" stroke-width="3" stroke-linecap="round" />
+        </svg>
+        BLOCKWIRENEWS
+    </h1>    
+    <p class="tagline">REAL-TIME CRYPTO INTELLIGENCE</p>
+
+    <div class="highlights">
+        <div class="highlight-item">
+            <div class="highlight-icon"></div><span>24/7 Market Coverage</span>
+        </div>
+        <div class="highlight-item">
+            <div class="highlight-icon"></div><span>Institutional Analysis</span>
+        </div>
+        <div class="highlight-item">
+            <div class="highlight-icon"></div><span>Breaking News Alerts</span>
+        </div>
+    </div>
+
+<div class="cta-container">
+    <a href="/subscribe/" class="cta-button cta-primary">Get Daily Briefs</a>
+    <a href="/news/" class="cta-button cta-secondary">Explore Markets</a>
+</div>
+    <div class="cta-container">
+      <a href="/subscribe/" class="cta-button cta-primary">Get Daily Briefs</a>
+      <a href="/news/" class="cta-button cta-secondary">Explore Markets</a>
+    </div>
+
+    <div class="ticker-container">
+      <div class="ticker-content">
+        <div class="ticker-item positive"><span>BTC:</span>$68,432 ▲ 2.3%</div>
+        <div class="ticker-item positive"><span>ETH:</span>$4,368 ▲ 1.8%</div>
+        <div class="ticker-item negative"><span>SOL:</span>$142.50 ▼ 0.5%</div>
+        <div class="ticker-item positive"><span>XRP:</span>$0.58 ▲ 3.2%</div>
+        <div class="ticker-item positive"><span>AVAX:</span>$38.20 ▲ 1.2%</div>
+        <div class="ticker-item negative"><span>MATIC:</span>$0.92 ▼ 1.1%</div>
+        <!-- duplicate for seamless scroll -->
+        <div class="ticker-item positive"><span>BTC:</span>$68,432 ▲ 2.3%</div>
+        <div class="ticker-item positive"><span>ETH:</span>$4,368 ▲ 1.8%</div>
+        <div class="ticker-item negative"><span>SOL:</span>$142.50 ▼ 0.5%</div>
+        <div class="ticker-item positive"><span>XRP:</span>$0.58 ▲ 3.2%</div>
+        <div class="ticker-item positive"><span>AVAX:</span>$38.20 ▲ 1.2%</div>
+        <div class="ticker-item negative"><span>MATIC:</span>$0.92 ▼ 1.1%</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  // Generate floating particles
+  const container = document.getElementById('particles');
+  if(!container) return;
+  const n = 20;
+  for(let i=0;i<n;i++){
+    const el = document.createElement('div');
+    el.className = 'particle';
+    el.style.left = (Math.random()*100) + '%';
+    el.style.animationDelay = (Math.random()*15) + 's';
+    el.style.animationDuration = (15 + Math.random()*10) + 's';
+    container.appendChild(el);
+  }
+})();
+</script>

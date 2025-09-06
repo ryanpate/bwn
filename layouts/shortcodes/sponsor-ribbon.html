@@ -1,0 +1,12 @@
+{{- $name := .Get "name" | default site.Params.sponsor.name -}}
+{{- $url  := .Get "url"  | default site.Params.sponsor.url  -}}
+{{- if and $name $url -}}
+<div class="sponsor-ribbon">
+  <span>Sponsored by</span>
+  <a href="{{ $url }}" rel="sponsored noopener" target="_blank">{{ $name }}</a>
+</div>
+<style>
+.sponsor-ribbon{display:flex;gap:.5rem;align-items:center;justify-content:center;padding:.6rem 1rem;margin:1rem 0;border:1px dashed #cbd5e1;border-radius:.5rem;background:#f8fafc}
+.sponsor-ribbon a{text-decoration:none;font-weight:600}
+</style>
+{{- end -}}

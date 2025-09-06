@@ -1,0 +1,44 @@
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5523870768931777" crossorigin="anonymous"></script>
+
+{{- /* Resolve description */ -}}
+{{- $desc := .Params.seo.meta_description | default .Params.description | default .Summary | default .Site.Params.description -}}
+<meta name="description" content="{{ $desc }}">
+
+{{- /* Canonical URL: prefer front-matter .canonicalURL, else .Permalink */ -}}
+{{- $canon := .Params.canonicalURL | default .Permalink -}}
+<link rel="canonical" href="{{ $canon }}"/>
+
+{{- /* Pick an OG image: page param .images (array), or .Params.cover.image (PaperMod), else site default */ -}}
+{{- $pageImg := (index .Params.images 0) | default .Params.cover.image -}}
+{{- $siteImg := .Site.Params.images | default slice -}}
+{{- $ogimg := $pageImg | default (index $siteImg 0) -}}
+
+<!-- Open Graph -->
+<meta property="og:title" content="{{ .Title }}">
+<meta property="og:description" content="{{ $desc }}">
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+<meta property="og:url" content="{{ $canon }}">
+{{- if $ogimg }}<meta property="og:image" content="{{ $ogimg }}">{{ end }}
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ .Title }}">
+<meta name="twitter:description" content="{{ $desc }}">
+{{- if $ogimg }}<meta name="twitter:image" content="{{ $ogimg }}">{{ end }}
+
+<!-- Article JSON-LD (posts only) -->
+{{ if .IsPage }}
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"NewsArticle",
+ "headline": {{ .Title | jsonify }},
+ "datePublished": "{{ .PublishDate | default .Date }}",
+ "dateModified": "{{ .Lastmod }}",
+ "mainEntityOfPage": {{ $canon | jsonify }},
+ "author": [{"@type":"Organization","name":"BlockWireNews"}],
+ "publisher":{"@type":"Organization","name":"BlockWireNews"}
+}
+</script>
+{{ end }}

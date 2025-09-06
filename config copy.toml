@@ -1,0 +1,89 @@
+baseURL = "https://blockwirenews.com/"
+languageCode = "en-us"
+title = "BlockWire News"
+theme = "PaperMod"
+enableRobotsTXT = true
+
+# PaperMod outputs
+[outputs]
+  home    = ["HTML", "RSS", "JSON"]
+  section = ["HTML", "RSS"]
+  taxonomy= ["HTML"]
+  term    = ["HTML"]
+
+# Site params (PaperMod)
+[params]
+  env = "production"
+  description = "Daily crypto briefs: Bitcoin, DeFi, Web3, regulation & markets."
+  defaultTheme = "auto"
+  ShowReadingTime = true
+  ShowShareButtons = true
+  ShowBreadCrumbs = true
+  ShowPostNavLinks = true
+  disableSpecial1stPost = true
+  mainSections = ["news"]          # show news on the home page
+
+  [params.assets]
+    favicon = "/favicon.ico"
+    favicon16x16 = "/favicon.ico"
+    favicon32x32 = "/favicon.ico"
+    apple_touch_icon = "/favicon.ico"
+    safari_pinned_tab = "/favicon.ico"
+    ogImage = "/img/post-default.jpg"
+
+  [params.label]
+    text = "BlockWire"
+    icon = "/img/logo.png"
+    iconHeight = 32
+
+  [params.cover]
+    hidden = false
+    hiddenInList = false
+    hiddenInSingle = false
+    defaultImage = "/img/post-default.jpg"
+
+  # Homepage hero
+  [params.homeInfoParams]
+    Title = "BlockWire News"
+    Content = "Daily crypto briefs: Bitcoin • DeFi • Web3 • Regulation. Fast, factual, no fluff."
+
+  # Optional hero buttons
+  [[params.homeInfoParams.buttons]]
+    name = "Latest posts"
+    url  = "/news/"
+
+  [[params.homeInfoParams.buttons]]
+    name = "Subscribe"
+    url  = "/subscribe/"
+
+  # Newsletter
+  [params.newsletter]
+    provider = "convertkit"       # or "mailerlite"
+    form_id  = "YOUR_FORM_ID"
+    form_uid = "YOUR_FORM_UID"    # ConvertKit only
+
+  # Sponsor (optional)
+  [params.sponsor]
+    name = ""
+    url  = ""
+
+# Menu (optional polish)
+[[menu.main]]
+  name = "News"
+  url  = "/news/"
+  weight = 10
+
+[[menu.main]]
+  name = "Subscribe"
+  url  = "/subscribe/"
+  weight = 20
+
+# Sitemap settings
+[sitemap]
+  changefreq = "daily"
+  priority   = 0.7
+  filename   = "sitemap.xml"
+
+# NEW Hugo pagination key (replaces deprecated `paginate`)
+[pagination]
+  pagerSize = 12

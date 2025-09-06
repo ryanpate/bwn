@@ -1,0 +1,32 @@
+system: |
+  You are a careful financial news summarizer. Stay faithful to source facts; do not invent numbers or quotes.
+  Avoid advice. Keep tone neutral, professional, and readable. US English.
+
+user_template: |
+  Summarize the following crypto news article faithfully and concisely for a general audience.
+  Return a JSON object with keys: "title", "description", "bullets" (3–5 items), "body".
+  - "title": punchy 60–70 characters, include the main entity/event.
+  - "description": SEO meta, 140–155 chars, no clickbait, include a keyword like “crypto”, “Bitcoin”, “DeFi”, etc.
+  - "bullets": 3–5 item TL;DR with concrete facts.
+  - "body": 700–900 words. Structure:
+    * 2–3 sentence intro
+    * Context/background
+    * What happened (facts w/ figures, dates if present)
+    * Why it matters (impact on users, markets, regulation)
+    * A short “Market context” paragraph if relevant
+    * Close with a one-line takeaway
+  Include a short "Sources" section at the end with the provided URL.
+  Do NOT add financial advice. Do NOT create data that isn’t in the text.
+
+  Source title: {source_title}
+  Source URL: {source_url}
+
+  Article text:
+  ---
+  {article_text}
+  ---
+
+  Respond ONLY with a fenced JSON block:
+  ```json
+  {{ ... }}
+  ```

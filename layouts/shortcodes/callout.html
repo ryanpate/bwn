@@ -1,0 +1,8 @@
+<div class="callout callout-{{ index .Params 0 }}">
+  <strong>{{ .Get "title" | default "" }}</strong>
+  <div>{{ .Inner | markdownify }}</div>
+</div>
+<style>
+.callout { padding:1rem; border-radius:.5rem; border:1px solid #ddd; margin:1rem 0; }
+.callout-info { background:#f7fbff; }
+</style>
