@@ -3,13 +3,31 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 {{- /* Modern font loading with fallback */ -}}
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"></noscript>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"
+    as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap">
+</noscript>
 
 {{- /* Resolve SEO metadata */ -}}
-{{- $desc := .Params.seo.meta_description | default .Params.description | default .Summary | default .Site.Params.description | truncate 160 -}}
+{{- $desc := "" -}}
+{{- if .Params.seo -}}
+{{- $desc = .Params.seo.meta_description | default .Params.description | default .Summary | default
+.Site.Params.description -}}
+{{- else -}}
+{{- $desc = .Params.description | default .Summary | default .Site.Params.description -}}
+{{- end -}}
+{{- $desc = $desc | truncate 160 -}}
+
 {{- $keywords := .Params.keywords | default .Site.Params.keywords -}}
-{{- $author := .Params.author | default .Site.Author.name | default "BlockWireNews Team" -}}
+{{- $author := "" -}}
+{{- if .Params.author -}}
+{{- $author = .Params.author -}}
+{{- else if .Site.Author -}}
+{{- $author = .Site.Author.name | default "BlockWireNews Team" -}}
+{{- else -}}
+{{- $author = "BlockWireNews Team" -}}
+{{- end -}}
 
 {{- /* Canonical URL */ -}}
 {{- $canon := .Params.canonicalURL | default .Permalink -}}
@@ -18,11 +36,32 @@
 {{- /* Basic Meta Tags */ -}}
 <meta name="description" content="{{ $desc }}">
 <meta name="author" content="{{ $author }}">
-{{- if $keywords }}<meta name="keywords" content="{{ delimit $keywords ", " }}">{{ end }}
+{{- if $keywords }}
+<meta name="keywords" content="{{ delimit $keywords " , " }}">{{ end }}
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 
-{{- /* Open Graph */ -}}
-{{- $ogImage := (index .Params.images 0) | default .Params.cover.image | default .Site.Params.images.0 | default "/img/post-default.jpg" | absURL -}}
+{{- /* Open Graph - Fixed array access */ -}}
+{{- $pageImg := "" -}}
+{{- if .Params.images -}}
+{{- $pageImg = index .Params.images 0 -}}
+{{- else if .Params.cover -}}
+{{- $pageImg = .Params.cover.image -}}
+{{- end -}}
+
+{{- $siteImg := "" -}}
+{{- if .Site.Params.images -}}
+{{- if reflect.IsSlice .Site.Params.images -}}
+{{- $siteImg = index .Site.Params.images 0 -}}
+{{- else -}}
+{{- $siteImg = .Site.Params.images -}}
+{{- end -}}
+{{- end -}}
+
+{{- $ogImage := $pageImg | default $siteImg | default "/img/post-default.jpg" -}}
+{{- if not (hasPrefix $ogImage "http") -}}
+{{- $ogImage = $ogImage | absURL -}}
+{{- end -}}
+
 <meta property="og:title" content="{{ .Title }} | {{ .Site.Title }}">
 <meta property="og:description" content="{{ $desc }}">
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
@@ -32,10 +71,11 @@
 <meta property="og:image:height" content="630">
 <meta property="og:site_name" content="{{ .Site.Title }}">
 {{- if .IsPage }}
-<meta property="article:published_time" content="{{ .PublishDate.Format "2006-01-02T15:04:05Z07:00" }}">
-<meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">
+<meta property="article:published_time" content="{{ .PublishDate.Format " 2006-01-02T15:04:05Z07:00" }}">
+<meta property="article:modified_time" content="{{ .Lastmod.Format " 2006-01-02T15:04:05Z07:00" }}">
 <meta property="article:author" content="{{ $author }}">
-{{- range .Params.tags }}<meta property="article:tag" content="{{ . }}">{{ end }}
+{{- range .Params.tags }}
+<meta property="article:tag" content="{{ . }}">{{ end }}
 {{- end }}
 
 {{- /* Twitter Card */ -}}
@@ -43,8 +83,10 @@
 <meta name="twitter:title" content="{{ .Title }} | {{ .Site.Title }}">
 <meta name="twitter:description" content="{{ $desc }}">
 <meta name="twitter:image" content="{{ $ogImage }}">
-{{- with .Site.Params.twitter }}<meta name="twitter:site" content="@{{ . }}">{{ end }}
-{{- with .Site.Params.twitter }}<meta name="twitter:creator" content="@{{ . }}">{{ end }}
+{{- with .Site.Params.twitter }}
+<meta name="twitter:site" content="@{{ . }}">{{ end }}
+{{- with .Site.Params.twitter }}
+<meta name="twitter:creator" content="@{{ . }}">{{ end }}
 
 {{- /* JSON-LD Structured Data */ -}}
 <script type="application/ld+json">
@@ -91,12 +133,26 @@
     "@type": "SearchAction",
     "target": "{{ .Site.BaseURL }}search?q={search_term_string}",
     "query-input": "required name=search_term_string"
-  },
+  }
+  {{- if .Site.Params.social }}
+  ,
   "sameAs": [
-    {{- with .Site.Params.social.twitter }}"https://twitter.com/{{ . }}",{{ end }}
-    {{- with .Site.Params.social.github }}"https://github.com/{{ . }}",{{ end }}
-    {{- with .Site.Params.social.linkedin }}"https://linkedin.com/company/{{ . }}"{{ end }}
+    {{- $socials := slice -}}
+    {{- with .Site.Params.social.twitter -}}
+      {{- $socials = $socials | append (printf "https://twitter.com/%s" .) -}}
+    {{- end -}}
+    {{- with .Site.Params.social.github -}}
+      {{- $socials = $socials | append (printf "https://github.com/%s" .) -}}
+    {{- end -}}
+    {{- with .Site.Params.social.linkedin -}}
+      {{- $socials = $socials | append (printf "https://linkedin.com/company/%s" .) -}}
+    {{- end -}}
+    {{- range $i, $s := $socials -}}
+      {{- if $i -}},{{- end -}}
+      {{ $s | jsonify }}
+    {{- end -}}
   ]
+  {{- end }}
   {{- end }}
 }
 </script>
@@ -113,16 +169,16 @@
       "position": 1,
       "name": "Home",
       "item": "{{ .Site.BaseURL }}"
-    },
+    }
     {{- if .Parent }}
-    {
+    ,{
       "@type": "ListItem",
       "position": 2,
       "name": "{{ .Parent.Title }}",
       "item": "{{ .Parent.Permalink }}"
-    },
+    }
     {{- end }}
-    {
+    ,{
       "@type": "ListItem",
       "position": {{ if .Parent }}3{{ else }}2{{ end }},
       "name": "{{ .Title }}",
@@ -157,9 +213,11 @@
 {{- end }}
 
 {{- /* Performance: Preload critical assets */ -}}
-{{- $css := resources.Get "css/extended/hero.css" | minify | fingerprint }}
+{{- $css := resources.Get "css/extended/hero.css" -}}
 {{- if $css }}
+{{- $css = $css | minify | fingerprint -}}
 <link rel="preload" href="{{ $css.Permalink }}" as="style">
+<link rel="stylesheet" href="{{ $css.Permalink }}">
 {{- end }}
 
 {{- /* PWA manifest */ -}}
@@ -174,49 +232,51 @@
 
 {{- /* RSS Feed */ -}}
 {{ range .AlternativeOutputFormats -}}
-  {{ printf `<link rel="%s" type="%s" href="%s" title="%s">` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+{{ printf `
+<link rel="%s" type="%s" href="%s" title="%s">` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
 {{ end -}}
 
 {{- /* Google AdSense - Load asynchronously */ -}}
-{{- with .Site.Params.adsense }}
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ . }}" crossorigin="anonymous"></script>
+{{- with .Site.Params.adsense.client }}
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ . }}"
+    crossorigin="anonymous"></script>
 {{- end }}
 
 {{- /* Critical inline CSS for above-fold content */ -}}
 <style>
-  /* Critical CSS for immediate render */
-  :root {
-    --primary: #0066ff;
-    --accent: #00d4ff;
-    --dark: #0a0e27;
-    --light: #ffffff;
-  }
-  
-  body {
-    margin: 0;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    line-height: 1.6;
-    color: var(--light);
-    background: var(--dark);
-  }
-  
-  /* Prevent layout shift */
-  img {
-    max-width: 100%;
-    height: auto;
-  }
-  
-  /* Font loading optimization */
-  .fonts-loaded body {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  }
+    /* Critical CSS for immediate render */
+    :root {
+        --primary: #0066ff;
+        --accent: #00d4ff;
+        --dark: #0a0e27;
+        --light: #ffffff;
+    }
+
+    body {
+        margin: 0;
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        line-height: 1.6;
+        color: var(--light);
+        background: var(--dark);
+    }
+
+    /* Prevent layout shift */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Font loading optimization */
+    .fonts-loaded body {
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
 </style>
 
 {{- /* Font loading detection */ -}}
 <script>
-  if ('fonts' in document) {
-    document.fonts.ready.then(function() {
-      document.documentElement.classList.add('fonts-loaded');
-    });
-  }
+    if ('fonts' in document) {
+        document.fonts.ready.then(function () {
+            document.documentElement.classList.add('fonts-loaded');
+        });
+    }
 </script>
