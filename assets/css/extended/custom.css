@@ -1,0 +1,362 @@
+/* --- BlockWire Custom Global Styles --- */
+
+/* Modern typography */
+:root {
+    --font-stack: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', monospace;
+    --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Smooth animations throughout */
+* {
+    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Enhanced post cards */
+.post-entry {
+    border-radius: 12px !important;
+    overflow: hidden;
+    transition: all 0.3s ease !important;
+    border: 1px solid var(--border) !important;
+    background: var(--entry) !important;
+}
+
+.post-entry:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: var(--shadow-xl) !important;
+    border-color: rgba(102, 126, 234, 0.3) !important;
+}
+
+.post-entry .entry-cover {
+    border-radius: 8px !important;
+    overflow: hidden;
+}
+
+.post-entry .entry-cover img {
+    transition: transform 0.3s ease !important;
+}
+
+.post-entry:hover .entry-cover img {
+    transform: scale(1.05) !important;
+}
+
+/* Modern tags */
+.post-tags a,
+.tag-entry {
+    background: rgba(102, 126, 234, 0.1) !important;
+    color: #667eea !important;
+    border-radius: 6px !important;
+    padding: 4px 12px !important;
+    font-size: 0.85rem !important;
+    font-weight: 500 !important;
+    border: 1px solid rgba(102, 126, 234, 0.2) !important;
+    transition: all 0.2s ease !important;
+}
+
+.post-tags a:hover,
+.tag-entry:hover {
+    background: rgba(102, 126, 234, 0.2) !important;
+    border-color: rgba(102, 126, 234, 0.4) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Enhanced header */
+.nav {
+    padding: 1.5rem 0 !important;
+    backdrop-filter: blur(10px);
+    background: rgba(var(--theme-rgb), 0.95) !important;
+    border-bottom: 1px solid var(--border);
+}
+
+.logo a {
+    font-weight: 700 !important;
+    font-size: 1.5rem !important;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#menu {
+    gap: 1.5rem !important;
+}
+
+#menu a {
+    font-weight: 500 !important;
+    position: relative;
+    padding: 0.5rem 0;
+}
+
+#menu a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--gradient-primary);
+    transition: width 0.3s ease;
+}
+
+#menu a:hover::after,
+#menu a.active::after {
+    width: 100%;
+}
+
+/* Modern buttons */
+.button,
+button,
+input[type="submit"],
+input[type="button"] {
+    background: var(--gradient-primary) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 0.75rem 1.5rem !important;
+    font-weight: 600 !important;
+    cursor: pointer;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3) !important;
+}
+
+.button:hover,
+button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4) !important;
+}
+
+/* Share buttons enhancement */
+.share-buttons {
+    gap: 1rem !important;
+    padding: 1.5rem 0 !important;
+}
+
+.share-buttons a {
+    padding: 0.75rem !important;
+    border-radius: 10px !important;
+    background: rgba(102, 126, 234, 0.1) !important;
+    border: 1px solid rgba(102, 126, 234, 0.2) !important;
+    transition: all 0.3s ease !important;
+}
+
+.share-buttons a:hover {
+    background: rgba(102, 126, 234, 0.2) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3) !important;
+}
+
+/* Modern footer */
+.footer {
+    margin-top: 4rem !important;
+    padding: 3rem 0 !important;
+    background: linear-gradient(180deg, transparent, rgba(102, 126, 234, 0.05)) !important;
+    border-top: 1px solid var(--border);
+}
+
+/* Table of contents modern style */
+.toc {
+    background: rgba(102, 126, 234, 0.05) !important;
+    border: 1px solid rgba(102, 126, 234, 0.2) !important;
+    border-radius: 12px !important;
+    padding: 1.5rem !important;
+}
+
+.toc details summary {
+    font-weight: 600 !important;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+}
+
+.toc details summary:hover {
+    background: rgba(102, 126, 234, 0.1);
+}
+
+/* Code blocks enhancement */
+.highlight,
+pre {
+    border-radius: 12px !important;
+    padding: 1.5rem !important;
+    background: linear-gradient(135deg, #1e1e2e, #2a2a3e) !important;
+    box-shadow: var(--shadow-lg) !important;
+}
+
+code {
+    background: rgba(102, 126, 234, 0.1) !important;
+    color: #667eea !important;
+    padding: 0.2rem 0.4rem !important;
+    border-radius: 4px !important;
+    font-size: 0.9em !important;
+}
+
+/* Pagination modern style */
+.pagination {
+    gap: 0.5rem !important;
+    margin: 3rem 0 !important;
+}
+
+.pagination a,
+.pagination .current {
+    padding: 0.75rem 1rem !important;
+    border-radius: 8px !important;
+    border: 1px solid var(--border) !important;
+    transition: all 0.3s ease !important;
+}
+
+.pagination a:hover {
+    background: rgba(102, 126, 234, 0.1) !important;
+    border-color: rgba(102, 126, 234, 0.3) !important;
+    transform: translateY(-2px) !important;
+}
+
+.pagination .current {
+    background: var(--gradient-primary) !important;
+    color: white !important;
+    border: none !important;
+}
+
+/* Search box modern style */
+#searchbox {
+    border-radius: 12px !important;
+    padding: 1.5rem !important;
+    background: rgba(102, 126, 234, 0.05) !important;
+    border: 1px solid rgba(102, 126, 234, 0.2) !important;
+}
+
+#searchbox input {
+    background: white !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 8px !important;
+    padding: 0.75rem 1rem !important;
+    font-size: 1rem !important;
+    transition: all 0.3s ease !important;
+}
+
+#searchbox input:focus {
+    border-color: #667eea !important;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
+    outline: none !important;
+}
+
+/* Archive page enhancements */
+.archive-entry {
+    padding: 1rem !important;
+    margin: 0.5rem 0 !important;
+    border-radius: 8px !important;
+    transition: all 0.3s ease !important;
+}
+
+.archive-entry:hover {
+    background: rgba(102, 126, 234, 0.05) !important;
+    padding-left: 1.5rem !important;
+}
+
+/* Breadcrumbs modern style */
+.breadcrumbs {
+    padding: 1rem 0 !important;
+    font-size: 0.9rem !important;
+}
+
+.breadcrumbs a {
+    color: #667eea !important;
+    font-weight: 500 !important;
+    transition: all 0.2s ease !important;
+}
+
+.breadcrumbs a:hover {
+    color: #764ba2 !important;
+    text-decoration: underline !important;
+}
+
+/* Newsletter form enhancement */
+.newsletter-form {
+    background: var(--gradient-primary);
+    border-radius: 16px;
+    padding: 2rem;
+    margin: 2rem 0;
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+}
+
+.newsletter-form input[type="email"] {
+    background: white;
+    border: none;
+    border-radius: 8px;
+    padding: 1rem;
+    font-size: 1rem;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.newsletter-form button {
+    background: white !important;
+    color: #667eea !important;
+    font-weight: 700 !important;
+    width: 100%;
+}
+
+/* Dark mode specific enhancements */
+.dark {
+    --theme-rgb: 20, 20, 30;
+}
+
+.dark .post-entry {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .post-entry:hover {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-color: rgba(102, 126, 234, 0.3) !important;
+}
+
+.dark code {
+    background: rgba(102, 126, 234, 0.15) !important;
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+    .nav {
+        padding: 1rem 0 !important;
+    }
+    
+    .post-entry {
+        margin: 1rem 0 !important;
+    }
+    
+    .footer {
+        padding: 2rem 0 !important;
+    }
+}
+
+/* Loading animation */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.loading {
+    animation: pulse 2s infinite;
+}
+
+/* Smooth scroll behavior */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Focus visible for accessibility */
+:focus-visible {
+    outline: 2px solid #667eea !important;
+    outline-offset: 2px !important;
+}

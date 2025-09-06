@@ -3,6 +3,8 @@ languageCode = "en-us"
 title = "BlockWire News"
 theme = "PaperMod"
 enableRobotsTXT = true
+enableEmoji = true
+enableGitInfo = false
 
 # PaperMod outputs
 [outputs]
@@ -11,79 +13,238 @@ enableRobotsTXT = true
   taxonomy= ["HTML"]
   term    = ["HTML"]
 
-# Site params (PaperMod)
+# Site params (PaperMod enhanced)
 [params]
   env = "production"
   description = "Daily crypto briefs: Bitcoin, DeFi, Web3, regulation & markets."
-  defaultTheme = "auto"
+  keywords = ["crypto", "bitcoin", "ethereum", "defi", "web3", "blockchain", "cryptocurrency news"]
+  author = "BlockWire News"
+  defaultTheme = "dark"
+  disableThemeToggle = false
   ShowReadingTime = true
   ShowShareButtons = true
   ShowBreadCrumbs = true
   ShowPostNavLinks = true
-  disableSpecial1stPost = true
-  mainSections = ["news"]          # show news on the home page
+  ShowCodeCopyButtons = true
+  ShowWordCount = false
+  ShowRssButtonInSectionTermList = true
+  disableSpecial1stPost = false
+  disableScrollToTop = false
+  comments = false
+  hidemeta = false
+  hideSummary = false
+  showtoc = true
+  tocopen = false
+  UseHugoToc = true
+  mainSections = ["news"]
 
+  # Analytics - Add your IDs when ready
+  # [params.analytics]
+  #   google = "G-XXXXXXXXXX"
+  
+  # Site verification tags (fixes the error)
+  # Uncomment and add your verification codes when needed
+  # googleSiteVerificationTag = ""
+  # bingSiteVerificationTag = ""
+  # yandexSiteVerificationTag = ""
+
+  # Assets configuration
   [params.assets]
     favicon = "/favicon.ico"
     favicon16x16 = "/favicon.ico"
     favicon32x32 = "/favicon.ico"
     apple_touch_icon = "/favicon.ico"
     safari_pinned_tab = "/favicon.ico"
-    ogImage = "/img/post-default.jpg"
+    theme_color = "#667eea"
 
+  # Label/Logo
   [params.label]
     text = "BlockWire"
     icon = "/img/logo.png"
-    iconHeight = 32
+    iconHeight = 35
 
+  # Profile Mode (alternative to home info)
+  [params.profileMode]
+    enabled = false
+    title = "BlockWire News"
+    subtitle = "Your Daily Crypto Intelligence Hub"
+    imageUrl = "/img/logo.png"
+    imageWidth = 120
+    imageHeight = 120
+    imageTitle = "BlockWire Logo"
+
+  # Social Icons
+  [[params.socialIcons]]
+    name = "x"  # Changed from twitter to x
+    url = "https://x.com/blockwirenews"
+  [[params.socialIcons]]
+    name = "telegram"
+    url = "https://t.me/blockwirenews"
+  [[params.socialIcons]]
+    name = "discord"
+    url = "https://discord.gg/blockwirenews"
+  [[params.socialIcons]]
+    name = "email"
+    url = "mailto:contact@blockwirenews.com"
+
+  # Edit Post
+  [params.editPost]
+    URL = "https://github.com/yourusername/blockwirenews/edit/main/content"
+    Text = "Suggest Changes"
+    appendFilePath = true
+
+  # Cover images
   [params.cover]
     hidden = false
     hiddenInList = false
     hiddenInSingle = false
+    linkFullImages = true
+    responsiveImages = true
     defaultImage = "/img/post-default.jpg"
 
-  # Homepage hero
+  # Homepage configuration
   [params.homeInfoParams]
     Title = "BlockWire News"
-    Content = "Daily crypto briefs: Bitcoin • DeFi • Web3 • Regulation. Fast, factual, no fluff."
+    Content = "Real-Time Crypto Intelligence"
 
-  # Optional hero buttons
-  [[params.homeInfoParams.buttons]]
-    name = "Latest posts"
-    url  = "/news/"
+  # Search
+  [params.fuseOpts]
+    isCaseSensitive = false
+    shouldSort = true
+    location = 0
+    distance = 1000
+    threshold = 0.4
+    minMatchCharLength = 0
+    keys = ["title", "permalink", "summary", "content"]
 
-  [[params.homeInfoParams.buttons]]
-    name = "Subscribe"
-    url  = "/subscribe/"
-
-  # Newsletter
+  # Newsletter configuration
   [params.newsletter]
-    provider = "convertkit"       # or "mailerlite"
-    form_id  = "YOUR_FORM_ID"
-    form_uid = "YOUR_FORM_UID"    # ConvertKit only
+    enabled = true
+    provider = "convertkit"
+    form_id = "YOUR_FORM_ID"
+    form_uid = "YOUR_FORM_UID"
 
-  # Sponsor (optional)
+  # Sponsor configuration
   [params.sponsor]
+    enabled = false
     name = ""
-    url  = ""
+    url = ""
+    logo = ""
 
-# Menu (optional polish)
+# Menu configuration
+[[menu.main]]
+  name = "Home"
+  url = "/"
+  weight = 1
+
 [[menu.main]]
   name = "News"
-  url  = "/news/"
+  url = "/news/"
   weight = 10
 
 [[menu.main]]
-  name = "Subscribe"
-  url  = "/subscribe/"
+  name = "DeFi"
+  url = "/tags/defi/"
   weight = 20
 
-# Sitemap settings
+[[menu.main]]
+  name = "Bitcoin"
+  url = "/tags/bitcoin/"
+  weight = 30
+
+[[menu.main]]
+  name = "Web3"
+  url = "/tags/web3/"
+  weight = 40
+
+[[menu.main]]
+  name = "Subscribe"
+  url = "/subscribe/"
+  weight = 50
+
+[[menu.main]]
+  name = "Search"
+  url = "/search/"
+  weight = 60
+
+# Sitemap configuration
 [sitemap]
   changefreq = "daily"
-  priority   = 0.7
-  filename   = "sitemap.xml"
+  priority = 0.7
+  filename = "sitemap.xml"
 
-# NEW Hugo pagination key (replaces deprecated `paginate`)
+# Pagination
 [pagination]
   pagerSize = 12
+
+# Markup configuration
+[markup]
+  defaultMarkdownHandler = "goldmark"
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    anchorLineNos = false
+    codeFences = true
+    guessSyntax = true
+    hl_Lines = ""
+    hl_inline = false
+    lineAnchors = ""
+    lineNoStart = 1
+    lineNos = false
+    lineNumbersInTable = true
+    noClasses = false
+    noHl = false
+    style = "monokai"
+    tabWidth = 4
+
+# Privacy configuration (Updated for Hugo 0.141.0+)
+[privacy]
+  [privacy.x]  # Changed from twitter to x
+    disabled = false
+    enableDNT = true
+    simple = true
+  [privacy.youtube]
+    disabled = false
+    privacyEnhanced = true
+
+# Services (Updated for Hugo 0.141.0+)
+[services]
+  [services.x]  # Changed from twitter to x
+    disableInlineCSS = true
+  [services.disqus]
+    shortname = ""
+
+# Minify configuration
+[minify]
+  minifyOutput = true
+
+# Related content configuration
+[related]
+  includeNewer = true
+  threshold = 80
+  toLower = true
+  [[related.indices]]
+    applyFilter = false
+    cardinalityThreshold = 0
+    name = "keywords"
+    pattern = ""
+    toLower = false
+    type = "basic"
+    weight = 100
+  [[related.indices]]
+    applyFilter = false
+    cardinalityThreshold = 0
+    name = "date"
+    pattern = ""
+    toLower = false
+    type = "basic"
+    weight = 10
+  [[related.indices]]
+    applyFilter = false
+    cardinalityThreshold = 0
+    name = "tags"
+    pattern = ""
+    toLower = false
+    type = "basic"
+    weight = 80

@@ -1,27 +1,244 @@
-<div class="newsletter-inline">
-  <h3>Get daily crypto briefs</h3>
-  <p>One short email with the biggest crypto moves. No spam, unsubscribe anytime.</p>
+{{ $provider := .Site.Params.newsletter.provider | default "convertkit" }}
+{{ $formId := .Site.Params.newsletter.form_id }}
+{{ $formUid := .Site.Params.newsletter.form_uid }}
 
-  {{/* ConvertKit example */}}
-  {{ if .Site.Params.newsletter.provider | eq "convertkit" }}
-    <form action="https://app.convertkit.com/forms/{{ .Site.Params.newsletter.form_id }}/subscriptions" method="post" data-sv-form="{{ .Site.Params.newsletter.form_id }}" data-uid="{{ .Site.Params.newsletter.form_uid }}">
-      <input type="email" name="email_address" placeholder="you@example.com" required>
-      <button type="submit">Subscribe</button>
-    </form>
-  {{ end }}
+<div class="newsletter-inline-widget">
+  <div class="newsletter-glow"></div>
+  <div class="newsletter-inline-content">
+    <div class="newsletter-header">
+      <svg class="newsletter-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+        <path d="m22 7-10 5L2 7"></path>
+      </svg>
+      <h3 class="newsletter-title">Stay Ahead of the Market</h3>
+    </div>
 
-  {{/* MailerLite example */}}
-  {{ if .Site.Params.newsletter.provider | eq "mailerlite" }}
-    <form action="https://assets.mailerlite.com/jsonp/submit/{{ .Site.Params.newsletter.form_id }}" method="post">
-      <input type="email" name="fields[email]" placeholder="you@example.com" required>
-      <button type="submit">Subscribe</button>
-    </form>
-  {{ end }}
+    <p class="newsletter-description">
+      Get exclusive crypto insights delivered daily. Join 10,000+ traders.
+    </p>
+
+    {{ if eq $provider "convertkit" }}
+    <form action="https://app.convertkit.com/forms/{{ $formId }}/subscriptions" method="post"
+      data-sv-form="{{ $formId }}" data-uid="{{ $formUid }}" class="newsletter-form-inline">
+      {{ else if eq $provider "mailerlite" }}
+      <form action="https://assets.mailerlite.com/jsonp/{{ $formId }}/subscribe" method="post"
+        class="newsletter-form-inline">
+        {{ else }}
+        <form action="#" method="post" class="newsletter-form-inline">
+          {{ end }}
+
+          <div class="form-row">
+            <input type="email" name="email_address" placeholder="Enter your email" required class="email-input"
+              aria-label="Email address">
+            <button type="submit" class="submit-btn">
+              <span>Subscribe</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+          </div>
+
+          <div class="newsletter-promise">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              <path d="m9 12 2 2 4-4"></path>
+            </svg>
+            <span>No spam • Unsubscribe anytime • 100% free</span>
+          </div>
+        </form>
+  </div>
 </div>
 
 <style>
-.newsletter-inline{border:1px solid #e5e7eb;padding:1rem;border-radius:.5rem;margin:1rem 0}
-.newsletter-inline form{display:flex;gap:.5rem;flex-wrap:wrap}
-.newsletter-inline input{flex:1;min-width:220px;padding:.6rem .8rem;border:1px solid #d1d5db;border-radius:.375rem}
-.newsletter-inline button{padding:.6rem .9rem;border:1px solid #111;border-radius:.375rem;background:#111;color:#fff}
+  .newsletter-inline-widget {
+    position: relative;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+    border: 1px solid rgba(102, 126, 234, 0.2);
+    border-radius: 16px;
+    padding: 2rem;
+    margin: 2rem 0;
+    overflow: hidden;
+  }
+
+  .newsletter-glow {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
+    animation: rotate-glow 20s linear infinite;
+    pointer-events: none;
+  }
+
+  @keyframes rotate-glow {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .newsletter-inline-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .newsletter-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .newsletter-icon {
+    color: #667eea;
+    flex-shrink: 0;
+  }
+
+  .newsletter-title {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .newsletter-description {
+    color: var(--secondary);
+    margin-bottom: 1.5rem;
+    font-size: 1.05rem;
+    line-height: 1.5;
+  }
+
+  .newsletter-form-inline {
+    display: block;
+  }
+
+  .form-row {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .email-input {
+    flex: 1;
+    padding: 0.875rem 1rem;
+    background: var(--theme);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 1rem;
+    color: var(--primary);
+    transition: all 0.3s ease;
+  }
+
+  .email-input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  }
+
+  .email-input::placeholder {
+    color: var(--secondary);
+    opacity: 0.7;
+  }
+
+  .submit-btn {
+    padding: 0.875rem 1.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    white-space: nowrap;
+  }
+
+  .submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  }
+
+  .submit-btn:active {
+    transform: translateY(0);
+  }
+
+  .newsletter-promise {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--secondary);
+    font-size: 0.875rem;
+    opacity: 0.8;
+  }
+
+  .newsletter-promise svg {
+    flex-shrink: 0;
+    color: #10b981;
+  }
+
+  /* Dark mode styles */
+  .dark .newsletter-inline-widget {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+    border-color: rgba(102, 126, 234, 0.15);
+  }
+
+  .dark .email-input {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .dark .email-input:focus {
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  /* Mobile responsive */
+  @media (max-width: 640px) {
+    .newsletter-inline-widget {
+      padding: 1.5rem;
+    }
+
+    .newsletter-title {
+      font-size: 1.25rem;
+    }
+
+    .form-row {
+      flex-direction: column;
+    }
+
+    .submit-btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .newsletter-promise {
+      justify-content: center;
+      text-align: center;
+    }
+  }
+
+  /* Accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    .newsletter-glow {
+      animation: none;
+    }
+
+    .submit-btn {
+      transition: none;
+    }
+  }
 </style>
