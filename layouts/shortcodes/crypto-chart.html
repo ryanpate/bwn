@@ -1,0 +1,267 @@
+{{ $symbol := .Get "symbol" | default "BTC" }}
+{{ $height := .Get "height" | default "400" }}
+
+<div class="chart-container" style="min-height: {{ $height }}px;">
+    <div class="chart-header">
+        <h3 class="chart-title">{{ $symbol }}/USD Chart</h3>
+        <div class="chart-controls">
+            <button class="chart-control-btn active" data-range="1D">1D</button>
+            <button class="chart-control-btn" data-range="1W">1W</button>
+            <button class="chart-control-btn" data-range="1M">1M</button>
+            <button class="chart-control-btn" data-range="3M">3M</button>
+            <button class="chart-control-btn" data-range="1Y">1Y</button>
+        </div>
+    </div>
+    <div class="chart-body">
+        <canvas id="crypto-chart-{{ $symbol }}" width="400" height="{{ $height }}"></canvas>
+    </div>
+    <div class="chart-stats">
+        <div class="stat-item">
+            <span class="stat-label">24h High:</span>
+            <span class="stat-value" id="high-{{ $symbol }}">--</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">24h Low:</span>
+            <span class="stat-value" id="low-{{ $symbol }}">--</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">Volume:</span>
+            <span class="stat-value" id="volume-{{ $symbol }}">--</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">Market Cap:</span>
+            <span class="stat-value" id="mcap-{{ $symbol }}">--</span>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+(function() {
+    const symbol = '{{ $symbol }}';
+    const canvas = document.getElementById(`crypto-chart-${symbol}`);
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    
+    // Create gradient
+    const gradient = ctx.createLinearGradient(0, 0, 0, {{ $height }});
+    gradient.addColorStop(0, 'rgba(102, 126, 234, 0.3)');
+    gradient.addColorStop(1, 'rgba(102, 126, 234, 0.01)');
+    
+    // Initialize chart
+    const chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [{
+                label: `${symbol}/USD`,
+                data: [],
+                borderColor: '#667eea',
+                backgroundColor: gradient,
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4,
+                pointRadius: 0,
+                pointHoverRadius: 5,
+                pointBackgroundColor: '#667eea',
+                pointBorderColor: '#fff',
+                pointBorderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+                intersect: false,
+                mode: 'index'
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    titleColor: '#fff',
+                    bodyColor: '#fff',
+                    borderColor: '#667eea',
+                    borderWidth: 1,
+                    padding: 12,
+                    displayColors: false,
+                    callbacks: {
+                        label: function(context) {
+                            return `$${context.parsed.y.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.05)',
+                        borderColor: 'rgba(255, 255, 255, 0.1)'
+                    },
+                    ticks: {
+                        color: 'rgba(255, 255, 255, 0.6)',
+                        maxTicksLimit: 6
+                    }
+                },
+                y: {
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.05)',
+                        borderColor: 'rgba(255, 255, 255, 0.1)'
+                    },
+                    ticks: {
+                        color: 'rgba(255, 255, 255, 0.6)',
+                        callback: function(value) {
+                            return '$' + value.toLocaleString();
+                        }
+                    }
+                }
+            }
+        }
+    });
+    
+    // Fetch and update chart data
+    async function updateChart(range = '1D') {
+        try {
+            // Map symbol to CoinGecko ID
+            const coinIds = {
+                'BTC': 'bitcoin',
+                'ETH': 'ethereum',
+                'BNB': 'binancecoin',
+                'SOL': 'solana',
+                'XRP': 'ripple',
+                'ADA': 'cardano'
+            };
+            
+            const coinId = coinIds[symbol] || symbol.toLowerCase();
+            
+            // Determine days based on range
+            const days = {
+                '1D': 1,
+                '1W': 7,
+                '1M': 30,
+                '3M': 90,
+                '1Y': 365
+            }[range];
+            
+            // Fetch market chart data
+            const response = await fetch(
+                `https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=usd&days=${days}`
+            );
+            
+            if (!response.ok) throw new Error('Failed to fetch chart data');
+            
+            const data = await response.json();
+            
+            // Process data for chart
+            const prices = data.prices;
+            const labels = [];
+            const values = [];
+            
+            // Sample data points (limit to 50 points for performance)
+            const step = Math.max(1, Math.floor(prices.length / 50));
+            
+            for (let i = 0; i < prices.length; i += step) {
+                const date = new Date(prices[i][0]);
+                const label = range === '1D' 
+                    ? date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
+                    : date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                
+                labels.push(label);
+                values.push(prices[i][1]);
+            }
+            
+            // Update chart
+            chart.data.labels = labels;
+            chart.data.datasets[0].data = values;
+            chart.update('none'); // No animation for updates
+            
+            // Fetch and update stats
+            const statsResponse = await fetch(
+                `https://api.coingecko.com/api/v3/simple/price?ids=${coinId}&vs_currencies=usd&include_24hr_high=true&include_24hr_low=true&include_24hr_vol=true&include_market_cap=true`
+            );
+            
+            if (statsResponse.ok) {
+                const stats = await statsResponse.json();
+                const coinStats = stats[coinId];
+                
+                document.getElementById(`high-${symbol}`).textContent = 
+                    '$' + coinStats.usd_24h_high.toLocaleString();
+                document.getElementById(`low-${symbol}`).textContent = 
+                    '$' + coinStats.usd_24h_low.toLocaleString();
+                document.getElementById(`volume-${symbol}`).textContent = 
+                    '$' + (coinStats.usd_24h_vol / 1e9).toFixed(2) + 'B';
+                document.getElementById(`mcap-${symbol}`).textContent = 
+                    '$' + (coinStats.usd_market_cap / 1e9).toFixed(2) + 'B';
+            }
+            
+        } catch (error) {
+            console.error('Error updating chart:', error);
+        }
+    }
+    
+    // Handle time range buttons
+    document.querySelectorAll('.chart-control-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            // Update active state
+            document.querySelectorAll('.chart-control-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Update chart
+            updateChart(this.dataset.range);
+        });
+    });
+    
+    // Initial load
+    updateChart('1D');
+    
+    // Auto-refresh every minute
+    setInterval(() => {
+        const activeBtn = document.querySelector('.chart-control-btn.active');
+        if (activeBtn) {
+            updateChart(activeBtn.dataset.range);
+        }
+    }, 60000);
+})();
+</script>
+
+<style>
+.chart-body {
+    padding: 1rem 0;
+}
+
+.chart-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 500;
+}
+
+.stat-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+@media (max-width: 640px) {
+    .chart-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+</style>

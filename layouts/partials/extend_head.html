@@ -1,44 +1,204 @@
 <!-- Google AdSense -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5523870768931777" crossorigin="anonymous"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5523870768931777"
+    crossorigin="anonymous"></script>
+
+<!-- Load custom CSS -->
+{{ $heroCSS := resources.Get "css/extended/hero.css" | minify }}
+<link href="{{ $heroCSS.RelPermalink }}" rel="stylesheet">
+{{ $customCSS := resources.Get "css/extended/custom.css" | minify }}
+<link href="{{ $customCSS.RelPermalink }}" rel="stylesheet">
 
 {{- /* Resolve description */ -}}
-{{- $desc := .Params.seo.meta_description | default .Params.description | default .Summary | default .Site.Params.description -}}
+{{- $desc := .Params.seo.meta_description | default .Params.description | default .Summary | default
+.Site.Params.description -}}
 <meta name="description" content="{{ $desc }}">
 
-{{- /* Canonical URL: prefer front-matter .canonicalURL, else .Permalink */ -}}
+{{- /* Canonical URL */ -}}
 {{- $canon := .Params.canonicalURL | default .Permalink -}}
-<link rel="canonical" href="{{ $canon }}"/>
+<link rel="canonical" href="{{ $canon }}" />
 
-{{- /* Pick an OG image: page param .images (array), or .Params.cover.image (PaperMod), else site default */ -}}
+{{- /* Pick an OG image */ -}}
 {{- $pageImg := (index .Params.images 0) | default .Params.cover.image -}}
 {{- $siteImg := .Site.Params.images | default slice -}}
-{{- $ogimg := $pageImg | default (index $siteImg 0) -}}
+{{- $ogimg := $pageImg | default (index $siteImg 0) | default .Site.Params.cover.defaultImage -}}
 
 <!-- Open Graph -->
 <meta property="og:title" content="{{ .Title }}">
 <meta property="og:description" content="{{ $desc }}">
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
 <meta property="og:url" content="{{ $canon }}">
-{{- if $ogimg }}<meta property="og:image" content="{{ $ogimg }}">{{ end }}
+{{- if $ogimg }}
+<meta property="og:image" content="{{ $ogimg | absURL }}">{{ end }}
+<meta property="og:site_name" content="{{ .Site.Title }}">
 
-<!-- Twitter -->
+<!-- Twitter/X Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{ .Title }}">
 <meta name="twitter:description" content="{{ $desc }}">
-{{- if $ogimg }}<meta name="twitter:image" content="{{ $ogimg }}">{{ end }}
+{{- if $ogimg }}
+<meta name="twitter:image" content="{{ $ogimg | absURL }}">{{ end }}
+
+<!-- Site Verification Tags (if configured) -->
+{{- with .Site.Params.googleSiteVerificationTag }}
+<meta name="google-site-verification" content="{{ . }}">
+{{- end }}
+{{- with .Site.Params.bingSiteVerificationTag }}
+<meta name="msvalidate.01" content="{{ . }}">
+{{- end }}
+{{- with .Site.Params.yandexSiteVerificationTag }}
+<meta name="yandex-verification" content="{{ . }}">
+{{- end }}
+
+<!-- Theme Color -->
+<meta name="theme-color" content="#667eea">
 
 <!-- Article JSON-LD (posts only) -->
 {{ if .IsPage }}
 <script type="application/ld+json">
 {
- "@context":"https://schema.org",
- "@type":"NewsArticle",
- "headline": {{ .Title | jsonify }},
- "datePublished": "{{ .PublishDate | default .Date }}",
- "dateModified": "{{ .Lastmod }}",
- "mainEntityOfPage": {{ $canon | jsonify }},
- "author": [{"@type":"Organization","name":"BlockWireNews"}],
- "publisher":{"@type":"Organization","name":"BlockWireNews"}
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  "headline": {{ .Title | jsonify }},
+  "datePublished": "{{ .PublishDate | default .Date }}",
+  "dateModified": "{{ .Lastmod }}",
+  "mainEntityOfPage": {{ $canon | jsonify }},
+  "author": {
+    "@type": "Organization",
+    "name": "BlockWire News"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "BlockWire News",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ "/img/logo.png" | absURL }}"
+    }
+  },
+  "description": {{ $desc | jsonify }}{{ if $ogimg }},
+  "image": "{{ $ogimg | absURL }}"{{ end }}
 }
 </script>
 {{ end }}
+
+<!-- WebSite JSON-LD (homepage only) -->
+{{ if .IsHome }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "{{ .Site.Title }}",
+  "description": "{{ .Site.Params.description }}",
+  "url": "{{ .Site.BaseURL }}",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "{{ .Site.BaseURL }}search?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+{{ end }}
+
+<!-- Reading time calculation for posts -->
+{{ if .IsPage }}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const content = document.querySelector('.post-content');
+        if (content) {
+            const text = content.innerText;
+            const wordsPerMinute = 200;
+            const wordCount = text.split(/\s+/).length;
+            const readingTime = Math.ceil(wordCount / wordsPerMinute);
+
+            // Add reading time to post meta
+            const postMeta = document.querySelector('.post-meta');
+            if (postMeta && !postMeta.querySelector('.reading-time')) {
+                const readingTimeEl = document.createElement('span');
+                readingTimeEl.className = 'reading-time';
+                readingTimeEl.innerHTML = `📚 ${readingTime} min read`;
+                postMeta.appendChild(readingTimeEl);
+            }
+        }
+    });
+</script>
+{{ end }}
+
+<!-- Include reading progress bar for posts -->
+{{ if .IsPage }}
+{{ partial "reading-progress.html" . }}
+{{ end }}
+
+<!-- Preconnect to external domains for performance -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://api.coingecko.com">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+<!-- Custom fonts (optional) -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+    /* Apply Inter font */
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    /* Animated particles for all pages */
+    .particles-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: -1;
+    }
+
+    .particle-bg {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: 50%;
+        animation: float-particle 20s infinite linear;
+    }
+
+    @keyframes float-particle {
+        from {
+            transform: translateY(100vh) translateX(0);
+            opacity: 0;
+        }
+
+        10% {
+            opacity: 1;
+        }
+
+        90% {
+            opacity: 1;
+        }
+
+        to {
+            transform: translateY(-100vh) translateX(100px);
+            opacity: 0;
+        }
+    }
+</style>
+
+<!-- Generate background particles -->
+<script>
+    (function () {
+        // Create particles container
+        const particlesContainer = document.createElement('div');
+        particlesContainer.className = 'particles-bg';
+        document.body.appendChild(particlesContainer);
+
+        // Generate particles
+        const particleCount = 20;
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle-bg';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 20 + 's';
+            particle.style.animationDuration = (20 + Math.random() * 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+    })();
+</script>

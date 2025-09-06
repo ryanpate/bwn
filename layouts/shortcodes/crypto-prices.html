@@ -1,0 +1,227 @@
+<div class="crypto-ticker-widget" id="crypto-ticker">
+    <h3 class="ticker-widget-title">
+        <span class="live-indicator"></span>
+        Live Crypto Prices
+    </h3>
+    <div class="ticker-grid" id="ticker-grid">
+        <div class="ticker-skeleton">Loading prices...</div>
+    </div>
+    <div class="ticker-footer">
+        <span class="update-time" id="update-time">Last updated: --</span>
+        <button class="refresh-btn" onclick="fetchCryptoPrices()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="23 4 23 10 17 10"></polyline>
+                <polyline points="1 20 1 14 7 14"></polyline>
+                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+            </svg>
+            Refresh
+        </button>
+    </div>
+</div>
+
+<style>
+.ticker-widget-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.live-indicator {
+    width: 12px;
+    height: 12px;
+    background: #10b981;
+    border-radius: 50%;
+    display: inline-block;
+    animation: pulse-live 2s infinite;
+}
+
+@keyframes pulse-live {
+    0% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+    }
+}
+
+.ticker-skeleton {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 2rem;
+    color: rgba(255, 255, 255, 0.5);
+    font-style: italic;
+}
+
+.ticker-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.update-time {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.refresh-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(102, 126, 234, 0.1);
+    border: 1px solid rgba(102, 126, 234, 0.2);
+    border-radius: 8px;
+    color: #667eea;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.refresh-btn:hover {
+    background: rgba(102, 126, 234, 0.2);
+    transform: translateY(-2px);
+}
+
+.refresh-btn svg {
+    transition: transform 0.3s ease;
+}
+
+.refresh-btn:hover svg {
+    transform: rotate(180deg);
+}
+
+.ticker-item-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.ticker-item-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.ticker-item-card:hover::before {
+    left: 100%;
+}
+
+.ticker-sparkline {
+    margin-top: 0.5rem;
+    height: 30px;
+    opacity: 0.7;
+}
+</style>
+
+<script>
+// Crypto price fetching
+const CRYPTO_SYMBOLS = ['BTC', 'ETH', 'BNB', 'SOL', 'XRP', 'ADA', 'AVAX', 'DOT', 'MATIC', 'LINK', 'UNI', 'ATOM'];
+const API_URL = 'https://api.coingecko.com/api/v3/simple/price';
+
+async function fetchCryptoPrices() {
+    const tickerGrid = document.getElementById('ticker-grid');
+    const updateTime = document.getElementById('update-time');
+    
+    // Show loading state
+    tickerGrid.innerHTML = '<div class="ticker-skeleton">Fetching latest prices...</div>';
+    
+    try {
+        // Map symbols to CoinGecko IDs
+        const coinIds = {
+            'BTC': 'bitcoin',
+            'ETH': 'ethereum',
+            'BNB': 'binancecoin',
+            'SOL': 'solana',
+            'XRP': 'ripple',
+            'ADA': 'cardano',
+            'AVAX': 'avalanche-2',
+            'DOT': 'polkadot',
+            'MATIC': 'matic-network',
+            'LINK': 'chainlink',
+            'UNI': 'uniswap',
+            'ATOM': 'cosmos'
+        };
+        
+        const ids = Object.values(coinIds).join(',');
+        const response = await fetch(`${API_URL}?ids=${ids}&vs_currencies=usd&include_24hr_change=true&include_sparkline=true`);
+        
+        if (!response.ok) throw new Error('Failed to fetch prices');
+        
+        const data = await response.json();
+        
+        // Clear loading state
+        tickerGrid.innerHTML = '';
+        
+        // Create price cards
+        CRYPTO_SYMBOLS.forEach(symbol => {
+            const coinId = coinIds[symbol];
+            const coinData = data[coinId];
+            
+            if (coinData) {
+                const price = coinData.usd;
+                const change = coinData.usd_24h_change;
+                
+                const card = document.createElement('div');
+                card.className = 'ticker-item-card';
+                card.innerHTML = `
+                    <div class="ticker-symbol">${symbol}</div>
+                    <div class="ticker-price">$${formatPrice(price)}</div>
+                    <div class="ticker-change ${change >= 0 ? 'positive' : 'negative'}">
+                        ${change >= 0 ? '↑' : '↓'} ${Math.abs(change).toFixed(2)}%
+                    </div>
+                `;
+                
+                tickerGrid.appendChild(card);
+            }
+        });
+        
+        // Update timestamp
+        const now = new Date();
+        updateTime.textContent = `Last updated: ${now.toLocaleTimeString()}`;
+        
+    } catch (error) {
+        console.error('Error fetching crypto prices:', error);
+        tickerGrid.innerHTML = `
+            <div class="ticker-skeleton">
+                Unable to load prices. 
+                <button onclick="fetchCryptoPrices()" style="margin-left: 10px; text-decoration: underline; cursor: pointer;">
+                    Try again
+                </button>
+            </div>
+        `;
+    }
+}
+
+function formatPrice(price) {
+    if (price >= 1000) {
+        return price.toLocaleString('en-US', { maximumFractionDigits: 0 });
+    } else if (price >= 1) {
+        return price.toLocaleString('en-US', { maximumFractionDigits: 2, minimumFractionDigits: 2 });
+    } else {
+        return price.toLocaleString('en-US', { maximumFractionDigits: 4, minimumFractionDigits: 2 });
+    }
+}
+
+// Fetch prices on load
+document.addEventListener('DOMContentLoaded', fetchCryptoPrices);
+
+// Auto-refresh every 30 seconds
+setInterval(fetchCryptoPrices, 30000);
+</script>

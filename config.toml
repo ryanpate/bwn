@@ -167,6 +167,11 @@ enableGitInfo = false
   url = "/search/"
   weight = 60
 
+[[menu.main]]
+  name = "Market"
+  url = "/pages/market-overview/"
+  weight = 15
+  
 # Sitemap configuration
 [sitemap]
   changefreq = "daily"

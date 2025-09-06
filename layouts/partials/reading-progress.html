@@ -1,0 +1,39 @@
+{{ if .IsPage }}
+<div class="reading-progress" id="reading-progress"></div>
+
+<script>
+(function() {
+    // Reading progress bar
+    const progressBar = document.getElementById('reading-progress');
+    if (!progressBar) return;
+    
+    function updateProgress() {
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight - windowHeight;
+        const scrolled = window.scrollY;
+        const progress = scrolled / documentHeight;
+        
+        progressBar.style.transform = `scaleX(${progress})`;
+    }
+    
+    window.addEventListener('scroll', updateProgress);
+    window.addEventListener('resize', updateProgress);
+    updateProgress();
+})();
+</script>
+
+<style>
+.reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.1s ease;
+    z-index: 10000;
+}
+</style>
+{{ end }}
