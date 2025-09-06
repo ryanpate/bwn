@@ -3,10 +3,13 @@ title = "BlockWireNews"
 theme = "PaperMod"
 languageCode = "en-us"
 defaultContentLanguage = "en"
-paginate = 12
 enableRobotsTXT = true
-enableGitInfo = true
+enableGitInfo = false
 enableEmoji = true
+
+# Pagination - using new format for Hugo 0.128+
+[pagination]
+  pagerSize = 12
 
 # Build settings
 [build]
@@ -35,23 +38,11 @@ enableEmoji = true
 
 # Outputs
 [outputs]
-  home = ["HTML", "JSON", "RSS", "WebAppManifest"]
+  home = ["HTML", "JSON", "RSS"]
   page = ["HTML"]
   section = ["HTML", "RSS"]
   taxonomy = ["HTML", "RSS"]
   term = ["HTML", "RSS"]
-
-# Remove these sections temporarily as they might cause issues
-# Output formats
-# [outputFormats]
-#   [outputFormats.WebAppManifest]
-#     mediaType = "application/manifest+json"
-#     rel = "manifest"
-
-# Media types
-# [mediaTypes]
-#   [mediaTypes."application/manifest+json"]
-#     suffixes = ["webmanifest"]
 
 # Sitemap configuration
 [sitemap]
@@ -65,7 +56,7 @@ enableEmoji = true
     disable = false
     respectDoNotTrack = true
     useSessionStorage = false
-  [privacy.twitter]
+  [privacy.x]
     disable = false
     enableDNT = true
     simple = false
@@ -73,7 +64,7 @@ enableEmoji = true
 # Services
 [services]
   [services.googleAnalytics]
-    ID = "G-XXXXXXXXXX"  # Replace with your GA4 ID
+    ID = ""  # Add your GA4 ID when ready
 
 # Params
 [params]
@@ -101,6 +92,12 @@ enableEmoji = true
   showtoc = true
   tocopen = false
   
+  # Site Verification Tags (REQUIRED by PaperMod for Hugo 0.146.0)
+  [params.SiteVerificationTags]
+    google = ""
+    bing = ""
+    yandex = ""
+  
   # Images
   images = ["https://www.blockwirenews.com/img/og-image.jpg"]
   
@@ -122,7 +119,7 @@ enableEmoji = true
   
   # Analytics
   [params.analytics]
-    google = "G-XXXXXXXXXX"  # Replace with your GA4 ID
+    google = ""  # Add your GA4 ID when ready
   
   # Assets
   [params.assets]
