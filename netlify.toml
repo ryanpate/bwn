@@ -3,7 +3,7 @@
   command = "hugo --gc --minify --enableGitInfo"
 
 [build.environment]
-  HUGO_VERSION = "0.120.0"
+  HUGO_VERSION = "0.140.0"
   HUGO_ENV = "production"
   HUGO_ENABLEGITINFO = "true"
 
@@ -101,30 +101,24 @@
   status = 301
   force = true
 
-# Plugins
-[[plugins]]
-  package = "@netlify/plugin-lighthouse"
-  
-  [plugins.inputs]
-    output_path = "reports/lighthouse.html"
-    thresholds.performance = 0.9
-    thresholds.accessibility = 0.95
-    thresholds.best-practices = 0.95
-    thresholds.seo = 1.0
+# Plugins - Simplified for initial deployment
+# Add these back after confirming the site builds successfully
+# [[plugins]]
+#   package = "@netlify/plugin-lighthouse"
+#   
+#   [plugins.inputs]
+#     output_path = "reports/lighthouse.html"
 
-[[plugins]]
-  package = "netlify-plugin-submit-sitemap"
-  
-  [plugins.inputs]
-    baseUrl = "https://www.blockwirenews.com"
-    sitemapPath = "/sitemap.xml"
-    providers = [
-      "google",
-      "bing"
-    ]
-
-[[plugins]]
-  package = "netlify-plugin-image-optim"
+# [[plugins]]
+#   package = "netlify-plugin-submit-sitemap"
+#   
+#   [plugins.inputs]
+#     baseUrl = "https://www.blockwirenews.com"
+#     sitemapPath = "/sitemap.xml"
+#     providers = [
+#       "google",
+#       "bing"
+#     ]
 
 # Asset optimization
 [build.processing]

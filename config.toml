@@ -41,16 +41,17 @@ enableEmoji = true
   taxonomy = ["HTML", "RSS"]
   term = ["HTML", "RSS"]
 
+# Remove these sections temporarily as they might cause issues
 # Output formats
-[outputFormats]
-  [outputFormats.WebAppManifest]
-    mediaType = "application/manifest+json"
-    rel = "manifest"
+# [outputFormats]
+#   [outputFormats.WebAppManifest]
+#     mediaType = "application/manifest+json"
+#     rel = "manifest"
 
 # Media types
-[mediaTypes]
-  [mediaTypes."application/manifest+json"]
-    suffixes = ["webmanifest"]
+# [mediaTypes]
+#   [mediaTypes."application/manifest+json"]
+#     suffixes = ["webmanifest"]
 
 # Sitemap configuration
 [sitemap]
