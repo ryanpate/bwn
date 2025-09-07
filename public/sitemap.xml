@@ -3,46 +3,66 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>http://localhost:1313/tags/blockchain/</loc>
-    <lastmod>2025-09-03T15:20:48+00:00</lastmod>
+    <lastmod>2025-09-07T19:14:06+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>http://localhost:1313/</loc>
-    <lastmod>2025-09-03T15:20:48+00:00</lastmod>
+    <lastmod>2025-09-07T19:14:06+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>http://localhost:1313/categories/</loc>
-    <lastmod>2025-09-03T15:20:48+00:00</lastmod>
+    <lastmod>2025-09-07T19:14:06+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>http://localhost:1313/tags/crypto/</loc>
-    <lastmod>2025-09-03T15:20:48+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>http://localhost:1313/news/2025/09/ethereum-sees-bearish-options-amid-strong-institutional-etf-demand/</loc>
-    <lastmod>2025-09-03T15:20:48+00:00</lastmod>
+    <lastmod>2025-09-07T19:14:06+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>http://localhost:1313/news/</loc>
-    <lastmod>2025-09-03T15:20:48+00:00</lastmod>
+    <lastmod>2025-09-07T19:14:06+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://localhost:1313/news/2025/09/michael-saylor-s-strategy-snubbed-by-s-p-500-committee-amid-controversy/</loc>
+    <lastmod>2025-09-07T19:14:06+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>http://localhost:1313/categories/news/</loc>
-    <lastmod>2025-09-03T15:20:48+00:00</lastmod>
+    <lastmod>2025-09-07T19:14:06+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>http://localhost:1313/tags/news/</loc>
-    <lastmod>2025-09-03T15:20:48+00:00</lastmod>
+    <lastmod>2025-09-07T19:14:06+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>http://localhost:1313/tags/</loc>
+    <lastmod>2025-09-07T19:14:06+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://localhost:1313/news/2025/09/bank-of-america-highlights-tokenization-s-liquidity-benefits-and-challenges/</loc>
+    <lastmod>2025-09-07T15:17:25+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://localhost:1313/news/2025/09/tokenization-sparks-debate-on-pokemon-s-future-in-crypto-market/</loc>
+    <lastmod>2025-09-07T11:15:05+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://localhost:1313/news/2025/09/ai-firm-showrunner-to-reconstruct-lost-footage-of-welles-classic/</loc>
+    <lastmod>2025-09-07T10:17:21+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://localhost:1313/news/2025/09/ethereum-sees-bearish-options-amid-strong-institutional-etf-demand/</loc>
     <lastmod>2025-09-03T15:20:48+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

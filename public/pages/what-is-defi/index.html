@@ -1,25 +1,30 @@
 <!DOCTYPE html>
 <html lang="en-us">
+
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>What is DeFi? A Beginner’s Guide | BlockWire News</title>
-    
+
     
     <meta name="description" content="Understand decentralized finance: how it works, risks, and why it matters.">
     <meta name="author" content="BlockWire News">
-    
+
     
     <meta property="og:title" content="What is DeFi? A Beginner’s Guide">
     <meta property="og:description" content="Understand decentralized finance: how it works, risks, and why it matters.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="http://localhost:1313/pages/what-is-defi/">
-    
+
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5523870768931777"
+        crossorigin="anonymous"></script>
+
     
     <style>
         * {
@@ -27,7 +32,7 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         :root {
             --primary: #8b5cf6;
             --primary-dark: #7c3aed;
@@ -39,7 +44,7 @@
             --border: rgba(255, 255, 255, 0.1);
             --max-width: 1400px;
         }
-        
+
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(180deg, var(--background) 0%, var(--background-light) 100%);
@@ -47,7 +52,7 @@
             min-height: 100vh;
             line-height: 1.6;
         }
-        
+
          
         .nav {
             position: fixed;
@@ -60,7 +65,7 @@
             z-index: 1000;
             height: 60px;
         }
-        
+
         .nav-container {
             max-width: var(--max-width);
             margin: 0 auto;
@@ -70,13 +75,13 @@
             justify-content: space-between;
             align-items: center;
         }
-        
+
         .nav-left {
             display: flex;
             align-items: center;
             gap: 1rem;
         }
-        
+
         .theme-toggle {
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -90,11 +95,11 @@
             transition: all 0.3s ease;
             color: white;
         }
-        
+
         .theme-toggle:hover {
             background: rgba(255, 255, 255, 0.2);
         }
-        
+
         .logo {
             display: flex;
             align-items: center;
@@ -106,7 +111,7 @@
             text-transform: uppercase;
             letter-spacing: -0.02em;
         }
-        
+
         .logo-icon {
             width: 36px;
             height: 36px;
@@ -117,13 +122,13 @@
             justify-content: center;
             font-size: 1.2rem;
         }
-        
+
         .nav-menu {
             display: flex;
             gap: 0.5rem;
             list-style: none;
         }
-        
+
         .nav-menu a {
             color: var(--text-muted);
             text-decoration: none;
@@ -133,26 +138,26 @@
             font-weight: 500;
             font-size: 0.95rem;
         }
-        
+
         .nav-menu a:hover,
         .nav-menu a.active {
             background: rgba(255, 255, 255, 0.1);
             color: white;
         }
-        
+
          
         .main {
             margin-top: 60px;
             min-height: calc(100vh - 60px);
         }
-        
+
          
         .container {
             max-width: var(--max-width);
             margin: 0 auto;
             padding: 2rem;
         }
-        
+
          
         .footer {
             margin-top: 4rem;
@@ -160,21 +165,21 @@
             background: linear-gradient(180deg, transparent, rgba(139, 92, 246, 0.1));
             border-top: 1px solid var(--border);
         }
-        
+
         .footer-content {
             max-width: var(--max-width);
             margin: 0 auto;
             padding: 0 2rem;
             text-align: center;
         }
-        
+
         .social-links {
             display: flex;
             justify-content: center;
             gap: 1rem;
             margin-bottom: 2rem;
         }
-        
+
         .social-link {
             width: 44px;
             height: 44px;
@@ -188,14 +193,14 @@
             text-decoration: none;
             transition: all 0.3s ease;
         }
-        
+
         .social-link:hover {
             background: rgba(139, 92, 246, 0.2);
             border-color: rgba(139, 92, 246, 0.4);
             color: white;
             transform: translateY(-3px);
         }
-        
+
          
         .mobile-menu-toggle {
             display: none;
@@ -205,22 +210,22 @@
             font-size: 1.5rem;
             cursor: pointer;
         }
-        
+
         @media (max-width: 768px) {
             .nav-menu {
                 display: none;
             }
-            
+
             .mobile-menu-toggle {
                 display: block;
             }
-            
+
             .container {
                 padding: 1rem;
             }
         }
     </style>
-    
+
     
 <style>
     .article {
@@ -228,13 +233,13 @@
         margin: 2rem auto;
         padding: 0 2rem;
     }
-    
+
     .article-header {
         margin-bottom: 2rem;
         padding-bottom: 2rem;
         border-bottom: 1px solid var(--border);
     }
-    
+
     .article-title {
         font-size: 2.5rem;
         font-weight: 800;
@@ -245,7 +250,7 @@
         background-clip: text;
         -webkit-text-fill-color: transparent;
     }
-    
+
     .article-meta {
         display: flex;
         gap: 1.5rem;
@@ -253,42 +258,42 @@
         font-size: 0.9rem;
         flex-wrap: wrap;
     }
-    
+
     .article-content {
         font-size: 1.125rem;
         line-height: 1.8;
         color: rgba(255, 255, 255, 0.9);
     }
-    
+
     .article-content h2 {
         margin: 2rem 0 1rem;
         font-size: 1.75rem;
         font-weight: 700;
         color: white;
     }
-    
+
     .article-content h3 {
         margin: 1.5rem 0 0.75rem;
         font-size: 1.5rem;
         font-weight: 600;
         color: white;
     }
-    
+
     .article-content p {
         margin-bottom: 1.5rem;
     }
-    
+
     .article-content a {
         color: var(--primary);
         text-decoration: underline;
         text-underline-offset: 2px;
         transition: color 0.3s ease;
     }
-    
+
     .article-content a:hover {
         color: #a78bfa;
     }
-    
+
     .article-content blockquote {
         margin: 2rem 0;
         padding: 1rem 1.5rem;
@@ -296,7 +301,7 @@
         border-left: 4px solid var(--primary);
         font-style: italic;
     }
-    
+
     .article-content pre {
         background: rgba(0, 0, 0, 0.5);
         border: 1px solid var(--border);
@@ -305,7 +310,7 @@
         overflow-x: auto;
         margin: 1.5rem 0;
     }
-    
+
     .article-content code {
         background: rgba(139, 92, 246, 0.1);
         padding: 0.2rem 0.4rem;
@@ -313,17 +318,17 @@
         font-family: 'Courier New', monospace;
         font-size: 0.9em;
     }
-    
+
     .article-content ul,
     .article-content ol {
         margin: 1.5rem 0;
         padding-left: 2rem;
     }
-    
+
     .article-content li {
         margin-bottom: 0.5rem;
     }
-    
+
     .article-tags {
         margin-top: 3rem;
         padding-top: 2rem;
@@ -332,7 +337,7 @@
         gap: 0.5rem;
         flex-wrap: wrap;
     }
-    
+
     .tag {
         background: rgba(139, 92, 246, 0.1);
         color: var(--primary);
@@ -343,12 +348,12 @@
         transition: all 0.3s ease;
         border: 1px solid rgba(139, 92, 246, 0.2);
     }
-    
+
     .tag:hover {
         background: rgba(139, 92, 246, 0.2);
         transform: translateY(-2px);
     }
-    
+
     .article-nav {
         margin-top: 3rem;
         padding-top: 2rem;
@@ -357,7 +362,7 @@
         grid-template-columns: 1fr 1fr;
         gap: 2rem;
     }
-    
+
     .article-nav-item {
         text-decoration: none;
         color: inherit;
@@ -366,31 +371,59 @@
         border-radius: 12px;
         transition: all 0.3s ease;
     }
-    
+
     .article-nav-item:hover {
         background: rgba(255, 255, 255, 0.08);
         transform: translateY(-2px);
     }
-    
+
     .article-nav-label {
         font-size: 0.875rem;
         color: var(--text-muted);
         margin-bottom: 0.5rem;
     }
-    
+
     .article-nav-title {
         font-weight: 600;
     }
-    
+
+     
+    .article-ad-top,
+    .article-ad-bottom {
+        margin: 2rem 0;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        min-height: 100px;
+        position: relative;
+        text-align: center;
+    }
+
+    .article-ad-top::before,
+    .article-ad-bottom::before {
+        content: 'Advertisement';
+        position: absolute;
+        top: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #0a0e27;
+        padding: 0 0.5rem;
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.3);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+    }
+
     @media (max-width: 768px) {
         .article-title {
             font-size: 2rem;
         }
-        
+
         .article {
             padding: 0 1rem;
         }
-        
+
         .article-nav {
             grid-template-columns: 1fr;
         }
@@ -398,6 +431,7 @@
 </style>
 
 </head>
+
 <body>
     
     <nav class="nav">
@@ -415,7 +449,7 @@
                     <span>BlockWire</span>
                 </a>
             </div>
-            
+
             <ul class="nav-menu">
                 
                 <li><a href="/" >Home</a></li>
@@ -433,11 +467,11 @@
                 <li><a href="/search/" >Search</a></li>
                 
             </ul>
-            
+
             <button class="mobile-menu-toggle" aria-label="Menu">☰</button>
         </div>
     </nav>
-    
+
     
     <main class="main">
         
@@ -451,14 +485,32 @@
             
         </div>
     </header>
-    
+
     <div class="article-content">
+        
+        <div class="article-ad-top">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5523870768931777"
+                data-ad-slot="2468135790" data-ad-format="rectangle" data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
         <p><em>DeFi</em> (decentralized finance) refers to&hellip;</p>
 
+
+        
+        <div class="article-ad-bottom">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5523870768931777"
+                data-ad-slot="3579246801" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
     </div>
+
     
-    
-    
+
     <nav class="article-nav">
         
         
@@ -471,7 +523,7 @@
 </article>
 
     </main>
-    
+
     
     <footer class="footer">
         <div class="footer-content">
@@ -479,21 +531,24 @@
                 
                 <a href="https://twitter.com/blockwirenews" class="social-link" aria-label="Twitter">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
+                        <path
+                            d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z" />
                     </svg>
                 </a>
                 
                 
                 <a href="https://t.me/blockwirenews" class="social-link" aria-label="Telegram">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.56l-1.54 7.26c-.11.53-.42.65-.85.4l-2.34-1.72-1.13 1.08c-.13.13-.23.23-.46.23l.17-2.38 4.33-3.91c.19-.17-.04-.26-.29-.09L9.4 12.31l-2.28-.71c-.5-.16-.51-.5.1-.74l8.93-3.44c.41-.15.77.1.64.74z"/>
+                        <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.56l-1.54 7.26c-.11.53-.42.65-.85.4l-2.34-1.72-1.13 1.08c-.13.13-.23.23-.46.23l.17-2.38 4.33-3.91c.19-.17-.04-.26-.29-.09L9.4 12.31l-2.28-.71c-.5-.16-.51-.5.1-.74l8.93-3.44c.41-.15.77.1.64.74z" />
                     </svg>
                 </a>
                 
                 
                 <a href="https://discord.gg/blockwire" class="social-link" aria-label="Discord">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                        <path
+                            d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z" />
                     </svg>
                 </a>
                 
@@ -502,23 +557,24 @@
             <p class="footer-tagline">Your trusted source for crypto news and insights</p>
         </div>
     </footer>
-    
+
     
     <script>
         const themeToggle = document.querySelector('.theme-toggle');
         const savedTheme = localStorage.getItem('theme') || 'dark';
-        
+
         if (savedTheme === 'light') {
             document.body.classList.add('light-theme');
         }
-        
+
         themeToggle.addEventListener('click', () => {
             document.body.classList.toggle('light-theme');
             const currentTheme = document.body.classList.contains('light-theme') ? 'light' : 'dark';
             localStorage.setItem('theme', currentTheme);
         });
     </script>
-    
+
     
 </body>
+
 </html>

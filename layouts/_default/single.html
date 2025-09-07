@@ -5,13 +5,13 @@
         margin: 2rem auto;
         padding: 0 2rem;
     }
-    
+
     .article-header {
         margin-bottom: 2rem;
         padding-bottom: 2rem;
         border-bottom: 1px solid var(--border);
     }
-    
+
     .article-title {
         font-size: 2.5rem;
         font-weight: 800;
@@ -22,7 +22,7 @@
         background-clip: text;
         -webkit-text-fill-color: transparent;
     }
-    
+
     .article-meta {
         display: flex;
         gap: 1.5rem;
@@ -30,42 +30,42 @@
         font-size: 0.9rem;
         flex-wrap: wrap;
     }
-    
+
     .article-content {
         font-size: 1.125rem;
         line-height: 1.8;
         color: rgba(255, 255, 255, 0.9);
     }
-    
+
     .article-content h2 {
         margin: 2rem 0 1rem;
         font-size: 1.75rem;
         font-weight: 700;
         color: white;
     }
-    
+
     .article-content h3 {
         margin: 1.5rem 0 0.75rem;
         font-size: 1.5rem;
         font-weight: 600;
         color: white;
     }
-    
+
     .article-content p {
         margin-bottom: 1.5rem;
     }
-    
+
     .article-content a {
         color: var(--primary);
         text-decoration: underline;
         text-underline-offset: 2px;
         transition: color 0.3s ease;
     }
-    
+
     .article-content a:hover {
         color: #a78bfa;
     }
-    
+
     .article-content blockquote {
         margin: 2rem 0;
         padding: 1rem 1.5rem;
@@ -73,7 +73,7 @@
         border-left: 4px solid var(--primary);
         font-style: italic;
     }
-    
+
     .article-content pre {
         background: rgba(0, 0, 0, 0.5);
         border: 1px solid var(--border);
@@ -82,7 +82,7 @@
         overflow-x: auto;
         margin: 1.5rem 0;
     }
-    
+
     .article-content code {
         background: rgba(139, 92, 246, 0.1);
         padding: 0.2rem 0.4rem;
@@ -90,17 +90,17 @@
         font-family: 'Courier New', monospace;
         font-size: 0.9em;
     }
-    
+
     .article-content ul,
     .article-content ol {
         margin: 1.5rem 0;
         padding-left: 2rem;
     }
-    
+
     .article-content li {
         margin-bottom: 0.5rem;
     }
-    
+
     .article-tags {
         margin-top: 3rem;
         padding-top: 2rem;
@@ -109,7 +109,7 @@
         gap: 0.5rem;
         flex-wrap: wrap;
     }
-    
+
     .tag {
         background: rgba(139, 92, 246, 0.1);
         color: var(--primary);
@@ -120,12 +120,12 @@
         transition: all 0.3s ease;
         border: 1px solid rgba(139, 92, 246, 0.2);
     }
-    
+
     .tag:hover {
         background: rgba(139, 92, 246, 0.2);
         transform: translateY(-2px);
     }
-    
+
     .article-nav {
         margin-top: 3rem;
         padding-top: 2rem;
@@ -134,7 +134,7 @@
         grid-template-columns: 1fr 1fr;
         gap: 2rem;
     }
-    
+
     .article-nav-item {
         text-decoration: none;
         color: inherit;
@@ -143,31 +143,59 @@
         border-radius: 12px;
         transition: all 0.3s ease;
     }
-    
+
     .article-nav-item:hover {
         background: rgba(255, 255, 255, 0.08);
         transform: translateY(-2px);
     }
-    
+
     .article-nav-label {
         font-size: 0.875rem;
         color: var(--text-muted);
         margin-bottom: 0.5rem;
     }
-    
+
     .article-nav-title {
         font-weight: 600;
     }
-    
+
+    /* Ad Styles */
+    .article-ad-top,
+    .article-ad-bottom {
+        margin: 2rem 0;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        min-height: 100px;
+        position: relative;
+        text-align: center;
+    }
+
+    .article-ad-top::before,
+    .article-ad-bottom::before {
+        content: 'Advertisement';
+        position: absolute;
+        top: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #0a0e27;
+        padding: 0 0.5rem;
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.3);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+    }
+
     @media (max-width: 768px) {
         .article-title {
             font-size: 2rem;
         }
-        
+
         .article {
             padding: 0 1rem;
         }
-        
+
         .article-nav {
             grid-template-columns: 1fr;
         }
@@ -190,11 +218,29 @@
             {{ end }}
         </div>
     </header>
-    
+
     <div class="article-content">
+        <!-- Top of article ad -->
+        <div class="article-ad-top">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5523870768931777"
+                data-ad-slot="2468135790" data-ad-format="rectangle" data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
         {{ .Content }}
+
+        <!-- Bottom of article ad -->
+        <div class="article-ad-bottom">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5523870768931777"
+                data-ad-slot="3579246801" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
     </div>
-    
+
     {{ with .Params.tags }}
     <div class="article-tags">
         {{ range . }}
@@ -202,7 +248,7 @@
         {{ end }}
     </div>
     {{ end }}
-    
+
     <nav class="article-nav">
         {{ with .PrevInSection }}
         <a href="{{ .Permalink }}" class="article-nav-item">
