@@ -24,12 +24,14 @@
     </header>
     <div class="entry-content">
       <p>
-        {{- if .Params.summary }}
-        {{- .Params.summary | plainify | htmlUnescape -}}
+        {{- if .Params.description }}
+        {{- .Params.description | plainify | htmlUnescape | truncate 200 -}}
+        {{- else if .Description }}
+        {{- .Description | plainify | htmlUnescape | truncate 200 -}}
         {{- else if .Summary }}
         {{- .Summary | plainify | htmlUnescape | truncate 200 -}}
         {{- else }}
-        {{- .Description | plainify | htmlUnescape | truncate 200 -}}
+        {{- .Plain | truncate 200 -}}
         {{- end -}}
       </p>
     </div>

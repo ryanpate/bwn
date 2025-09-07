@@ -37,7 +37,7 @@ enableGitInfo = false
   tocopen = false
   UseHugoToc = true
   mainSections = ["news"]
-
+  ShowPostDescriptionInList = true
   # Analytics - Add your IDs when ready
   # [params.analytics]
   #   google = "G-XXXXXXXXXX"

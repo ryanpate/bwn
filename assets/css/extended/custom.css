@@ -119,6 +119,7 @@ main.main {
 .news-section-header {
     max-width: 1100px !important;
     margin: 0.5rem auto 1rem auto !important;
+    margin-bottom: 1.5rem !important;
     /* Reduced top and bottom margins */
 }
 
@@ -136,6 +137,7 @@ article.post-entry:first-child {
 /* Ensure hero banner connects well with content below */
 .hero-banner+* {
     margin-top: 0 !important;
+    margin-bottom: 1.5rem !important;
 }
 
 /* Override any theme-specific spacing */

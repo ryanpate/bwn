@@ -1,7 +1,7 @@
 <style>
     /* Force zero spacing between hero and next element */
     .hero-banner {
-        margin-bottom: 2 !important;
+        margin-bottom: 1.5rem !important;
         max-width: 1100px !important;
         margin-left: auto !important;
         margin-right: auto !important;
@@ -11,8 +11,8 @@
     .home-info,
     .home-info+*,
     .home-info~* {
-        margin-top: 2 !important;
-        padding-top: 2 !important;
+        margin-top: 0 !important;
+        padding-top: 0 !important;
     }
 
     /* Kill spacing on the list container */
@@ -40,33 +40,59 @@
     }
     <style>
 /* Add small spacing between hero and news section */
-.hero-banner {
-    margin-bottom: 1.5rem !important;
-}
+    .hero-banner {
+        margin-bottom: 1.5rem !important;
+    }
 
-/* Ensure news header has proper spacing */
-.news-section-header {
-    margin-bottom: 1.5rem !important;
-}
+    /* Ensure news header has proper spacing */
+    .news-section-header {
+        margin-bottom: 1.5rem !important;
+    }
 
-/* Style for post summaries */
-.post-entry .entry-content {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 0.95rem;
-    line-height: 1.6;
-    margin-top: 0.5rem;
-    margin-bottom: 0.75rem;
-}
+    /* Style for post summaries */
+    .post-entry .entry-content {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-top: 0.5rem;
+        margin-bottom: 0.75rem;
+    }
 
-.post-entry .entry-header h2 {
-    margin-bottom: 0.5rem !important;
-    font-size: 1.25rem;
-}
+    .post-entry .entry-header h2 {
+        margin-bottom: 0.5rem !important;
+        font-size: 1.25rem;
+    }
 
-.post-entry .entry-footer {
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 0.85rem;
-}
+    .post-entry .entry-footer {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.85rem;
+    }
+
+    /* Fix article card spacing */
+    .post-entry .entry-header {
+        padding-top: 1rem !important;
+        margin-top: 0 !important;
+    }
+
+    .post-entry .entry-header h2 {
+        margin-top: 0 !important;
+        margin-bottom: 0.75rem !important;
+    }
+
+    /* Ensure consistent internal spacing */
+    .post-entry {
+        padding: 1.25rem !important;
+    }
+
+    .post-entry .entry-content {
+        margin-top: 0.75rem !important;
+        margin-bottom: 1rem !important;
+    }
+
+    .post-entry .entry-footer {
+        margin-top: auto !important;
+        padding-top: 0.5rem !important;
+    }
 
     @media (max-width: 1200px) {
         .hero-price-grid {
