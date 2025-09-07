@@ -1,85 +1,50 @@
 {{- define "main" }}
 
-{{- if (and site.Params.profileMode.enabled .IsHome) }}
-{{- partial "index_profile.html" . }}
-{{- else if .IsHome }}
-{{- partial "home-info.html" . }}
-{{- end }}
-
-{{- $pages := union .RegularPages .Sections }}
-
 {{- if .IsHome }}
-  {{- $pages = where site.RegularPages "Type" "in" site.Params.mainSections }}
-  {{- $pages = where $pages "Params.hiddenInHomeList" "!=" "true" }}
-{{- end }}
+<!-- Hero Section for Homepage Only -->
+{{- partial "home-info.html" . }}
 
-{{- $paginator := .Paginate $pages }}
-
-{{- if and .IsHome site.Params.homeInfoParams (eq $paginator.PageNumber 1) }}
-{{- partial "home_info.html" . }}
-{{- end }}
-
-{{- $term := .Data.Term }}
-{{- range $index, $page := $paginator.Pages }}
-
-{{- $class := "post-entry" }}
-
-{{- $user_preferred := or site.Params.disableSpecial1stPost site.Params.homeInfoParams }}
-{{- if (and $.IsHome (eq $paginator.PageNumber 1) (eq $index 0) (not $user_preferred)) }}
-{{- $class = "first-entry" }}
-{{- else if $term }}
-{{- $class = "post-entry tag-entry" }}
-{{- end }}
-
-{{- /* Add news header before first post on homepage */ -}}
-{{- if and $.IsHome (eq $paginator.PageNumber 1) (eq $index 0) }}
+<!-- News Header directly after hero -->
 {{- partial "news-header.html" . }}
 {{- end }}
 
-<article class="{{ $class }}">
-  {{- $isHidden := (site.Params.cover.hidden | default site.Params.cover.hiddenInList) }}
-  {{- partial "cover.html" (dict "cxt" . "IsHome" true "isHidden" $isHidden) }}
-  <header class="entry-header">
-    <h2>
-      {{- .Title }}
-      {{- if .Draft }}<sup><span class="entry-isdraft">&nbsp;&nbsp;[draft]</span></sup>{{- end }}
-    </h2>
-  </header>
-  {{- if (ne (.Param "hideSummary") true) }}
-  <div class="entry-content">
-    <p>{{ .Summary | plainify | htmlUnescape }}{{ if .Truncated }}...{{ end }}</p>
-  </div>
-  {{- end }}
-  {{- if not (.Param "hideMeta") }}
-  <footer class="entry-footer">
-    {{- partial "post_meta.html" . -}}
-  </footer>
-  {{- end }}
-  <a class="entry-link" aria-label="post link to {{ .Title | plainify }}" href="{{ .Permalink }}"></a>
-</article>
-{{- end }}
+<!-- Post List -->
+{{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
+{{- $paginator := .Paginate $pages }}
 
-{{- if gt $paginator.TotalPages 1 }}
-<footer class="page-footer">
-  <nav class="pagination">
-    {{- if $paginator.HasPrev }}
-    <a class="prev" href="{{ $paginator.Prev.URL | absURL }}">
-      «&nbsp;{{ i18n "prev_page" }}&nbsp;
-      {{- if (.Param "ShowPageNums") }}
-      {{- sub $paginator.PageNumber 1 }}/{{ $paginator.TotalPages }}
+<div class="post-list">
+  {{- range $paginator.Pages }}
+  <article class="post-entry">
+    <header class="entry-header">
+      <h2>
+        <a href="{{ .Permalink }}" aria-label="{{ .Title | plainify }}">
+          {{- .Title -}}
+        </a>
+      </h2>
+    </header>
+    <div class="entry-content">
+      <p>
+        {{- if .Params.summary }}
+        {{- .Params.summary | plainify | htmlUnescape -}}
+        {{- else if .Summary }}
+        {{- .Summary | plainify | htmlUnescape | truncate 200 -}}
+        {{- else }}
+        {{- .Description | plainify | htmlUnescape | truncate 200 -}}
+        {{- end -}}
+      </p>
+    </div>
+    <footer class="entry-footer">
+      <span class="post-date">{{ .Date.Format "January 2, 2006" }}</span>
+      <span class="read-time"> · {{ math.Round (div (countwords .Content) 200.0) }} min</span>
+      {{- if .Params.categories }}
+      <span class="post-category"> · {{ index .Params.categories 0 }}</span>
       {{- end }}
-    </a>
-    {{- end }}
-    {{- if $paginator.HasNext }}
-    <a class="next" href="{{ $paginator.Next.URL | absURL }}">
-      {{- i18n "next_page" }}&nbsp;
-      {{- if (.Param "ShowPageNums") }}
-      {{- add 1 $paginator.PageNumber }}/{{ $paginator.TotalPages }}
-      {{- end }}&nbsp;»
-    </a>
-    {{- end }}
-  </nav>
-</footer>
-{{- end }}
+    </footer>
+    <a class="entry-link" href="{{ .Permalink }}"></a>
+  </article>
+  {{- end }}
+</div>
+
+{{- template "_internal/pagination.html" . }}
 
 {{- end }}{{/* end main */}}

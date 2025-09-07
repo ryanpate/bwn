@@ -1,4 +1,4 @@
-<div class="hero-banner">
+<div class="hero-banner" style="margin-bottom: 0 !important;">  
   <div class="grid-background"></div>
   <div class="particles" id="particles"></div>
 
@@ -20,7 +20,7 @@
       </div>
     </div>
 
-    <!-- Live Price Grid -->
+    <!-- Live Price Grid - Now with 10 coins for even rows -->
     <div class="hero-price-grid">
       <div class="price-card">
         <div class="price-header">
@@ -69,6 +69,38 @@
         </div>
         <div class="price-value">$0.52</div>
         <div class="price-change negative">↓ 1.1%</div>
+      </div>
+      <div class="price-card">
+        <div class="price-header">
+          <span class="coin-name">Avalanche</span>
+          <span class="coin-symbol">AVAX</span>
+        </div>
+        <div class="price-value">$28.45</div>
+        <div class="price-change positive">↑ 2.8%</div>
+      </div>
+      <div class="price-card">
+        <div class="price-header">
+          <span class="coin-name">Polygon</span>
+          <span class="coin-symbol">MATIC</span>
+        </div>
+        <div class="price-value">$0.68</div>
+        <div class="price-change positive">↑ 1.5%</div>
+      </div>
+      <div class="price-card">
+        <div class="price-header">
+          <span class="coin-name">Polkadot</span>
+          <span class="coin-symbol">DOT</span>
+        </div>
+        <div class="price-value">$5.82</div>
+        <div class="price-change negative">↓ 0.8%</div>
+      </div>
+      <div class="price-card">
+        <div class="price-header">
+          <span class="coin-name">Chainlink</span>
+          <span class="coin-symbol">LINK</span>
+        </div>
+        <div class="price-value">$11.24</div>
+        <div class="price-change positive">↑ 3.5%</div>
       </div>
     </div>
 

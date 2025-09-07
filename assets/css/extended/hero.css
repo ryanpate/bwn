@@ -1,4 +1,4 @@
-/* --- BlockWire Hero Section - Wide & Responsive --- */
+/* --- BlockWire Hero Section - Fixed Width & Spacing --- */
 .hero-banner {
     position: relative;
     min-height: 60vh;
@@ -17,16 +17,19 @@
         linear-gradient(180deg, #0f0f1e 0%, #1a1a2e 50%, #16213e 100%);
     overflow: hidden;
     border-radius: 20px;
-    margin: 1.5rem;
+    /* CHANGED: Match news section width of 1100px with consistent margins */
+    max-width: 1100px;
+    margin: 0 auto 1.5rem auto;
+    /* Reduced bottom margin to close gap */
     box-shadow:
         0 20px 60px rgba(0, 0, 0, 0.4),
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
-/* Remove max-width to make it full width */
-@media (min-width: 1400px) {
+/* Ensure consistent padding on mobile */
+@media (max-width: 1132px) {
     .hero-banner {
-        margin: 2rem;
+        margin: 0 1rem 1.5rem 1rem;
     }
 }
 
@@ -78,14 +81,15 @@
     }
 }
 
-/* Hero content - wider max-width */
+/* Hero content - adjusted for new container width */
 .hero-content {
     position: relative;
     z-index: 10;
     text-align: center;
     padding: 3rem 2rem;
     width: 100%;
-    max-width: 1400px;
+    max-width: 100%;
+    /* Use full width of hero-banner container */
     margin: 0 auto;
 }
 
@@ -164,13 +168,14 @@
     box-shadow: 0 8px 20px rgba(139, 92, 246, 0.2);
 }
 
-/* Price Grid - Responsive */
+/* Price Grid - Responsive, adjusted max-width */
 .hero-price-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 1rem;
     margin: 2rem auto;
-    max-width: 1200px;
+    max-width: 100%;
+    /* Use full width of container */
 }
 
 .price-card {
@@ -318,8 +323,7 @@
 @media (max-width: 640px) {
     .hero-banner {
         min-height: auto;
-        margin: 0.25rem !important;
-        width: calc(100% - 0.5rem) !important;
+        margin: 0.5rem 0.5rem 1rem 0.5rem;
         border-radius: 12px;
     }
 
@@ -365,7 +369,7 @@
 /* Tablet */
 @media (min-width: 641px) and (max-width: 1024px) {
     .hero-banner {
-        margin: 1rem;
+        margin: 1rem 1rem 1.5rem 1rem;
     }
 
     .hero-content {
@@ -374,17 +378,6 @@
 
     .hero-price-grid {
         grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-/* Large screens */
-@media (min-width: 1920px) {
-    .hero-content {
-        max-width: 1600px;
-    }
-
-    .hero-price-grid {
-        max-width: 1400px;
     }
 }
 

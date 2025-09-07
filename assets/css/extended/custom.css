@@ -79,6 +79,12 @@ body::after {
     padding: 0 !important;
 }
 
+/* CRITICAL: Override PaperMod's .main class to remove top padding */
+main.main {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+}
+
 /* Container width adjustments for better proportions */
 .container,
 .wrapper,
@@ -88,7 +94,7 @@ body::after {
     padding: 0 1.5rem !important;
 }
 
-/* Post entries container */
+/* Post entries container - KEEP 1100px WIDTH */
 .post-entry {
     max-width: 1100px;
     margin-left: auto !important;
@@ -96,18 +102,46 @@ body::after {
     margin-bottom: 1.5rem !important;
 }
 
+/* CRITICAL: First post entry should have minimal top margin */
+.post-entry:first-of-type,
+.main>.post-entry:first-child {
+    margin-top: 0 !important;
+}
+
 /* Newsletter widget width */
 .newsletter-inline-widget {
     max-width: 1100px !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
+    margin: 0.5rem auto 1rem auto !important;
+    /* Reduced margins */
 }
 
-/* News header width */
+/* News header width - with minimal margins */
 .news-section-header {
     max-width: 1100px !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
+    margin: 0.5rem auto 1rem auto !important;
+    /* Reduced top and bottom margins */
+}
+
+/* CRITICAL: Override PaperMod theme spacing */
+.list {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* Remove any default padding from article lists */
+article.post-entry:first-child {
+    margin-top: 0 !important;
+}
+
+/* Ensure hero banner connects well with content below */
+.hero-banner+* {
+    margin-top: 0 !important;
+}
+
+/* Override any theme-specific spacing */
+.main> :first-child {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
 }
 
 @media (max-width: 768px) {
@@ -120,6 +154,14 @@ body::after {
 
     .post-entry {
         margin-bottom: 1rem !important;
+    }
+
+    .newsletter-inline-widget {
+        margin: 0.5rem auto 0.75rem auto !important;
+    }
+
+    .news-section-header {
+        margin: 0.5rem auto 0.75rem auto !important;
     }
 }
 
@@ -320,117 +362,6 @@ body::after {
     font-size: 0.9rem;
 }
 
-/* Live Price Ticker Widget */
-.crypto-ticker-widget {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
-    padding: 1.5rem;
-    margin: 2rem 0;
-    overflow: hidden;
-}
-
-.ticker-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1rem;
-}
-
-.ticker-item-card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 12px;
-    padding: 1rem;
-    transition: all 0.3s ease;
-}
-
-.ticker-item-card:hover {
-    background: rgba(255, 255, 255, 0.06);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-}
-
-.ticker-symbol {
-    font-weight: 700;
-    color: #667eea;
-    margin-bottom: 0.25rem;
-}
-
-.ticker-price {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #fff;
-    margin-bottom: 0.25rem;
-}
-
-.ticker-change {
-    font-size: 0.9rem;
-    font-weight: 500;
-}
-
-.ticker-change.positive {
-    color: #10b981;
-}
-
-.ticker-change.negative {
-    color: #f43f5e;
-}
-
-.ticker-change.positive::before {
-    content: '↑ ';
-}
-
-.ticker-change.negative::before {
-    content: '↓ ';
-}
-
-/* Interactive Chart Container */
-.chart-container {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
-    padding: 1.5rem;
-    margin: 2rem 0;
-    min-height: 400px;
-}
-
-.chart-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-}
-
-.chart-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #fff;
-}
-
-.chart-controls {
-    display: flex;
-    gap: 0.5rem;
-}
-
-.chart-control-btn {
-    padding: 0.5rem 1rem;
-    background: rgba(102, 126, 234, 0.1);
-    border: 1px solid rgba(102, 126, 234, 0.2);
-    border-radius: 8px;
-    color: #667eea;
-    font-size: 0.875rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.chart-control-btn:hover,
-.chart-control-btn.active {
-    background: rgba(102, 126, 234, 0.2);
-    border-color: rgba(102, 126, 234, 0.4);
-}
-
 /* Modern tags */
 .post-tags a,
 .tag-entry {
@@ -529,145 +460,6 @@ input[type="button"]:hover {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Table of contents modern style */
-.toc {
-    background: rgba(255, 255, 255, 0.05) !important;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    border-radius: 16px !important;
-    padding: 1.5rem !important;
-}
-
-.toc details summary {
-    font-weight: 600 !important;
-    cursor: pointer;
-    padding: 0.75rem;
-    border-radius: 10px;
-    transition: all 0.3s ease;
-    color: #667eea !important;
-}
-
-.toc details summary:hover {
-    background: rgba(102, 126, 234, 0.1);
-    padding-left: 1rem;
-}
-
-/* Code blocks enhancement */
-.highlight,
-pre {
-    border-radius: 16px !important;
-    padding: 1.5rem !important;
-    background: rgba(30, 30, 46, 0.9) !important;
-    backdrop-filter: blur(10px);
-    box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-}
-
-code {
-    background: rgba(102, 126, 234, 0.15) !important;
-    color: #a3b7ff !important;
-    padding: 0.25rem 0.5rem !important;
-    border-radius: 6px !important;
-    font-size: 0.9em !important;
-    font-weight: 500;
-}
-
-/* Pagination modern style */
-.pagination {
-    gap: 0.75rem !important;
-    margin: 3rem 0 !important;
-}
-
-.pagination a,
-.pagination .current {
-    padding: 0.875rem 1.25rem !important;
-    border-radius: 10px !important;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    transition: all 0.3s ease !important;
-    background: rgba(255, 255, 255, 0.05) !important;
-}
-
-.pagination a:hover {
-    background: rgba(102, 126, 234, 0.15) !important;
-    border-color: rgba(102, 126, 234, 0.3) !important;
-    transform: translateY(-2px) !important;
-}
-
-.pagination .current {
-    background: var(--gradient-primary) !important;
-    color: white !important;
-    border: none !important;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3) !important;
-}
-
-/* Search box modern style */
-#searchbox {
-    border-radius: 16px !important;
-    padding: 2rem !important;
-    background: rgba(255, 255, 255, 0.05) !important;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-}
-
-#searchbox input {
-    background: rgba(255, 255, 255, 0.08) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    border-radius: 10px !important;
-    padding: 1rem 1.25rem !important;
-    font-size: 1.05rem !important;
-    color: #fff !important;
-    transition: all 0.3s ease !important;
-}
-
-#searchbox input::placeholder {
-    color: rgba(255, 255, 255, 0.5) !important;
-}
-
-#searchbox input:focus {
-    border-color: #667eea !important;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2) !important;
-    outline: none !important;
-    background: rgba(255, 255, 255, 0.1) !important;
-}
-
-/* Archive page enhancements */
-.archive-entry {
-    padding: 1.25rem !important;
-    margin: 0.75rem 0 !important;
-    border-radius: 12px !important;
-    background: rgba(255, 255, 255, 0.03) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    transition: all 0.3s ease !important;
-}
-
-.archive-entry:hover {
-    background: rgba(102, 126, 234, 0.08) !important;
-    padding-left: 1.75rem !important;
-    border-color: rgba(102, 126, 234, 0.2) !important;
-}
-
-/* Breadcrumbs modern style */
-.breadcrumbs {
-    padding: 1.25rem 0 !important;
-    font-size: 0.95rem !important;
-}
-
-.breadcrumbs a {
-    color: #667eea !important;
-    font-weight: 500 !important;
-    padding: 0.25rem 0.5rem;
-    border-radius: 6px;
-    transition: all 0.2s ease !important;
-}
-
-.breadcrumbs a:hover {
-    background: rgba(102, 126, 234, 0.1);
-    color: #764ba2 !important;
-}
-
 /* Light mode adjustments */
 .light body {
     background:
@@ -699,55 +491,11 @@ code {
     .nav {
         padding: 1rem 0 !important;
     }
-
-    .ticker-grid {
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    }
-
-    .chart-controls {
-        flex-wrap: wrap;
-    }
-}
-
-/* Loading animation */
-@keyframes pulse {
-
-    0%,
-    100% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0.5;
-    }
-}
-
-.loading {
-    animation: pulse 2s infinite;
 }
 
 /* Smooth scroll behavior */
 html {
     scroll-behavior: smooth;
-}
-
-/* Reduce spacing between sections on homepage */
-.main {
-    padding-top: 1rem !important;
-}
-
-.post-entry:first-of-type {
-    margin-top: 0 !important;
-}
-
-/* Remove extra padding from content */
-.list {
-    padding: 0 !important;
-}
-
-/* Tighten spacing after newsletter */
-.newsletter-inline-widget+* {
-    margin-top: 0 !important;
 }
 
 /* Focus visible for accessibility */
@@ -769,5 +517,122 @@ html {
 
     * {
         transition: none !important;
+    }
+}
+
+/* CRITICAL SPACING FIXES - Add this to custom.css AFTER all other styles */
+
+/* Force remove ALL spacing between hero and content */
+.hero-banner {
+    max-width: 1100px !important;
+    margin: 0 auto 0 auto !important;
+    /* ZERO bottom margin */
+    position: relative !important;
+}
+
+/* Ensure price grid uses 5 columns for 10 items */
+.hero-price-grid {
+    display: grid !important;
+    grid-template-columns: repeat(5, 1fr) !important;
+    gap: 1rem !important;
+    margin: 2rem auto !important;
+    max-width: 100% !important;
+}
+
+/* Responsive grid adjustments */
+@media (max-width: 1200px) {
+    .hero-price-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+    }
+}
+
+@media (max-width: 900px) {
+    .hero-price-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+}
+
+@media (max-width: 640px) {
+    .hero-price-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+/* Kill ALL spacing from PaperMod theme */
+main.main,
+.main {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+}
+
+/* Newsletter widget - minimal spacing */
+.newsletter-inline-widget {
+    max-width: 1100px !important;
+    margin: 0 auto 1rem auto !important;
+    padding-top: 0 !important;
+}
+
+/* News section header - minimal spacing */
+.news-section-header {
+    max-width: 1100px !important;
+    margin: 0 auto 1rem auto !important;
+    padding-top: 0 !important;
+}
+
+/* Force first element after hero to have no top margin */
+.hero-banner+*,
+.hero-banner~.newsletter-inline-widget,
+.hero-banner~.news-section-header {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+/* Kill any container padding that might be adding space */
+.list,
+.list-container,
+article.first-entry,
+article.post-entry:first-child {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+/* If there's a wrapper div, kill its spacing too */
+.hero-banner+div,
+.hero-banner+section,
+.hero-banner+article {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+/* Nuclear option - target any element that comes after hero */
+.hero-banner~* {
+    margin-top: 0 !important;
+}
+
+/* Then restore proper spacing for elements that need it */
+.post-entry {
+    margin-top: 0 !important;
+    margin-bottom: 1.5rem !important;
+}
+
+.post-entry+.post-entry {
+    margin-top: 1.5rem !important;
+}
+
+/* Ensure consistent width alignment */
+.hero-banner,
+.newsletter-inline-widget,
+.news-section-header,
+.post-entry {
+    max-width: 1100px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+/* Add small consistent padding on mobile */
+@media (max-width: 1132px) {
+    .hero-banner {
+        margin-left: 1rem !important;
+        margin-right: 1rem !important;
     }
 }
