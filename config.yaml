@@ -1,0 +1,78 @@
+baseURL: "https://blockwirenews.com/"
+languageCode: "en-us"
+title: "BlockWire News"
+pagination:
+  pagerSize: 10
+  
+# Remove theme line - no more PaperMod!
+# theme: "PaperMod"
+
+params:
+  description: "Daily crypto news briefs — Bitcoin, DeFi, Web3, regulation & market moves."
+  author: "BlockWire News"
+  images:
+    - "/img/blockwire-og.png"
+  
+  # Social links
+  socialLinks:
+    twitter: "https://twitter.com/blockwirenews"
+    telegram: "https://t.me/blockwirenews"
+    discord: "https://discord.gg/blockwire"
+    email: "contact@blockwirenews.com"
+
+# Menu configuration
+menu:
+  main:
+    - name: "Home"
+      url: "/"
+      weight: 1
+    - name: "News"
+      url: "/news/"
+      weight: 2
+    - name: "DeFi"
+      url: "/categories/defi/"
+      weight: 3
+    - name: "Bitcoin"
+      url: "/categories/bitcoin/"
+      weight: 4
+    - name: "Web3"
+      url: "/categories/web3/"
+      weight: 5
+    - name: "Subscribe"
+      url: "/subscribe/"
+      weight: 6
+    - name: "Search"
+      url: "/search/"
+      weight: 7
+
+# Taxonomies
+taxonomies:
+  category: "categories"
+  tag: "tags"
+
+# Markdown settings
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  highlight:
+    style: "monokai"
+
+# Output formats
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+
+# Permalinks
+permalinks:
+  posts: "/:year/:month/:slug/"
+
+# RSS
+rssLimit: 20
+
+# Sitemap
+sitemap:
+  changefreq: "weekly"
+  priority: 0.5

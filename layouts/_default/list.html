@@ -1,52 +1,160 @@
-{{- define "main" }}
+{{ define "head" }}
+<style>
+  .archive {
+    max-width: var(--max-width);
+    margin: 2rem auto;
+    padding: 0 2rem;
+  }
 
-{{- if .IsHome }}
-<!-- Hero Section for Homepage Only -->
-{{- partial "home-info.html" . }}
+  .archive-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
 
-<!-- News Header directly after hero -->
-{{- partial "news-header.html" . }}
-{{- end }}
+  .archive-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+  }
 
-<!-- Post List -->
-{{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
-{{- $paginator := .Paginate $pages }}
+  .archive-description {
+    color: var(--text-muted);
+    font-size: 1.125rem;
+  }
 
-<div class="post-list">
-  {{- range $paginator.Pages }}
-  <article class="post-entry">
-    <header class="entry-header">
-      <h2>
-        <a href="{{ .Permalink }}" aria-label="{{ .Title | plainify }}">
-          {{- .Title -}}
-        </a>
-      </h2>
-    </header>
-    <div class="entry-content">
-      <p>
-        {{- if .Params.description }}
-        {{- .Params.description | plainify | htmlUnescape | truncate 200 -}}
-        {{- else if .Description }}
-        {{- .Description | plainify | htmlUnescape | truncate 200 -}}
-        {{- else if .Summary }}
-        {{- .Summary | plainify | htmlUnescape | truncate 200 -}}
-        {{- else }}
-        {{- .Plain | truncate 200 -}}
-        {{- end -}}
-      </p>
-    </div>
-    <footer class="entry-footer">
-      <span class="post-date">{{ .Date.Format "January 2, 2006" }}</span>
-      <span class="read-time"> · {{ math.Round (div (countwords .Content) 200.0) }} min</span>
-      {{- if .Params.categories }}
-      <span class="post-category"> · {{ index .Params.categories 0 }}</span>
-      {{- end }}
-    </footer>
-    <a class="entry-link" href="{{ .Permalink }}"></a>
-  </article>
-  {{- end }}
+  .posts-grid {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .post-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .post-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateX(4px);
+    box-shadow: 0 10px 40px rgba(139, 92, 246, 0.15);
+  }
+
+  .post-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+    color: white;
+  }
+
+  .post-excerpt {
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .post-meta {
+    display: flex;
+    gap: 1rem;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.875rem;
+    flex-wrap: wrap;
+  }
+
+  .pagination {
+    margin-top: 3rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .pagination a,
+  .pagination span {
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text-muted);
+    transition: all 0.3s ease;
+  }
+
+  .pagination a:hover {
+    background: rgba(139, 92, 246, 0.2);
+    border-color: rgba(139, 92, 246, 0.4);
+    color: white;
+  }
+
+  .pagination .active {
+    background: rgba(139, 92, 246, 0.2);
+    color: white;
+    border-color: rgba(139, 92, 246, 0.4);
+  }
+
+  @media (max-width: 768px) {
+    .archive {
+      padding: 0 1rem;
+    }
+
+    .archive-title {
+      font-size: 2rem;
+    }
+  }
+</style>
+{{ end }}
+
+{{ define "main" }}
+<div class="archive">
+  <header class="archive-header">
+    <h1 class="archive-title">{{ .Title }}</h1>
+    {{ with .Description }}
+    <p class="archive-description">{{ . }}</p>
+    {{ end }}
+  </header>
+
+  <div class="posts-grid">
+    {{ range .Paginator.Pages }}
+    <a href="{{ .Permalink }}" class="post-card">
+      <h2 class="post-title">{{ .Title }}</h2>
+      <p class="post-excerpt">{{ .Summary | truncate 150 }}</p>
+      <div class="post-meta">
+        <span>📅 {{ .Date.Format "Jan 2, 2006" }}</span>
+        <span>📚 {{ .ReadingTime }} min read</span>
+        {{ with .Params.categories }}
+        <span>🏷️ {{ index . 0 }}</span>
+        {{ end }}
+      </div>
+    </a>
+    {{ end }}
+  </div>
+
+  {{ if gt .Paginator.TotalPages 1 }}
+  <nav class="pagination">
+    {{ if .Paginator.HasPrev }}
+    <a href="{{ .Paginator.Prev.URL }}">← Previous</a>
+    {{ end }}
+
+    {{ range .Paginator.Pagers }}
+    {{ if eq . $.Paginator }}
+    <span class="active">{{ .PageNumber }}</span>
+    {{ else }}
+    <a href="{{ .URL }}">{{ .PageNumber }}</a>
+    {{ end }}
+    {{ end }}
+
+    {{ if .Paginator.HasNext }}
+    <a href="{{ .Paginator.Next.URL }}">Next →</a>
+    {{ end }}
+  </nav>
+  {{ end }}
 </div>
-
-{{- template "_internal/pagination.html" . }}
-
-{{- end }}{{/* end main */}}
+{{ end }}

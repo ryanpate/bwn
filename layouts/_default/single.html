@@ -1,0 +1,221 @@
+{{ define "head" }}
+<style>
+    .article {
+        max-width: 900px;
+        margin: 2rem auto;
+        padding: 0 2rem;
+    }
+    
+    .article-header {
+        margin-bottom: 2rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid var(--border);
+    }
+    
+    .article-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        line-height: 1.2;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, #ffffff, #a78bfa);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    
+    .article-meta {
+        display: flex;
+        gap: 1.5rem;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        flex-wrap: wrap;
+    }
+    
+    .article-content {
+        font-size: 1.125rem;
+        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.9);
+    }
+    
+    .article-content h2 {
+        margin: 2rem 0 1rem;
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: white;
+    }
+    
+    .article-content h3 {
+        margin: 1.5rem 0 0.75rem;
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: white;
+    }
+    
+    .article-content p {
+        margin-bottom: 1.5rem;
+    }
+    
+    .article-content a {
+        color: var(--primary);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+        transition: color 0.3s ease;
+    }
+    
+    .article-content a:hover {
+        color: #a78bfa;
+    }
+    
+    .article-content blockquote {
+        margin: 2rem 0;
+        padding: 1rem 1.5rem;
+        background: rgba(139, 92, 246, 0.1);
+        border-left: 4px solid var(--primary);
+        font-style: italic;
+    }
+    
+    .article-content pre {
+        background: rgba(0, 0, 0, 0.5);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 1rem;
+        overflow-x: auto;
+        margin: 1.5rem 0;
+    }
+    
+    .article-content code {
+        background: rgba(139, 92, 246, 0.1);
+        padding: 0.2rem 0.4rem;
+        border-radius: 4px;
+        font-family: 'Courier New', monospace;
+        font-size: 0.9em;
+    }
+    
+    .article-content ul,
+    .article-content ol {
+        margin: 1.5rem 0;
+        padding-left: 2rem;
+    }
+    
+    .article-content li {
+        margin-bottom: 0.5rem;
+    }
+    
+    .article-tags {
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--border);
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+    
+    .tag {
+        background: rgba(139, 92, 246, 0.1);
+        color: var(--primary);
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        text-decoration: none;
+        font-size: 0.875rem;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(139, 92, 246, 0.2);
+    }
+    
+    .tag:hover {
+        background: rgba(139, 92, 246, 0.2);
+        transform: translateY(-2px);
+    }
+    
+    .article-nav {
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--border);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+    }
+    
+    .article-nav-item {
+        text-decoration: none;
+        color: inherit;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+        transition: all 0.3s ease;
+    }
+    
+    .article-nav-item:hover {
+        background: rgba(255, 255, 255, 0.08);
+        transform: translateY(-2px);
+    }
+    
+    .article-nav-label {
+        font-size: 0.875rem;
+        color: var(--text-muted);
+        margin-bottom: 0.5rem;
+    }
+    
+    .article-nav-title {
+        font-weight: 600;
+    }
+    
+    @media (max-width: 768px) {
+        .article-title {
+            font-size: 2rem;
+        }
+        
+        .article {
+            padding: 0 1rem;
+        }
+        
+        .article-nav {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{{ end }}
+
+{{ define "main" }}
+<article class="article">
+    <header class="article-header">
+        <h1 class="article-title">{{ .Title }}</h1>
+        <div class="article-meta">
+            <span>📅 {{ .Date.Format "January 2, 2006" }}</span>
+            <span>📚 {{ .ReadingTime }} min read</span>
+            {{ with .Params.author }}
+            <span>✍️ {{ . }}</span>
+            {{ end }}
+            {{ with .Params.categories }}
+            <span>🏷️ {{ delimit . ", " }}</span>
+            {{ end }}
+        </div>
+    </header>
+    
+    <div class="article-content">
+        {{ .Content }}
+    </div>
+    
+    {{ with .Params.tags }}
+    <div class="article-tags">
+        {{ range . }}
+        <a href="/tags/{{ . | urlize }}/" class="tag">#{{ . }}</a>
+        {{ end }}
+    </div>
+    {{ end }}
+    
+    <nav class="article-nav">
+        {{ with .PrevInSection }}
+        <a href="{{ .Permalink }}" class="article-nav-item">
+            <div class="article-nav-label">← Previous</div>
+            <div class="article-nav-title">{{ .Title }}</div>
+        </a>
+        {{ end }}
+        {{ with .NextInSection }}
+        <a href="{{ .Permalink }}" class="article-nav-item" style="text-align: right;">
+            <div class="article-nav-label">Next →</div>
+            <div class="article-nav-title">{{ .Title }}</div>
+        </a>
+        {{ end }}
+    </nav>
+</article>
+{{ end }}
