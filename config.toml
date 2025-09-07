@@ -73,19 +73,12 @@ enableGitInfo = false
     imageHeight = 120
     imageTitle = "BlockWire Logo"
 
-  # Social Icons
-  [[params.socialIcons]]
-    name = "x"  # Changed from twitter to x
-    url = "https://x.com/blockwirenews"
-  [[params.socialIcons]]
-    name = "telegram"
-    url = "https://t.me/blockwirenews"
-  [[params.socialIcons]]
-    name = "discord"
-    url = "https://discord.gg/blockwirenews"
-  [[params.socialIcons]]
-    name = "email"
-    url = "mailto:contact@blockwirenews.com"
+  # Social Icons - Disabled to prevent duplicate display
+  # Social icons are now integrated into the hero section
+  # If you want them in the footer, uncomment below:
+  # [[params.socialIcons]]
+  #   name = "x"
+  #   url = "https://x.com/blockwirenews"
 
   # Edit Post
   [params.editPost]
@@ -102,10 +95,10 @@ enableGitInfo = false
     responsiveImages = true
     defaultImage = "/img/post-default.jpg"
 
-  # Homepage configuration
+  # Homepage configuration - Empty to prevent duplicate display
   [params.homeInfoParams]
-    Title = "BlockWire News"
-    Content = "Real-Time Crypto Intelligence"
+    Title = ""
+    Content = ""
 
   # Search
   [params.fuseOpts]
@@ -167,11 +160,6 @@ enableGitInfo = false
   url = "/search/"
   weight = 60
 
-[[menu.main]]
-  name = "Market"
-  url = "/pages/market-overview/"
-  weight = 15
-  
 # Sitemap configuration
 [sitemap]
   changefreq = "daily"

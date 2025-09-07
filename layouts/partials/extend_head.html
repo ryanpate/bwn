@@ -180,7 +180,181 @@
             opacity: 0;
         }
     }
+
+    /* Navigation Restructure Styles */
+    header.nav,
+    .nav {
+        background: transparent !important;
+        backdrop-filter: blur(10px) !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+        box-shadow: none !important;
+        padding: 1rem 2rem !important;
+    }
+
+    .nav-left {
+        display: flex !important;
+        align-items: center !important;
+        gap: 1rem !important;
+    }
+
+    .nav-right {
+        display: flex !important;
+        align-items: center !important;
+        margin-left: auto !important;
+    }
+
+    /* Style the theme toggle */
+    .nav-left button,
+    #theme-toggle {
+        background: rgba(255, 255, 255, 0.1) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        border-radius: 8px !important;
+        padding: 0.5rem !important;
+        cursor: pointer !important;
+        transition: all 0.3s ease !important;
+    }
+
+    .nav-left button:hover,
+    #theme-toggle:hover {
+        background: rgba(255, 255, 255, 0.2) !important;
+    }
+
+    /* Logo styling */
+    .nav-left .logo a,
+    .logo a {
+        font-size: 1.5rem !important;
+        font-weight: 800 !important;
+        color: #ffffff !important;
+        text-transform: uppercase !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 0.5rem !important;
+        text-decoration: none !important;
+    }
+
+    /* Add icon to logo */
+    .nav-left .logo a::before,
+    .logo a::before {
+        content: '' !important;
+        display: inline-block !important;
+        width: 32px !important;
+        height: 32px !important;
+        background: linear-gradient(135deg, #8b5cf6, #7c3aed) !important;
+        border-radius: 8px !important;
+        flex-shrink: 0 !important;
+    }
+
+    /* Menu styling */
+    .nav-right ul,
+    .nav-right #menu,
+    #menu {
+        display: flex !important;
+        gap: 1.5rem !important;
+        list-style: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .nav-right a,
+    #menu a {
+        color: rgba(255, 255, 255, 0.9) !important;
+        text-decoration: none !important;
+        padding: 0.5rem 1rem !important;
+        border-radius: 8px !important;
+        transition: all 0.3s ease !important;
+        font-weight: 500 !important;
+    }
+
+    .nav-right a:hover,
+    #menu a:hover {
+        background: rgba(255, 255, 255, 0.15) !important;
+        color: #ffffff !important;
+    }
 </style>
+
+<!-- Navigation Restructure Script -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Wait a bit for PaperMod to initialize
+        setTimeout(function () {
+            // Find the navigation elements
+            const nav = document.querySelector('header.nav') || document.querySelector('.nav');
+            if (!nav) return;
+
+            // Find the container
+            const container = nav.querySelector('div') || nav;
+            if (!container) return;
+
+            // Find logo
+            const logo = container.querySelector('.logo');
+
+            // Find theme toggle - PaperMod uses an ID of 'theme-toggle'
+            const themeToggle = document.getElementById('theme-toggle') ||
+                container.querySelector('button[aria-label*="theme"]') ||
+                container.querySelector('button');
+
+            // Find menu
+            const menu = document.getElementById('menu') ||
+                container.querySelector('ul') ||
+                container.querySelector('nav');
+
+            // Only restructure if we have the elements
+            if (!logo || !menu) return;
+
+            // Create new container structure
+            const leftContainer = document.createElement('div');
+            leftContainer.className = 'nav-left';
+
+            const rightContainer = document.createElement('div');
+            rightContainer.className = 'nav-right';
+
+            // Move theme toggle to left (if it exists)
+            if (themeToggle) {
+                const themeBtn = themeToggle.parentElement === container ? themeToggle : themeToggle.closest('button') || themeToggle;
+                leftContainer.appendChild(themeBtn.cloneNode(true));
+                themeBtn.style.display = 'none';
+            }
+
+            // Move logo to left
+            leftContainer.appendChild(logo.cloneNode(true));
+
+            // Move menu to right
+            rightContainer.appendChild(menu.cloneNode(true));
+
+            // Clear container and add new structure
+            container.innerHTML = '';
+            container.appendChild(leftContainer);
+            container.appendChild(rightContainer);
+
+            // Apply container styles
+            container.style.cssText = 'display: flex !important; align-items: center !important; justify-content: space-between !important; width: 100% !important; padding: 0 !important;';
+
+            // Re-attach theme toggle functionality
+            const newThemeToggle = leftContainer.querySelector('#theme-toggle');
+            if (newThemeToggle) {
+                newThemeToggle.addEventListener('click', function () {
+                    // Toggle theme - PaperMod's way
+                    if (localStorage.getItem("pref-theme") === "dark") {
+                        document.body.classList.remove('dark');
+                        localStorage.setItem("pref-theme", 'light');
+                    } else if (localStorage.getItem("pref-theme") === "light") {
+                        document.body.classList.add('dark');
+                        localStorage.setItem("pref-theme", 'dark');
+                    } else {
+                        // First time - check system preference
+                        if (document.body.classList.contains('dark')) {
+                            document.body.classList.remove('dark');
+                            localStorage.setItem("pref-theme", 'light');
+                        } else {
+                            document.body.classList.add('dark');
+                            localStorage.setItem("pref-theme", 'dark');
+                        }
+                    }
+                });
+            }
+        }, 100);
+    });
+</script>
 
 <!-- Generate background particles -->
 <script>
@@ -201,4 +375,5 @@
             particlesContainer.appendChild(particle);
         }
     })();
+
 </script>
