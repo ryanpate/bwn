@@ -4,7 +4,7 @@ date: 2025-09-07T11:15:05.814086Z
 draft: false
 description: "Exploring how tokenization is impacting Pokémon collectibles in the crypto space."
 tags: ["crypto","news","blockchain"]
-categories: ["News"]
+categories: ["News", "DeFi"]
 source_url: "https://www.bankless.com/read/will-tokenization-change-pokemon-forever"
 canonicalURL: "https://www.bankless.com/read/will-tokenization-change-pokemon-forever"
 seo:

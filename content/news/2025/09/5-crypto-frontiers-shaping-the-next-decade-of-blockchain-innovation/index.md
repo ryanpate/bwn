@@ -4,7 +4,7 @@ date: 2025-09-03T11:15:45.567402Z
 draft: false
 description: "Explore five emerging crypto frontiers—restaking, DeFi-TradFi fusion, RWAs, ZK tech, and decentralized social—that could transform finance and culture."
 tags: ["crypto","news","blockchain"]
-categories: ["News"]
+categories: ["News", "DeFi", "Web3"]
 source_url: "https://www.bankless.com/read/5-crypto-frontiers-that-could-shape-the-next-decade"
 canonicalURL: "https://www.bankless.com/read/5-crypto-frontiers-that-could-shape-the-next-decade"
 seo:

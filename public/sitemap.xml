@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/categories/bitcoin/</loc>
+    <lastmod>2025-09-07T19:14:06+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>http://localhost:1313/tags/blockchain/</loc>
     <lastmod>2025-09-07T19:14:06+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -18,6 +23,11 @@
     <priority>0.5</priority>
   </url><url>
     <loc>http://localhost:1313/tags/crypto/</loc>
+    <lastmod>2025-09-07T19:14:06+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://localhost:1313/categories/defi/</loc>
     <lastmod>2025-09-07T19:14:06+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -48,6 +58,11 @@
     <priority>0.5</priority>
   </url><url>
     <loc>http://localhost:1313/news/2025/09/bank-of-america-highlights-tokenization-s-liquidity-benefits-and-challenges/</loc>
+    <lastmod>2025-09-07T15:17:25+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>http://localhost:1313/categories/web3/</loc>
     <lastmod>2025-09-07T15:17:25+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

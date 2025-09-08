@@ -4,7 +4,7 @@ date: 2025-09-03T03:28:35.082249Z
 draft: false
 description: "Uniswap Foundation and 18 crypto groups urge Treasury Secretary Bessent to adopt Wyoming's DUNA framework, clarifying legal status for DAOs in the US."
 tags: ["crypto","news","blockchain"]
-categories: ["News"]
+categories: ["News", "DeFi", "Web3"]
 source_url: "https://cryptoslate.com/uniswap-foundation-leads-coalition-urging-treasury-secretary-bessent-to-clarify-legal-framework-for-daos/"
 canonicalURL: "https://cryptoslate.com/uniswap-foundation-leads-coalition-urging-treasury-secretary-bessent-to-clarify-legal-framework-for-daos/"
 seo:

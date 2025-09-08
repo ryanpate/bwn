@@ -4,7 +4,7 @@ date: 2025-09-02T15:21:06.071411Z
 draft: false
 description: "Bitcoin, XRP, and Solana gain on expectations of Fed rate cuts, dollar weakness, and increased market conviction in crypto assets."
 tags: ["crypto","news","blockchain"]
-categories: ["News"]
+categories: ["News", "DeFi", "Bitcoin", "Web3"]
 source_url: "https://decrypt.co/337665/bitcoin-xrp-solana-bounce-back-heres-whats-going-on"
 canonicalURL: "https://decrypt.co/337665/bitcoin-xrp-solana-bounce-back-heres-whats-going-on"
 seo:

@@ -9,11 +9,32 @@
     <lastBuildDate>Sun, 07 Sep 2025 19:14:06 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Bitcoin</title>
+      <link>http://localhost:1313/categories/bitcoin/</link>
+      <pubDate>Sun, 07 Sep 2025 19:14:06 +0000</pubDate>
+      <guid>http://localhost:1313/categories/bitcoin/</guid>
+      <description>&lt;p&gt;Comprehensive Bitcoin coverage from BlockWire. Follow the latest developments in the world&amp;rsquo;s first and largest cryptocurrency, from technical upgrades to market analysis.&lt;/p&gt;&#xA;&lt;h2 id=&#34;what-youll-find-here&#34;&gt;What You&amp;rsquo;ll Find Here&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;Market Analysis&lt;/strong&gt;: Price movements, trading volumes, and market sentiment&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Network Updates&lt;/strong&gt;: Protocol improvements, mining difficulty, and hash rate trends&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Institutional Adoption&lt;/strong&gt;: Corporate treasury strategies, ETF developments, and regulatory news&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Technology&lt;/strong&gt;: Lightning Network, Taproot, and other technical innovations&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>DeFi</title>
+      <link>http://localhost:1313/categories/defi/</link>
+      <pubDate>Sun, 07 Sep 2025 19:14:06 +0000</pubDate>
+      <guid>http://localhost:1313/categories/defi/</guid>
+      <description>&lt;p&gt;Welcome to BlockWire&amp;rsquo;s DeFi coverage. Stay updated with the latest developments in decentralized finance, from protocol launches and governance updates to yield strategies and market analysis.&lt;/p&gt;&#xA;&lt;h2 id=&#34;what-youll-find-here&#34;&gt;What You&amp;rsquo;ll Find Here&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;Protocol Updates&lt;/strong&gt;: Latest news from major DeFi platforms like Uniswap, Aave, Compound, and MakerDAO&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Yield Strategies&lt;/strong&gt;: Analysis of farming opportunities, APY trends, and risk assessments&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Market Analysis&lt;/strong&gt;: TVL movements, liquidity trends, and DeFi market dynamics&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Innovation&lt;/strong&gt;: New protocols, mechanisms, and the evolution of decentralized finance&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
+    </item>
+    <item>
       <title>News</title>
       <link>http://localhost:1313/categories/news/</link>
       <pubDate>Sun, 07 Sep 2025 19:14:06 +0000</pubDate>
       <guid>http://localhost:1313/categories/news/</guid>
       <description></description>
+    </item>
+    <item>
+      <title>Web3</title>
+      <link>http://localhost:1313/categories/web3/</link>
+      <pubDate>Sun, 07 Sep 2025 15:17:25 +0000</pubDate>
+      <guid>http://localhost:1313/categories/web3/</guid>
+      <description>&lt;p&gt;Explore the Web3 revolution with BlockWire. From NFT marketplaces and DAO governance to metaverse projects and decentralized social networks, stay informed on the future of the internet.&lt;/p&gt;&#xA;&lt;h2 id=&#34;what-youll-find-here&#34;&gt;What You&amp;rsquo;ll Find Here&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;NFT Market&lt;/strong&gt;: Trends, collections, marketplaces, and creator economies&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;DAOs &amp;amp; Governance&lt;/strong&gt;: Decentralized organizations, governance proposals, and community initiatives&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Metaverse &amp;amp; Gaming&lt;/strong&gt;: Virtual worlds, blockchain gaming, and digital asset ownership&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Infrastructure&lt;/strong&gt;: Layer 2 solutions, cross-chain bridges, and Web3 development tools&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
     </item>
   </channel>
 </rss>

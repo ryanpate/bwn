@@ -4,7 +4,7 @@ date: 2025-09-07T15:17:25.978185Z
 draft: false
 description: "Bank of America discusses the potential of tokenization in crypto, emphasizing enhanced liquidity and regulatory hurdles."
 tags: ["crypto","news","blockchain"]
-categories: ["News"]
+categories: ["News", "Bitcoin", "Web3"]
 source_url: "https://www.coindesk.com/business/2025/09/06/tokenization-offers-enhanced-liquidity-but-faces-major-hurdles-bofa-says"
 canonicalURL: "https://www.coindesk.com/business/2025/09/06/tokenization-offers-enhanced-liquidity-but-faces-major-hurdles-bofa-says"
 seo:

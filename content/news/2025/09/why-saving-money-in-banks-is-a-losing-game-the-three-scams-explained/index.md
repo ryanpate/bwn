@@ -4,7 +4,7 @@ date: 2025-09-02T13:55:08.649734Z
 draft: false
 description: "Banks steal your crypto and dollar yield through hidden fees, inflation, and money supply expansion. Learn why saving in assets and crypto is smarter."
 tags: ["crypto","news","blockchain"]
-categories: ["News"]
+categories: ["News", "DeFi"]
 source_url: "https://www.bankless.com/read/dont-save-your-money-in-a-bank"
 canonicalURL: "https://www.bankless.com/read/dont-save-your-money-in-a-bank"
 seo:

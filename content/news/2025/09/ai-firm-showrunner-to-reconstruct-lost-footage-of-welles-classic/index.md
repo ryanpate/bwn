@@ -4,7 +4,7 @@ date: 2025-09-07T10:17:21.652879Z
 draft: false
 description: "Showrunner plans to use AI to reconstruct missing footage from Orson Welles' 1942 film, 'The Magnificent Ambersons,' for academic purposes."
 tags: ["crypto","news","blockchain"]
-categories: ["News"]
+categories: ["News", "DeFi"]
 source_url: "https://decrypt.co/338273/ai-reconstruct-lost-orson-welles-film-magnificent-ambersons"
 canonicalURL: "https://decrypt.co/338273/ai-reconstruct-lost-orson-welles-film-magnificent-ambersons"
 seo:

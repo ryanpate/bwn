@@ -4,7 +4,7 @@ date: 2025-09-07T19:14:06.159695Z
 draft: false
 description: "Michael Saylor's Strategy missed S&P 500 inclusion while Robinhood was added, raising questions about the crypto market's visibility in indices."
 tags: ["crypto","news","blockchain"]
-categories: ["News"]
+categories: ["News", "DeFi", "Bitcoin"]
 source_url: "https://cryptoslate.com/why-was-michael-saylors-strategy-snubbed-by-a-sp-500-secret-committee/"
 canonicalURL: "https://cryptoslate.com/why-was-michael-saylors-strategy-snubbed-by-a-sp-500-secret-committee/"
 seo:

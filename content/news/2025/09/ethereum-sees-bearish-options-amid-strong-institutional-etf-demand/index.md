@@ -4,7 +4,7 @@ date: 2025-09-03T15:20:48.053924Z
 draft: false
 description: "Ethereum faces rising bearish options activity as institutional investors pour billions into spot Ethereum ETFs, highlighting market division in crypto."
 tags: ["crypto","news","blockchain"]
-categories: ["News"]
+categories: ["News", "DeFi", "Bitcoin"]
 source_url: "https://decrypt.co/337885/ethereum-institutional-demand-counteract-bearish-options-traders"
 canonicalURL: "https://decrypt.co/337885/ethereum-institutional-demand-counteract-bearish-options-traders"
 seo:

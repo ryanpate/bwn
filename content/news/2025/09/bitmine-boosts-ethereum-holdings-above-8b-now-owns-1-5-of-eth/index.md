@@ -4,7 +4,7 @@ date: 2025-09-02T19:15:48.780739Z
 draft: false
 description: "BitMine Immersion Technologies raises its Ethereum stash to 1.5% of supply, valued over $8 billion, signaling growing corporate interest in crypto assets."
 tags: ["crypto","news","blockchain"]
-categories: ["News"]
+categories: ["News", "Bitcoin"]
 source_url: "https://decrypt.co/337757/bitmines-boosts-ethereum-stash-8-billion"
 canonicalURL: "https://decrypt.co/337757/bitmines-boosts-ethereum-stash-8-billion"
 seo:
