@@ -1,0 +1,498 @@
+{{ define "head" }}
+<style>
+    /* Hero Section */
+    .hero {
+        background: linear-gradient(135deg,
+            rgba(139, 92, 246, 0.3) 0%,
+            rgba(124, 58, 237, 0.2) 25%,
+            rgba(91, 33, 182, 0.15) 50%,
+            rgba(236, 72, 153, 0.2) 75%);
+        border-radius: 20px;
+        padding: 4rem 2rem;
+        margin: 2rem auto;
+        max-width: var(--max-width);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: 
+            linear-gradient(rgba(255,255,255,0.01) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px);
+        background-size: 60px 60px;
+        opacity: 0.4;
+    }
+    
+    .hero-content {
+        position: relative;
+        z-index: 1;
+    }
+    
+    .hero-title {
+        font-size: 3.5rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #a78bfa, #ec4899);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 1rem;
+        letter-spacing: -0.03em;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.25rem;
+        color: var(--text-muted);
+        margin-bottom: 3rem;
+    }
+    
+    .hero-badges {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-bottom: 3rem;
+        flex-wrap: wrap;
+    }
+    
+    .badge {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        padding: 0.5rem 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        backdrop-filter: blur(10px);
+    }
+    
+    /* Price Grid */
+    .price-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 1rem;
+        margin: 3rem 0;
+    }
+    
+    .price-card {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 12px;
+        padding: 1.25rem;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    
+    .price-card:hover {
+        background: rgba(139, 92, 246, 0.15);
+        transform: translateY(-4px);
+        box-shadow: 0 12px 30px rgba(139, 92, 246, 0.25);
+    }
+    
+    .price-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.5rem;
+    }
+    
+    .coin-name {
+        color: var(--text-muted);
+        font-size: 0.85rem;
+    }
+    
+    .coin-symbol {
+        color: var(--primary);
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+    
+    .price-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: white;
+        margin-bottom: 0.25rem;
+    }
+    
+    .price-change {
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+    
+    .price-change.positive {
+        color: #10b981;
+    }
+    
+    .price-change.negative {
+        color: #ef4444;
+    }
+    
+    /* CTA Buttons */
+    .cta-container {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .cta-button {
+        padding: 1rem 2rem;
+        font-size: 1rem;
+        font-weight: 600;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.3s ease;
+    }
+    
+    .cta-primary {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        color: white;
+        box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+    }
+    
+    .cta-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(139, 92, 246, 0.5);
+    }
+    
+    .cta-secondary {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+    }
+    
+    .cta-secondary:hover {
+        background: rgba(255, 255, 255, 0.15);
+        transform: translateY(-2px);
+    }
+    
+    /* News Section */
+    .news-section {
+        margin: 4rem 0;
+    }
+    
+    .section-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 0.5rem;
+    }
+    
+    .section-subtitle {
+        color: var(--text-muted);
+    }
+    
+    .articles-grid {
+        display: grid;
+        gap: 1.5rem;
+    }
+    
+    .article-card {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 1.5rem;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        color: inherit;
+        display: block;
+    }
+    
+    .article-card:hover {
+        background: rgba(255, 255, 255, 0.08);
+        transform: translateX(4px);
+        box-shadow: 0 10px 40px rgba(139, 92, 246, 0.15);
+    }
+    
+    .article-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+        line-height: 1.4;
+    }
+    
+    .article-excerpt {
+        color: var(--text-muted);
+        line-height: 1.6;
+        margin-bottom: 1rem;
+    }
+    
+    .article-meta {
+        display: flex;
+        gap: 1rem;
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.875rem;
+    }
+    
+    /* Ad Styles */
+    .homepage-ad,
+    .in-feed-ad {
+        margin: 2rem 0;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        min-height: 100px;
+        position: relative;
+    }
+    
+    .homepage-ad::before,
+    .in-feed-ad::before {
+        content: 'Advertisement';
+        position: absolute;
+        top: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #0a0e27;
+        padding: 0 0.5rem;
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.3);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+    }
+    
+    /* Responsive */
+    @media (max-width: 1200px) {
+        .price-grid {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+    
+    @media (max-width: 900px) {
+        .price-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        
+        .hero-title {
+            font-size: 2.5rem;
+        }
+    }
+    
+    @media (max-width: 600px) {
+        .price-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .hero-title {
+            font-size: 2rem;
+        }
+        
+        .hero {
+            padding: 2rem 1rem;
+        }
+    }
+</style>
+{{ end }}
+
+{{ define "main" }}
+<div class="container">
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">REAL-TIME CRYPTO INTELLIGENCE</h1>
+            <p class="hero-subtitle">Your trusted source for breaking crypto news and market analysis</p>
+            
+            <div class="hero-badges">
+                <div class="badge">
+                    <span style="color: #10b981;">●</span>
+                    24/7 Coverage
+                </div>
+                <div class="badge">
+                    📊 Deep Analysis
+                </div>
+                <div class="badge">
+                    ⚡ Breaking News
+                </div>
+            </div>
+            
+            <!-- Price Ticker Grid -->
+            <div class="price-grid">
+                <div class="price-card">
+                    <div class="price-header">
+                        <span class="coin-name">Bitcoin</span>
+                        <span class="coin-symbol">BTC</span>
+                    </div>
+                    <div class="price-value">$68,432</div>
+                    <div class="price-change positive">↑ 2.3%</div>
+                </div>
+                
+                <div class="price-card">
+                    <div class="price-header">
+                        <span class="coin-name">Ethereum</span>
+                        <span class="coin-symbol">ETH</span>
+                    </div>
+                    <div class="price-value">$4,368</div>
+                    <div class="price-change positive">↑ 1.8%</div>
+                </div>
+                
+                <div class="price-card">
+                    <div class="price-header">
+                        <span class="coin-name">Solana</span>
+                        <span class="coin-symbol">SOL</span>
+                    </div>
+                    <div class="price-value">$142.50</div>
+                    <div class="price-change negative">↓ 0.5%</div>
+                </div>
+                
+                <div class="price-card">
+                    <div class="price-header">
+                        <span class="coin-name">Binance</span>
+                        <span class="coin-symbol">BNB</span>
+                    </div>
+                    <div class="price-value">$412.80</div>
+                    <div class="price-change positive">↑ 3.2%</div>
+                </div>
+                
+                <div class="price-card">
+                    <div class="price-header">
+                        <span class="coin-name">XRP</span>
+                        <span class="coin-symbol">XRP</span>
+                    </div>
+                    <div class="price-value">$0.58</div>
+                    <div class="price-change positive">↑ 1.2%</div>
+                </div>
+                
+                <div class="price-card">
+                    <div class="price-header">
+                        <span class="coin-name">Cardano</span>
+                        <span class="coin-symbol">ADA</span>
+                    </div>
+                    <div class="price-value">$0.52</div>
+                    <div class="price-change negative">↓ 1.1%</div>
+                </div>
+                
+                <div class="price-card">
+                    <div class="price-header">
+                        <span class="coin-name">Avalanche</span>
+                        <span class="coin-symbol">AVAX</span>
+                    </div>
+                    <div class="price-value">$28.45</div>
+                    <div class="price-change positive">↑ 2.8%</div>
+                </div>
+                
+                <div class="price-card">
+                    <div class="price-header">
+                        <span class="coin-name">Polygon</span>
+                        <span class="coin-symbol">MATIC</span>
+                    </div>
+                    <div class="price-value">$0.68</div>
+                    <div class="price-change positive">↑ 1.5%</div>
+                </div>
+                
+                <div class="price-card">
+                    <div class="price-header">
+                        <span class="coin-name">Polkadot</span>
+                        <span class="coin-symbol">DOT</span>
+                    </div>
+                    <div class="price-value">$5.82</div>
+                    <div class="price-change negative">↓ 0.8%</div>
+                </div>
+                
+                <div class="price-card">
+                    <div class="price-header">
+                        <span class="coin-name">Chainlink</span>
+                        <span class="coin-symbol">LINK</span>
+                    </div>
+                    <div class="price-value">$11.24</div>
+                    <div class="price-change positive">↑ 3.5%</div>
+                </div>
+            </div>
+            
+            <div class="cta-container">
+                <a href="/subscribe/" class="cta-button cta-primary">
+                    📧 Get Daily Briefs
+                </a>
+                <a href="/news/" class="cta-button cta-secondary">
+                    📰 Latest Updates
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- News Section -->
+    <section class="news-section">
+        <div class="section-header">
+            <h2 class="section-title">Latest Crypto News</h2>
+            <p class="section-subtitle">Breaking stories, market analysis, and expert insights</p>
+        </div>
+        
+        <!-- Ad placement after header -->
+        <div class="homepage-ad">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-5523870768931777"
+                 data-ad-slot="1234567890"
+                 data-ad-format="horizontal"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+        
+        <div class="articles-grid">
+            {{ $pages := where .Site.RegularPages "Section" "!=" "" }}
+            {{ if not $pages }}
+                <!-- Show placeholder content if no articles -->
+                <div class="article-card">
+                    <h3 class="article-title">Welcome to BlockWire News</h3>
+                    <p class="article-excerpt">Start adding content in the /content folder to see your articles here.</p>
+                    <div class="article-meta">
+                        <span>📅 Today</span>
+                        <span>📚 1 min read</span>
+                        <span>🏷️ Getting Started</span>
+                    </div>
+                </div>
+            {{ else }}
+                {{ range $index, $post := first 5 $pages }}
+                <a href="{{ .Permalink }}" class="article-card">
+                    <h3 class="article-title">{{ .Title }}</h3>
+                    <p class="article-excerpt">{{ .Summary | truncate 150 }}</p>
+                    <div class="article-meta">
+                        <span>📅 {{ .Date.Format "Jan 2, 2006" }}</span>
+                        <span>📚 {{ .ReadingTime }} min read</span>
+                        {{ with .Params.categories }}
+                        <span>🏷️ {{ index . 0 }}</span>
+                        {{ end }}
+                    </div>
+                </a>
+                
+                <!-- Ad after 2nd article -->
+                {{ if eq $index 1 }}
+                <div class="in-feed-ad">
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-format="fluid"
+                         data-ad-layout-key="-fb+5w+4e-db+86"
+                         data-ad-client="ca-pub-5523870768931777"
+                         data-ad-slot="9876543210"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+                {{ end }}
+                {{ end }}
+            {{ end }}
+        </div>
+    </section>
+</div>
+{{ end }}

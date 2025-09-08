@@ -232,10 +232,10 @@
      
     .hero {
         background: linear-gradient(135deg,
-            rgba(139, 92, 246, 0.3) 0%,
-            rgba(124, 58, 237, 0.2) 25%,
-            rgba(91, 33, 182, 0.15) 50%,
-            rgba(236, 72, 153, 0.2) 75%);
+                rgba(139, 92, 246, 0.3) 0%,
+                rgba(124, 58, 237, 0.2) 25%,
+                rgba(91, 33, 182, 0.15) 50%,
+                rgba(236, 72, 153, 0.2) 75%);
         border-radius: 20px;
         padding: 4rem 2rem;
         margin: 2rem auto;
@@ -244,7 +244,7 @@
         position: relative;
         overflow: hidden;
     }
-    
+
     .hero::before {
         content: '';
         position: absolute;
@@ -252,18 +252,18 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: 
-            linear-gradient(rgba(255,255,255,0.01) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px);
+        background:
+            linear-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
         background-size: 60px 60px;
         opacity: 0.4;
     }
-    
+
     .hero-content {
         position: relative;
         z-index: 1;
     }
-    
+
     .hero-title {
         font-size: 3.5rem;
         font-weight: 800;
@@ -274,13 +274,13 @@
         margin-bottom: 1rem;
         letter-spacing: -0.03em;
     }
-    
+
     .hero-subtitle {
         font-size: 1.25rem;
         color: var(--text-muted);
         margin-bottom: 3rem;
     }
-    
+
     .hero-badges {
         display: flex;
         justify-content: center;
@@ -288,7 +288,7 @@
         margin-bottom: 3rem;
         flex-wrap: wrap;
     }
-    
+
     .badge {
         background: rgba(255, 255, 255, 0.1);
         border: 1px solid rgba(255, 255, 255, 0.2);
@@ -299,15 +299,16 @@
         gap: 0.5rem;
         backdrop-filter: blur(10px);
     }
-    
+
      
     .price-grid {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
         gap: 1rem;
         margin: 3rem 0;
+        min-height: 120px;
     }
-    
+
     .price-card {
         background: rgba(255, 255, 255, 0.08);
         border: 1px solid rgba(255, 255, 255, 0.15);
@@ -316,52 +317,97 @@
         backdrop-filter: blur(10px);
         transition: all 0.3s ease;
         cursor: pointer;
+        position: relative;
+        overflow: hidden;
     }
-    
+
     .price-card:hover {
         background: rgba(139, 92, 246, 0.15);
         transform: translateY(-4px);
         box-shadow: 0 12px 30px rgba(139, 92, 246, 0.25);
     }
-    
+
+     
+    .price-card.loading {
+        background: linear-gradient(90deg,
+                rgba(255, 255, 255, 0.05) 25%,
+                rgba(255, 255, 255, 0.1) 50%,
+                rgba(255, 255, 255, 0.05) 75%);
+        background-size: 200% 100%;
+        animation: loading 1.5s infinite;
+    }
+
+    @keyframes loading {
+        0% {
+            background-position: 200% 0;
+        }
+
+        100% {
+            background-position: -200% 0;
+        }
+    }
+
     .price-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin-bottom: 0.5rem;
     }
-    
+
     .coin-name {
         color: var(--text-muted);
         font-size: 0.85rem;
     }
-    
+
     .coin-symbol {
         color: var(--primary);
         font-weight: 600;
         font-size: 0.9rem;
     }
-    
+
     .price-value {
         font-size: 1.5rem;
         font-weight: 700;
         color: white;
         margin-bottom: 0.25rem;
     }
-    
+
     .price-change {
         font-size: 0.9rem;
         font-weight: 500;
     }
-    
+
     .price-change.positive {
         color: #10b981;
     }
-    
+
     .price-change.negative {
         color: #ef4444;
     }
-    
+
+    .price-error {
+        grid-column: 1 / -1;
+        text-align: center;
+        color: var(--text-muted);
+        padding: 2rem;
+    }
+
+    .retry-button {
+        margin-top: 1rem;
+        padding: 0.5rem 1rem;
+        background: rgba(139, 92, 246, 0.2);
+        border: 1px solid rgba(139, 92, 246, 0.4);
+        border-radius: 8px;
+        color: white;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .retry-button:hover {
+        background: rgba(139, 92, 246, 0.3);
+        transform: translateY(-2px);
+    }
+
      
     .cta-container {
         display: flex;
@@ -369,7 +415,7 @@
         justify-content: center;
         flex-wrap: wrap;
     }
-    
+
     .cta-button {
         padding: 1rem 2rem;
         font-size: 1rem;
@@ -383,59 +429,55 @@
         gap: 0.5rem;
         transition: all 0.3s ease;
     }
-    
+
     .cta-primary {
         background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
         color: white;
         box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
     }
-    
+
     .cta-primary:hover {
         transform: translateY(-2px);
         box-shadow: 0 8px 25px rgba(139, 92, 246, 0.5);
     }
-    
+
     .cta-secondary {
         background: rgba(255, 255, 255, 0.1);
         color: white;
         border: 1px solid rgba(255, 255, 255, 0.2);
         backdrop-filter: blur(10px);
     }
-    
+
     .cta-secondary:hover {
         background: rgba(255, 255, 255, 0.15);
         transform: translateY(-2px);
     }
-    
+
      
     .news-section {
         margin: 4rem 0;
     }
-    
+
     .section-header {
         text-align: center;
         margin-bottom: 3rem;
     }
-    
+
     .section-title {
         font-size: 2rem;
         font-weight: 700;
-        background: linear-gradient(135deg, #667eea, #764ba2);
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
         margin-bottom: 0.5rem;
     }
-    
+
     .section-subtitle {
         color: var(--text-muted);
     }
-    
+
     .articles-grid {
         display: grid;
         gap: 1.5rem;
     }
-    
+
     .article-card {
         background: rgba(255, 255, 255, 0.05);
         border: 1px solid var(--border);
@@ -446,33 +488,33 @@
         color: inherit;
         display: block;
     }
-    
+
     .article-card:hover {
         background: rgba(255, 255, 255, 0.08);
         transform: translateX(4px);
         box-shadow: 0 10px 40px rgba(139, 92, 246, 0.15);
     }
-    
+
     .article-title {
         font-size: 1.25rem;
         font-weight: 600;
         margin-bottom: 0.75rem;
         line-height: 1.4;
     }
-    
+
     .article-excerpt {
         color: var(--text-muted);
         line-height: 1.6;
         margin-bottom: 1rem;
     }
-    
+
     .article-meta {
         display: flex;
         gap: 1rem;
         color: rgba(255, 255, 255, 0.5);
         font-size: 0.875rem;
     }
-    
+
      
     .homepage-ad,
     .in-feed-ad {
@@ -484,7 +526,7 @@
         min-height: 100px;
         position: relative;
     }
-    
+
     .homepage-ad::before,
     .in-feed-ad::before {
         content: 'Advertisement';
@@ -499,33 +541,33 @@
         text-transform: uppercase;
         letter-spacing: 0.1em;
     }
-    
+
      
     @media (max-width: 1200px) {
         .price-grid {
             grid-template-columns: repeat(4, 1fr);
         }
     }
-    
+
     @media (max-width: 900px) {
         .price-grid {
             grid-template-columns: repeat(3, 1fr);
         }
-        
+
         .hero-title {
             font-size: 2.5rem;
         }
     }
-    
+
     @media (max-width: 600px) {
         .price-grid {
             grid-template-columns: repeat(2, 1fr);
         }
-        
+
         .hero-title {
             font-size: 2rem;
         }
-        
+
         .hero {
             padding: 2rem 1rem;
         }
@@ -583,7 +625,7 @@
         <div class="hero-content">
             <h1 class="hero-title">REAL-TIME CRYPTO INTELLIGENCE</h1>
             <p class="hero-subtitle">Your trusted source for breaking crypto news and market analysis</p>
-            
+
             <div class="hero-badges">
                 <div class="badge">
                     <span style="color: #10b981;">●</span>
@@ -596,100 +638,52 @@
                     ⚡ Breaking News
                 </div>
             </div>
+
             
-            
-            <div class="price-grid">
-                <div class="price-card">
-                    <div class="price-header">
-                        <span class="coin-name">Bitcoin</span>
-                        <span class="coin-symbol">BTC</span>
-                    </div>
-                    <div class="price-value">$68,432</div>
-                    <div class="price-change positive">↑ 2.3%</div>
-                </div>
+            <div class="price-grid" id="hero-price-grid">
                 
-                <div class="price-card">
+                <div class="price-card loading">
                     <div class="price-header">
-                        <span class="coin-name">Ethereum</span>
-                        <span class="coin-symbol">ETH</span>
+                        <span class="coin-name">Loading...</span>
+                        <span class="coin-symbol">...</span>
                     </div>
-                    <div class="price-value">$4,368</div>
-                    <div class="price-change positive">↑ 1.8%</div>
+                    <div class="price-value">--</div>
+                    <div class="price-change">--</div>
                 </div>
-                
-                <div class="price-card">
+                <div class="price-card loading">
                     <div class="price-header">
-                        <span class="coin-name">Solana</span>
-                        <span class="coin-symbol">SOL</span>
+                        <span class="coin-name">Loading...</span>
+                        <span class="coin-symbol">...</span>
                     </div>
-                    <div class="price-value">$142.50</div>
-                    <div class="price-change negative">↓ 0.5%</div>
+                    <div class="price-value">--</div>
+                    <div class="price-change">--</div>
                 </div>
-                
-                <div class="price-card">
+                <div class="price-card loading">
                     <div class="price-header">
-                        <span class="coin-name">Binance</span>
-                        <span class="coin-symbol">BNB</span>
+                        <span class="coin-name">Loading...</span>
+                        <span class="coin-symbol">...</span>
                     </div>
-                    <div class="price-value">$412.80</div>
-                    <div class="price-change positive">↑ 3.2%</div>
+                    <div class="price-value">--</div>
+                    <div class="price-change">--</div>
                 </div>
-                
-                <div class="price-card">
+                <div class="price-card loading">
                     <div class="price-header">
-                        <span class="coin-name">XRP</span>
-                        <span class="coin-symbol">XRP</span>
+                        <span class="coin-name">Loading...</span>
+                        <span class="coin-symbol">...</span>
                     </div>
-                    <div class="price-value">$0.58</div>
-                    <div class="price-change positive">↑ 1.2%</div>
+                    <div class="price-value">--</div>
+                    <div class="price-change">--</div>
                 </div>
-                
-                <div class="price-card">
+                <div class="price-card loading">
                     <div class="price-header">
-                        <span class="coin-name">Cardano</span>
-                        <span class="coin-symbol">ADA</span>
+                        <span class="coin-name">Loading...</span>
+                        <span class="coin-symbol">...</span>
                     </div>
-                    <div class="price-value">$0.52</div>
-                    <div class="price-change negative">↓ 1.1%</div>
-                </div>
-                
-                <div class="price-card">
-                    <div class="price-header">
-                        <span class="coin-name">Avalanche</span>
-                        <span class="coin-symbol">AVAX</span>
-                    </div>
-                    <div class="price-value">$28.45</div>
-                    <div class="price-change positive">↑ 2.8%</div>
-                </div>
-                
-                <div class="price-card">
-                    <div class="price-header">
-                        <span class="coin-name">Polygon</span>
-                        <span class="coin-symbol">MATIC</span>
-                    </div>
-                    <div class="price-value">$0.68</div>
-                    <div class="price-change positive">↑ 1.5%</div>
-                </div>
-                
-                <div class="price-card">
-                    <div class="price-header">
-                        <span class="coin-name">Polkadot</span>
-                        <span class="coin-symbol">DOT</span>
-                    </div>
-                    <div class="price-value">$5.82</div>
-                    <div class="price-change negative">↓ 0.8%</div>
-                </div>
-                
-                <div class="price-card">
-                    <div class="price-header">
-                        <span class="coin-name">Chainlink</span>
-                        <span class="coin-symbol">LINK</span>
-                    </div>
-                    <div class="price-value">$11.24</div>
-                    <div class="price-change positive">↑ 3.5%</div>
+                    <div class="price-value">--</div>
+                    <div class="price-change">--</div>
                 </div>
             </div>
-            
+
             <div class="cta-container">
                 <a href="/subscribe/" class="cta-button cta-primary">
                     📧 Get Daily Briefs
@@ -700,138 +694,323 @@
             </div>
         </div>
     </section>
-    
+
     
     <section class="news-section">
         <div class="section-header">
             <h2 class="section-title">Latest Crypto News</h2>
             <p class="section-subtitle">Breaking stories, market analysis, and expert insights</p>
         </div>
-        
+
         
         <div class="homepage-ad">
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-5523870768931777"
-                 data-ad-slot="1234567890"
-                 data-ad-format="horizontal"
-                 data-full-width-responsive="true"></ins>
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5523870768931777"
+                data-ad-slot="1234567890" data-ad-format="horizontal" data-full-width-responsive="true"></ins>
             <script>
-                 (adsbygoogle = window.adsbygoogle || []).push({});
+                (adsbygoogle = window.adsbygoogle || []).push({});
             </script>
         </div>
-        
+
         <div class="articles-grid">
             
             
-                
-                <a href="http://localhost:1313/news/2025/09/michael-saylor-s-strategy-snubbed-by-s-p-500-committee-amid-controversy/" class="article-card">
-                    <h3 class="article-title">Michael Saylor&#39;s Strategy Snubbed by S&amp;P 500 Committee Amid Controversy</h3>
-                    <p class="article-excerpt"><h3 id="tldr">TL;DR</h3>
+            
+            
+
+            <a href="http://localhost:1313/news/2025/09/exploring-the-rise-of-tokenized-pokemon-card-platforms/" class="article-card">
+                <h3 class="article-title">Exploring the Rise of Tokenized Pokémon Card Platforms</h3>
+                <p class="article-excerpt"><h3 id="tldr">TL;DR</h3>
+<ul>
+<li>Top tokenized Pokémon card platforms saw over $120M in transaction volume last month.</li>
+<li>Courtyard leads with nearly $80M in volume, offering …</li></ul></p>
+                <div class="article-meta">
+                    <span>Sep 8, 2025</span>
+                    <span>4 min read</span>
+                </div>
+            </a>
+            
+            
+            
+
+            <a href="http://localhost:1313/news/2025/09/forward-industries-stock-surges-after-1-65-billion-solana-investment/" class="article-card">
+                <h3 class="article-title">Forward Industries Stock Surges After $1.65 Billion Solana Investment</h3>
+                <p class="article-excerpt"><h3 id="tldr">TL;DR</h3>
+<ul>
+<li>Forward Industries announces a $1.65 billion private equity placement.</li>
+<li>Stock price surged 92% pre-market before stabilizing at a 40% increase. …</li></ul></p>
+                <div class="article-meta">
+                    <span>Sep 8, 2025</span>
+                    <span>4 min read</span>
+                </div>
+            </a>
+            
+            
+            
+            
+            <div class="in-feed-ad">
+                <ins class="adsbygoogle" style="display:block" data-ad-format="fluid"
+                    data-ad-layout-key="-6t+ed+2i-1n-4w" data-ad-client="ca-pub-5523870768931777"
+                    data-ad-slot="0987654321"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+            
+
+            <a href="http://localhost:1313/news/2025/09/hyperliquid-s-hype-token-surges-past-50-amid-stablecoin-competition/" class="article-card">
+                <h3 class="article-title">Hyperliquid&#39;s HYPE Token Surges Past $50 Amid Stablecoin Competition</h3>
+                <p class="article-excerpt"><h3 id="tldr">TL;DR</h3>
+<ul>
+<li>HYPE token rises over 7% to $50.08 during Asian trading hours.</li>
+<li>Paxos proposes USDH with compliance to regulatory frameworks and high-quality …</li></ul></p>
+                <div class="article-meta">
+                    <span>Sep 8, 2025</span>
+                    <span>4 min read</span>
+                </div>
+            </a>
+            
+            
+            
+
+            <a href="http://localhost:1313/news/2025/09/ai-browsers-and-major-hires-key-developments-in-tech-industry/" class="article-card">
+                <h3 class="article-title">AI Browsers and Major Hires: Key Developments in Tech Industry</h3>
+                <p class="article-excerpt"><h3 id="tldr">TL;DR</h3>
+<ul>
+<li>Atlassian acquires The Browser Company for $610 million.</li>
+<li>Meta faces executive departures shortly after launching AI lab.</li>
+<li>OpenAI spends $1.1 …</li></ul></p>
+                <div class="article-meta">
+                    <span>Sep 8, 2025</span>
+                    <span>3 min read</span>
+                </div>
+            </a>
+            
+            
+            
+
+            <a href="http://localhost:1313/news/2025/09/dogecoin-struggles-as-bitcoin-and-ethereum-reach-new-heights/" class="article-card">
+                <h3 class="article-title">Dogecoin Struggles as Bitcoin and Ethereum Reach New Heights</h3>
+                <p class="article-excerpt"><h3 id="tldr">TL;DR</h3>
+<ul>
+<li>Dogecoin is down 70% from its 2021 peak of $0.73.</li>
+<li>Bitcoin, Ethereum, and XRP recently achieved new all-time highs.</li>
+<li>Experts cite …</li></ul></p>
+                <div class="article-meta">
+                    <span>Sep 8, 2025</span>
+                    <span>4 min read</span>
+                </div>
+            </a>
+            
+            
+            
+            
+            <div class="in-feed-ad">
+                <ins class="adsbygoogle" style="display:block" data-ad-format="fluid"
+                    data-ad-layout-key="-6t+ed+2i-1n-4w" data-ad-client="ca-pub-5523870768931777"
+                    data-ad-slot="0987654321"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+            
+
+            <a href="http://localhost:1313/news/2025/09/ethereum-the-project-for-humanity-s-coordination-and-growth/" class="article-card">
+                <h3 class="article-title">Ethereum: The Project for Humanity&#39;s Coordination and Growth</h3>
+                <p class="article-excerpt"><h3 id="tldr">TL;DR</h3>
+<ul>
+<li>Ethereum is viewed as a collective project for humanity&rsquo;s coordination.</li>
+<li>The concept emphasizes open-source contributions for global …</li></ul></p>
+                <div class="article-meta">
+                    <span>Sep 8, 2025</span>
+                    <span>3 min read</span>
+                </div>
+            </a>
+            
+            
+            
+
+            <a href="http://localhost:1313/news/2025/09/michael-saylor-s-strategy-snubbed-by-s-p-500-committee-amid-controversy/" class="article-card">
+                <h3 class="article-title">Michael Saylor&#39;s Strategy Snubbed by S&amp;P 500 Committee Amid Controversy</h3>
+                <p class="article-excerpt"><h3 id="tldr">TL;DR</h3>
 <ul>
 <li>Strategy missed S&amp;P 500 inclusion despite meeting all criteria.</li>
 <li>Robinhood was unexpectedly added, causing its stock to rise by 7%.</li>
 <li>The …</li></ul></p>
-                    <div class="article-meta">
-                        <span>📅 Sep 7, 2025</span>
-                        <span>📚 4 min read</span>
-                        
-                        <span>🏷️ News</span>
-                        
-                    </div>
-                </a>
-                
-                
-                
-                
-                <a href="http://localhost:1313/news/2025/09/bank-of-america-highlights-tokenization-s-liquidity-benefits-and-challenges/" class="article-card">
-                    <h3 class="article-title">Bank of America Highlights Tokenization&#39;s Liquidity Benefits and Challenges</h3>
-                    <p class="article-excerpt"><h3 id="tldr">TL;DR</h3>
+                <div class="article-meta">
+                    <span>Sep 7, 2025</span>
+                    <span>4 min read</span>
+                </div>
+            </a>
+            
+            
+            
+
+            <a href="http://localhost:1313/news/2025/09/bank-of-america-highlights-tokenization-s-liquidity-benefits-and-challenges/" class="article-card">
+                <h3 class="article-title">Bank of America Highlights Tokenization&#39;s Liquidity Benefits and Challenges</h3>
+                <p class="article-excerpt"><h3 id="tldr">TL;DR</h3>
 <ul>
 <li>Tokenization could reshape financial asset management with enhanced liquidity.</li>
 <li>Key benefits include fractional ownership, transparency, and …</li></ul></p>
-                    <div class="article-meta">
-                        <span>📅 Sep 7, 2025</span>
-                        <span>📚 3 min read</span>
-                        
-                        <span>🏷️ News</span>
-                        
-                    </div>
-                </a>
-                
-                
-                
-                <div class="in-feed-ad">
-                    <ins class="adsbygoogle"
-                         style="display:block"
-                         data-ad-format="fluid"
-                         data-ad-layout-key="-fb+5w+4e-db+86"
-                         data-ad-client="ca-pub-5523870768931777"
-                         data-ad-slot="9876543210"></ins>
-                    <script>
-                         (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
+                <div class="article-meta">
+                    <span>Sep 7, 2025</span>
+                    <span>3 min read</span>
                 </div>
-                
-                
-                <a href="http://localhost:1313/news/2025/09/tokenization-sparks-debate-on-pokemon-s-future-in-crypto-market/" class="article-card">
-                    <h3 class="article-title">Tokenization Sparks Debate on Pokémon&#39;s Future in Crypto Market</h3>
-                    <p class="article-excerpt"><h3 id="tldr">TL;DR</h3>
+            </a>
+            
+            
+            
+            
+            <div class="in-feed-ad">
+                <ins class="adsbygoogle" style="display:block" data-ad-format="fluid"
+                    data-ad-layout-key="-6t+ed+2i-1n-4w" data-ad-client="ca-pub-5523870768931777"
+                    data-ad-slot="0987654321"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+            
+
+            <a href="http://localhost:1313/news/2025/09/tokenization-sparks-debate-on-pokemon-s-future-in-crypto-market/" class="article-card">
+                <h3 class="article-title">Tokenization Sparks Debate on Pokémon&#39;s Future in Crypto Market</h3>
+                <p class="article-excerpt"><h3 id="tldr">TL;DR</h3>
 <ul>
 <li>Pokémon franchise has generated $100B in total revenue and celebrates 30 years.</li>
 <li>Collector Crypt&rsquo;s $CARDS token surged to a $450M fully …</li></ul></p>
-                    <div class="article-meta">
-                        <span>📅 Sep 7, 2025</span>
-                        <span>📚 4 min read</span>
-                        
-                        <span>🏷️ News</span>
-                        
-                    </div>
-                </a>
-                
-                
-                
-                
-                <a href="http://localhost:1313/news/2025/09/ai-firm-showrunner-to-reconstruct-lost-footage-of-welles-classic/" class="article-card">
-                    <h3 class="article-title">AI Firm Showrunner to Reconstruct Lost Footage of Welles&#39; Classic</h3>
-                    <p class="article-excerpt"><h3 id="tldr">TL;DR</h3>
+                <div class="article-meta">
+                    <span>Sep 7, 2025</span>
+                    <span>4 min read</span>
+                </div>
+            </a>
+            
+            
+            
+
+            <a href="http://localhost:1313/news/2025/09/ai-firm-showrunner-to-reconstruct-lost-footage-of-welles-classic/" class="article-card">
+                <h3 class="article-title">AI Firm Showrunner to Reconstruct Lost Footage of Welles&#39; Classic</h3>
+                <p class="article-excerpt"><h3 id="tldr">TL;DR</h3>
 <ul>
 <li>Showrunner aims to reconstruct 43 minutes of missing footage from &lsquo;The Magnificent Ambersons.&rsquo;</li>
 <li>The project will utilize AI deepfake …</li></ul></p>
-                    <div class="article-meta">
-                        <span>📅 Sep 7, 2025</span>
-                        <span>📚 4 min read</span>
-                        
-                        <span>🏷️ News</span>
-                        
-                    </div>
-                </a>
-                
-                
-                
-                
-                <a href="http://localhost:1313/news/2025/09/ethereum-sees-bearish-options-amid-strong-institutional-etf-demand/" class="article-card">
-                    <h3 class="article-title">Ethereum Sees Bearish Options Amid Strong Institutional ETF Demand</h3>
-                    <p class="article-excerpt"><h3 id="tldr">TL;DR</h3>
-<ul>
-<li>Bearish Ethereum options open interest rose sharply since late August, signaling trader caution.</li>
-<li>Ethereum perpetual open interest declined 2% …</li></ul></p>
-                    <div class="article-meta">
-                        <span>📅 Sep 3, 2025</span>
-                        <span>📚 4 min read</span>
-                        
-                        <span>🏷️ News</span>
-                        
-                    </div>
-                </a>
-                
-                
-                
-                
+                <div class="article-meta">
+                    <span>Sep 7, 2025</span>
+                    <span>4 min read</span>
+                </div>
+            </a>
             
         </div>
     </section>
 </div>
+
+<script>
+    
+    const HERO_CRYPTOS = [
+        { symbol: 'BTC', name: 'Bitcoin', id: 'bitcoin' },
+        { symbol: 'ETH', name: 'Ethereum', id: 'ethereum' },
+        { symbol: 'SOL', name: 'Solana', id: 'solana' },
+        { symbol: 'BNB', name: 'Binance', id: 'binancecoin' },
+        { symbol: 'XRP', name: 'XRP', id: 'ripple' },
+        { symbol: 'ADA', name: 'Cardano', id: 'cardano' },
+        { symbol: 'AVAX', name: 'Avalanche', id: 'avalanche-2' },
+        { symbol: 'MATIC', name: 'Polygon', id: 'matic-network' },
+        { symbol: 'DOT', name: 'Polkadot', id: 'polkadot' },
+        { symbol: 'LINK', name: 'Chainlink', id: 'chainlink' }
+    ];
+
+    
+    function formatPrice(price) {
+        if (price >= 1000) {
+            return price.toLocaleString('en-US', {
+                maximumFractionDigits: 0,
+                minimumFractionDigits: 0
+            });
+        } else if (price >= 1) {
+            return price.toLocaleString('en-US', {
+                maximumFractionDigits: 2,
+                minimumFractionDigits: 2
+            });
+        } else if (price >= 0.01) {
+            return price.toLocaleString('en-US', {
+                maximumFractionDigits: 4,
+                minimumFractionDigits: 2
+            });
+        } else {
+            return price.toLocaleString('en-US', {
+                maximumFractionDigits: 6,
+                minimumFractionDigits: 4
+            });
+        }
+    }
+
+    
+    async function fetchHeroPrices() {
+        const priceGrid = document.getElementById('hero-price-grid');
+
+        try {
+            
+            const displayCryptos = HERO_CRYPTOS.slice(0, 10);
+            const ids = displayCryptos.map(c => c.id).join(',');
+
+            
+            const response = await fetch(
+                `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true`
+            );
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch prices');
+            }
+
+            const data = await response.json();
+
+            
+            priceGrid.innerHTML = '';
+
+            displayCryptos.forEach(crypto => {
+                const coinData = data[crypto.id];
+
+                if (coinData) {
+                    const price = coinData.usd;
+                    const change = coinData.usd_24h_change;
+
+                    const card = document.createElement('div');
+                    card.className = 'price-card';
+                    card.innerHTML = `
+                    <div class="price-header">
+                        <span class="coin-name">${crypto.name}</span>
+                        <span class="coin-symbol">${crypto.symbol}</span>
+                    </div>
+                    <div class="price-value">$${formatPrice(price)}</div>
+                    <div class="price-change ${change >= 0 ? 'positive' : 'negative'}">
+                        ${change >= 0 ? '↑' : '↓'} ${Math.abs(change).toFixed(2)}%
+                    </div>
+                `;
+
+                    priceGrid.appendChild(card);
+                }
+            });
+
+        } catch (error) {
+            console.error('Error fetching crypto prices:', error);
+
+            
+            priceGrid.innerHTML = `
+            <div class="price-error">
+                <p>Unable to load live prices</p>
+                <button class="retry-button" onclick="fetchHeroPrices()">
+                    Retry
+                </button>
+            </div>
+        `;
+        }
+    }
+
+    
+    document.addEventListener('DOMContentLoaded', function () {
+        fetchHeroPrices();
+
+        
+        setInterval(fetchHeroPrices, 30000);
+    });
+</script>
 
     </main>
 
