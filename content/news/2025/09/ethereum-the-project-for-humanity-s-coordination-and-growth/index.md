@@ -4,7 +4,7 @@ date: 2025-09-08T01:54:00.533172Z
 draft: false
 description: "Explore how Ethereum serves as a project for global coordination and economic value in the crypto space."
 tags: ["crypto","news","blockchain"]
-categories: ["News"]
+categories: ["News", "DeFi", "Bitcoin", "Web3"]
 source_url: "https://www.bankless.com/read/ethereum-is-the-project"
 canonicalURL: "https://www.bankless.com/read/ethereum-is-the-project"
 seo:

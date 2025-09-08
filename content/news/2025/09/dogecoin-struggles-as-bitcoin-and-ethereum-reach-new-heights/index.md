@@ -4,7 +4,7 @@ date: 2025-09-08T03:39:23.036055Z
 draft: false
 description: "Bitcoin and Ethereum set new records while Dogecoin lags behind, highlighting its lack of utility in the crypto market."
 tags: ["crypto","news","blockchain"]
-categories: ["News"]
+categories: ["News", "DeFi"]
 source_url: "https://decrypt.co/338172/bitcoin-ethereum-hit-new-highs-why-not-dogecoin"
 canonicalURL: "https://decrypt.co/338172/bitcoin-ethereum-hit-new-highs-why-not-dogecoin"
 seo:

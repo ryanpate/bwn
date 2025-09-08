@@ -4,7 +4,7 @@ date: 2025-09-08T11:16:56.899577Z
 draft: false
 description: "Hyperliquid's HYPE token reaches $50 as stablecoin proposals from Paxos and Agora intensify competition in the crypto space."
 tags: ["crypto","news","blockchain"]
-categories: ["News"]
+categories: ["News", "DeFi"]
 source_url: "https://cryptoslate.com/hyperliquids-hype-token-surges-past-50-amid-stablecoin-proposal-competition/"
 canonicalURL: "https://cryptoslate.com/hyperliquids-hype-token-surges-past-50-amid-stablecoin-proposal-competition/"
 seo:

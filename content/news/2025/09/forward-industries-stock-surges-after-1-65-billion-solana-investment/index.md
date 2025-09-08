@@ -4,7 +4,7 @@ date: 2025-09-08T15:20:15.531927Z
 draft: false
 description: "Forward Industries' stock rises following a $1.65 billion pivot to Solana, marking a significant move in the crypto space."
 tags: ["crypto","news","blockchain"]
-categories: ["News"]
+categories: ["News", "DeFi"]
 source_url: "https://decrypt.co/338475/forward-industries-stock-soars-1-65-billion-solana-pivot"
 canonicalURL: "https://decrypt.co/338475/forward-industries-stock-soars-1-65-billion-solana-pivot"
 seo:

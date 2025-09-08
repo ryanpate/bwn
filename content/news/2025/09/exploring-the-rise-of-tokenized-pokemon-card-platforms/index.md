@@ -4,7 +4,7 @@ date: 2025-09-08T19:16:53.308105Z
 draft: false
 description: "Discover the booming market of tokenized Pokémon cards in crypto, with platforms enabling trading and liquidity."
 tags: ["crypto","news","blockchain"]
-categories: ["News"]
+categories: ["News", "DeFi", "Web3"]
 source_url: "https://www.bankless.com/read/the-top-tokenized-pokemon-card-platforms"
 canonicalURL: "https://www.bankless.com/read/the-top-tokenized-pokemon-card-platforms"
 seo:
