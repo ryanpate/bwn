@@ -37,6 +37,10 @@
         color: rgba(255, 255, 255, 0.9);
     }
 
+    body.light-theme .article-content {
+        color: rgba(26, 26, 26, 0.9);
+    }
+
     .article-content h2 {
         margin: 2rem 0 1rem;
         font-size: 1.75rem;
@@ -44,11 +48,19 @@
         color: white;
     }
 
+    body.light-theme .article-content h2 {
+        color: var(--text);
+    }
+
     .article-content h3 {
         margin: 1.5rem 0 0.75rem;
         font-size: 1.5rem;
         font-weight: 600;
         color: white;
+    }
+
+    body.light-theme .article-content h3 {
+        color: var(--text);
     }
 
     .article-content p {
@@ -74,31 +86,34 @@
         font-style: italic;
     }
 
-    .article-content pre {
-        background: rgba(0, 0, 0, 0.5);
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        padding: 1rem;
-        overflow-x: auto;
-        margin: 1.5rem 0;
+    .article-content ul,
+    .article-content ol {
+        margin-bottom: 1.5rem;
+        padding-left: 2rem;
+    }
+
+    .article-content li {
+        margin-bottom: 0.5rem;
     }
 
     .article-content code {
         background: rgba(139, 92, 246, 0.1);
         padding: 0.2rem 0.4rem;
         border-radius: 4px;
-        font-family: 'Courier New', monospace;
         font-size: 0.9em;
     }
 
-    .article-content ul,
-    .article-content ol {
-        margin: 1.5rem 0;
-        padding-left: 2rem;
+    .article-content pre {
+        background: rgba(0, 0, 0, 0.3);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 1rem;
+        overflow-x: auto;
+        margin-bottom: 1.5rem;
     }
 
-    .article-content li {
-        margin-bottom: 0.5rem;
+    body.light-theme .article-content pre {
+        background: rgba(0, 0, 0, 0.05);
     }
 
     .article-tags {
@@ -112,13 +127,13 @@
 
     .tag {
         background: rgba(139, 92, 246, 0.1);
-        color: var(--primary);
+        border: 1px solid rgba(139, 92, 246, 0.3);
         padding: 0.5rem 1rem;
         border-radius: 20px;
+        color: var(--primary);
         text-decoration: none;
-        font-size: 0.875rem;
         transition: all 0.3s ease;
-        border: 1px solid rgba(139, 92, 246, 0.2);
+        font-size: 0.9rem;
     }
 
     .tag:hover {
@@ -136,17 +151,26 @@
     }
 
     .article-nav-item {
-        text-decoration: none;
-        color: inherit;
         padding: 1rem;
         background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--border);
         border-radius: 12px;
+        text-decoration: none;
+        color: inherit;
         transition: all 0.3s ease;
+    }
+
+    body.light-theme .article-nav-item {
+        background: rgba(0, 0, 0, 0.02);
     }
 
     .article-nav-item:hover {
         background: rgba(255, 255, 255, 0.08);
         transform: translateY(-2px);
+    }
+
+    body.light-theme .article-nav-item:hover {
+        background: rgba(0, 0, 0, 0.05);
     }
 
     .article-nav-label {
@@ -172,6 +196,11 @@
         text-align: center;
     }
 
+    body.light-theme .article-ad-top,
+    body.light-theme .article-ad-bottom {
+        background: rgba(0, 0, 0, 0.02);
+    }
+
     .article-ad-top::before,
     .article-ad-bottom::before {
         content: 'Advertisement';
@@ -179,12 +208,18 @@
         top: -10px;
         left: 50%;
         transform: translateX(-50%);
-        background: #0a0e27;
+        background: var(--background);
         padding: 0 0.5rem;
         font-size: 0.75rem;
         color: rgba(255, 255, 255, 0.3);
         text-transform: uppercase;
         letter-spacing: 0.1em;
+    }
+
+    body.light-theme .article-ad-top::before,
+    body.light-theme .article-ad-bottom::before {
+        background: var(--background);
+        color: rgba(0, 0, 0, 0.3);
     }
 
     @media (max-width: 768px) {
@@ -220,10 +255,10 @@
     </header>
 
     <div class="article-content">
-        <!-- Top of article ad -->
+        <!-- Top of article ad - In-article Ad -->
         <div class="article-ad-top">
             <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5523870768931777"
-                data-ad-slot="2468135790" data-ad-format="rectangle" data-full-width-responsive="true"></ins>
+                data-ad-slot="9173395704" data-ad-format="rectangle" data-full-width-responsive="true"></ins>
             <script>
                 (adsbygoogle = window.adsbygoogle || []).push({});
             </script>
@@ -231,10 +266,10 @@
 
         {{ .Content }}
 
-        <!-- Bottom of article ad -->
+        <!-- Bottom of article ad - In-article Ad -->
         <div class="article-ad-bottom">
             <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5523870768931777"
-                data-ad-slot="3579246801" data-ad-format="auto" data-full-width-responsive="true"></ins>
+                data-ad-slot="9173395704" data-ad-format="auto" data-full-width-responsive="true"></ins>
             <script>
                 (adsbygoogle = window.adsbygoogle || []).push({});
             </script>
@@ -249,18 +284,24 @@
     </div>
     {{ end }}
 
+    <!-- Article Navigation -->
     <nav class="article-nav">
         {{ with .PrevInSection }}
         <a href="{{ .Permalink }}" class="article-nav-item">
             <div class="article-nav-label">← Previous</div>
             <div class="article-nav-title">{{ .Title }}</div>
         </a>
+        {{ else }}
+        <div></div>
         {{ end }}
+
         {{ with .NextInSection }}
         <a href="{{ .Permalink }}" class="article-nav-item" style="text-align: right;">
             <div class="article-nav-label">Next →</div>
             <div class="article-nav-title">{{ .Title }}</div>
         </a>
+        {{ else }}
+        <div></div>
         {{ end }}
     </nav>
 </article>

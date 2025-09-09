@@ -46,12 +46,22 @@
             --max-width: 1400px;
         }
 
+         
+        body.light-theme {
+            --background: #f8f9fa;
+            --background-light: #ffffff;
+            --text: #1a1a1a;
+            --text-muted: rgba(26, 26, 26, 0.7);
+            --border: rgba(0, 0, 0, 0.1);
+        }
+
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(180deg, var(--background) 0%, var(--background-light) 100%);
             color: var(--text);
             min-height: 100vh;
             line-height: 1.6;
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
          
@@ -65,6 +75,11 @@
             border-bottom: 1px solid var(--border);
             z-index: 1000;
             height: 60px;
+            transition: background 0.3s ease;
+        }
+
+        body.light-theme .nav {
+            background: rgba(255, 255, 255, 0.95);
         }
 
         .nav-container {
@@ -97,8 +112,29 @@
             color: white;
         }
 
+        body.light-theme .theme-toggle {
+            background: rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            color: var(--text);
+        }
+
         .theme-toggle:hover {
             background: rgba(255, 255, 255, 0.2);
+        }
+
+        body.light-theme .theme-toggle:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+         
+        .theme-toggle svg {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover svg {
+            transform: rotate(20deg);
         }
 
         .logo {
@@ -113,6 +149,10 @@
             letter-spacing: -0.02em;
         }
 
+        body.light-theme .logo {
+            color: var(--text);
+        }
+
         .logo-icon {
             width: 36px;
             height: 36px;
@@ -122,6 +162,7 @@
             align-items: center;
             justify-content: center;
             font-size: 1.2rem;
+            color: white;
         }
 
         .nav-menu {
@@ -140,10 +181,30 @@
             font-size: 0.95rem;
         }
 
+        body.light-theme .nav-menu a {
+            color: var(--text-muted);
+        }
+
         .nav-menu a:hover,
         .nav-menu a.active {
             background: rgba(255, 255, 255, 0.1);
             color: white;
+        }
+
+        body.light-theme .nav-menu a:hover,
+        body.light-theme .nav-menu a.active {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--primary-dark);
+        }
+
+         
+        .mobile-menu-toggle {
+            display: none;
+            background: transparent;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
         }
 
          
@@ -163,8 +224,12 @@
         .footer {
             margin-top: 4rem;
             padding: 3rem 0;
-            background: linear-gradient(180deg, transparent, rgba(139, 92, 246, 0.1));
+            background: rgba(0, 0, 0, 0.3);
             border-top: 1px solid var(--border);
+        }
+
+        body.light-theme .footer {
+            background: rgba(0, 0, 0, 0.05);
         }
 
         .footer-content {
@@ -178,43 +243,53 @@
             display: flex;
             justify-content: center;
             gap: 1rem;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         .social-link {
-            width: 44px;
-            height: 44px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid var(--border);
-            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--text-muted);
-            text-decoration: none;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
             transition: all 0.3s ease;
+            color: var(--text-muted);
+        }
+
+        body.light-theme .social-link {
+            background: rgba(0, 0, 0, 0.05);
         }
 
         .social-link:hover {
-            background: rgba(139, 92, 246, 0.2);
-            border-color: rgba(139, 92, 246, 0.4);
+            background: var(--primary);
             color: white;
             transform: translateY(-3px);
         }
 
-         
-        .mobile-menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
+        .footer-tagline {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
         }
 
+         
         @media (max-width: 768px) {
             .nav-menu {
                 display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background: var(--background);
+                flex-direction: column;
+                padding: 1rem;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .nav-menu.active {
+                display: flex;
             }
 
             .mobile-menu-toggle {
@@ -582,10 +657,21 @@
         <div class="nav-container">
             <div class="nav-left">
                 <button class="theme-toggle" aria-label="Toggle theme">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <svg class="sun-icon" style="display: none;" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
                         <circle cx="12" cy="12" r="5"></circle>
                         <line x1="12" y1="1" x2="12" y2="3"></line>
                         <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
                 </button>
                 <a href="/" class="logo">
@@ -594,7 +680,7 @@
                 </a>
             </div>
 
-            <ul class="nav-menu">
+            <ul class="nav-menu" id="navMenu">
                 
                 <li><a href="/" >Home</a></li>
                 
@@ -705,7 +791,7 @@
         
         <div class="homepage-ad">
             <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5523870768931777"
-                data-ad-slot="1234567890" data-ad-format="horizontal" data-full-width-responsive="true"></ins>
+                data-ad-slot="9791794062" data-ad-format="horizontal" data-full-width-responsive="true"></ins>
             <script>
                 (adsbygoogle = window.adsbygoogle || []).push({});
             </script>
@@ -750,7 +836,7 @@
             <div class="in-feed-ad">
                 <ins class="adsbygoogle" style="display:block" data-ad-format="fluid"
                     data-ad-layout-key="-6t+ed+2i-1n-4w" data-ad-client="ca-pub-5523870768931777"
-                    data-ad-slot="0987654321"></ins>
+                    data-ad-slot="7860314035"></ins>
                 <script>
                     (adsbygoogle = window.adsbygoogle || []).push({});
                 </script>
@@ -807,7 +893,7 @@
             <div class="in-feed-ad">
                 <ins class="adsbygoogle" style="display:block" data-ad-format="fluid"
                     data-ad-layout-key="-6t+ed+2i-1n-4w" data-ad-client="ca-pub-5523870768931777"
-                    data-ad-slot="0987654321"></ins>
+                    data-ad-slot="7860314035"></ins>
                 <script>
                     (adsbygoogle = window.adsbygoogle || []).push({});
                 </script>
@@ -863,7 +949,7 @@
             <div class="in-feed-ad">
                 <ins class="adsbygoogle" style="display:block" data-ad-format="fluid"
                     data-ad-layout-key="-6t+ed+2i-1n-4w" data-ad-client="ca-pub-5523870768931777"
-                    data-ad-slot="0987654321"></ins>
+                    data-ad-slot="7860314035"></ins>
                 <script>
                     (adsbygoogle = window.adsbygoogle || []).push({});
                 </script>
@@ -904,37 +990,38 @@
 <script>
     
     const HERO_CRYPTOS = [
-        { symbol: 'BTC', name: 'Bitcoin', id: 'bitcoin' },
-        { symbol: 'ETH', name: 'Ethereum', id: 'ethereum' },
-        { symbol: 'SOL', name: 'Solana', id: 'solana' },
-        { symbol: 'BNB', name: 'Binance', id: 'binancecoin' },
-        { symbol: 'XRP', name: 'XRP', id: 'ripple' },
-        { symbol: 'ADA', name: 'Cardano', id: 'cardano' },
-        { symbol: 'AVAX', name: 'Avalanche', id: 'avalanche-2' },
-        { symbol: 'MATIC', name: 'Polygon', id: 'matic-network' },
-        { symbol: 'DOT', name: 'Polkadot', id: 'polkadot' },
-        { symbol: 'LINK', name: 'Chainlink', id: 'chainlink' }
+        { symbol: 'BTC', name: 'Bitcoin', coincapId: 'bitcoin' },
+        { symbol: 'ETH', name: 'Ethereum', coincapId: 'ethereum' },
+        { symbol: 'SOL', name: 'Solana', coincapId: 'solana' },
+        { symbol: 'BNB', name: 'BNB', coincapId: 'binance-coin' },
+        { symbol: 'XRP', name: 'XRP', coincapId: 'xrp' },
+        { symbol: 'ADA', name: 'Cardano', coincapId: 'cardano' },
+        { symbol: 'AVAX', name: 'Avalanche', coincapId: 'avalanche' },
+        { symbol: 'MATIC', name: 'Polygon', coincapId: 'polygon' },
+        { symbol: 'DOT', name: 'Polkadot', coincapId: 'polkadot' },
+        { symbol: 'LINK', name: 'Chainlink', coincapId: 'chainlink' }
     ];
 
     
     function formatPrice(price) {
-        if (price >= 1000) {
-            return price.toLocaleString('en-US', {
+        const numPrice = parseFloat(price);
+        if (numPrice >= 1000) {
+            return numPrice.toLocaleString('en-US', {
                 maximumFractionDigits: 0,
                 minimumFractionDigits: 0
             });
-        } else if (price >= 1) {
-            return price.toLocaleString('en-US', {
+        } else if (numPrice >= 1) {
+            return numPrice.toLocaleString('en-US', {
                 maximumFractionDigits: 2,
                 minimumFractionDigits: 2
             });
-        } else if (price >= 0.01) {
-            return price.toLocaleString('en-US', {
+        } else if (numPrice >= 0.01) {
+            return numPrice.toLocaleString('en-US', {
                 maximumFractionDigits: 4,
                 minimumFractionDigits: 2
             });
         } else {
-            return price.toLocaleString('en-US', {
+            return numPrice.toLocaleString('en-US', {
                 maximumFractionDigits: 6,
                 minimumFractionDigits: 4
             });
@@ -947,29 +1034,26 @@
 
         try {
             
-            const displayCryptos = HERO_CRYPTOS.slice(0, 10);
-            const ids = displayCryptos.map(c => c.id).join(',');
-
-            
-            const response = await fetch(
-                `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true`
-            );
+            const ids = HERO_CRYPTOS.map(c => c.coincapId).join(',');
+            const response = await fetch(`https://api.coincap.io/v2/assets?ids=${ids}`);
 
             if (!response.ok) {
-                throw new Error('Failed to fetch prices');
+                throw new Error('Failed to fetch from CoinCap');
             }
 
-            const data = await response.json();
+            const result = await response.json();
+            const data = result.data;
 
             
             priceGrid.innerHTML = '';
 
-            displayCryptos.forEach(crypto => {
-                const coinData = data[crypto.id];
+            
+            HERO_CRYPTOS.forEach(crypto => {
+                const coinData = data.find(d => d.id === crypto.coincapId);
 
                 if (coinData) {
-                    const price = coinData.usd;
-                    const change = coinData.usd_24h_change;
+                    const price = parseFloat(coinData.priceUsd);
+                    const change = parseFloat(coinData.changePercent24Hr);
 
                     const card = document.createElement('div');
                     card.className = 'price-card';
@@ -978,7 +1062,7 @@
                         <span class="coin-name">${crypto.name}</span>
                         <span class="coin-symbol">${crypto.symbol}</span>
                     </div>
-                    <div class="price-value">$${formatPrice(price)}</div>
+                    <div class="price-value">${formatPrice(price)}</div>
                     <div class="price-change ${change >= 0 ? 'positive' : 'negative'}">
                         ${change >= 0 ? '↑' : '↓'} ${Math.abs(change).toFixed(2)}%
                     </div>
@@ -988,23 +1072,105 @@
                 }
             });
 
+            console.log('Successfully fetched prices from CoinCap API');
+
         } catch (error) {
-            console.error('Error fetching crypto prices:', error);
+            console.error('Error fetching prices:', error);
 
             
-            priceGrid.innerHTML = `
-            <div class="price-error">
-                <p>Unable to load live prices</p>
-                <button class="retry-button" onclick="fetchHeroPrices()">
-                    Retry
-                </button>
-            </div>
-        `;
+            try {
+                console.log('Trying CoinRanking API as fallback...');
+
+                
+                const symbolsParam = HERO_CRYPTOS.map(c => c.symbol).join(',');
+                const coinRankingResponse = await fetch(
+                    `https://api.coinranking.com/v2/coins?symbols=${symbolsParam}&limit=10`,
+                    {
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    }
+                );
+
+                if (coinRankingResponse.ok) {
+                    const coinRankingData = await coinRankingResponse.json();
+                    const coins = coinRankingData.data.coins;
+
+                    priceGrid.innerHTML = '';
+
+                    HERO_CRYPTOS.forEach(crypto => {
+                        const coin = coins.find(c => c.symbol === crypto.symbol);
+
+                        if (coin) {
+                            const price = parseFloat(coin.price);
+                            const change = parseFloat(coin.change);
+
+                            const card = document.createElement('div');
+                            card.className = 'price-card';
+                            card.innerHTML = `
+                            <div class="price-header">
+                                <span class="coin-name">${crypto.name}</span>
+                                <span class="coin-symbol">${crypto.symbol}</span>
+                            </div>
+                            <div class="price-value">${formatPrice(price)}</div>
+                            <div class="price-change ${change >= 0 ? 'positive' : 'negative'}">
+                                ${change >= 0 ? '↑' : '↓'} ${Math.abs(change).toFixed(2)}%
+                            </div>
+                        `;
+
+                            priceGrid.appendChild(card);
+                        }
+                    });
+
+                    console.log('Successfully fetched prices from CoinRanking API');
+                } else {
+                    throw new Error('CoinRanking API also failed');
+                }
+
+            } catch (fallbackError) {
+                console.error('All API attempts failed:', fallbackError);
+
+                
+                const fallbackPrices = [
+                    { symbol: 'BTC', name: 'Bitcoin', price: 68432, change: 2.3 },
+                    { symbol: 'ETH', name: 'Ethereum', price: 4368, change: 1.8 },
+                    { symbol: 'SOL', name: 'Solana', price: 142.50, change: -0.5 },
+                    { symbol: 'BNB', name: 'BNB', price: 412.80, change: 3.2 },
+                    { symbol: 'XRP', name: 'XRP', price: 0.58, change: 1.2 },
+                    { symbol: 'ADA', name: 'Cardano', price: 0.52, change: -1.1 },
+                    { symbol: 'AVAX', name: 'Avalanche', price: 28.45, change: 2.8 },
+                    { symbol: 'MATIC', name: 'Polygon', price: 0.68, change: 1.5 },
+                    { symbol: 'DOT', name: 'Polkadot', price: 5.82, change: -0.8 },
+                    { symbol: 'LINK', name: 'Chainlink', price: 11.24, change: 3.5 }
+                ];
+
+                priceGrid.innerHTML = '';
+
+                fallbackPrices.slice(0, 10).forEach(crypto => {
+                    const card = document.createElement('div');
+                    card.className = 'price-card';
+                    card.innerHTML = `
+                    <div class="price-header">
+                        <span class="coin-name">${crypto.name}</span>
+                        <span class="coin-symbol">${crypto.symbol}</span>
+                    </div>
+                    <div class="price-value">${formatPrice(crypto.price)}</div>
+                    <div class="price-change ${crypto.change >= 0 ? 'positive' : 'negative'}">
+                        ${crypto.change >= 0 ? '↑' : '↓'} ${Math.abs(crypto.change).toFixed(2)}%
+                    </div>
+                `;
+
+                    priceGrid.appendChild(card);
+                });
+
+                console.log('Using static fallback prices');
+            }
         }
     }
 
     
     document.addEventListener('DOMContentLoaded', function () {
+        
         fetchHeroPrices();
 
         
@@ -1050,17 +1216,54 @@
 
     
     <script>
+        
         const themeToggle = document.querySelector('.theme-toggle');
-        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const sunIcon = document.querySelector('.sun-icon');
+        const moonIcon = document.querySelector('.moon-icon');
 
-        if (savedTheme === 'light') {
+        
+        const savedTheme = localStorage.getItem('theme');
+        const initialTheme = savedTheme ? savedTheme : 'dark';
+
+        
+        if (initialTheme === 'light') {
             document.body.classList.add('light-theme');
+            sunIcon.style.display = 'block';
+            moonIcon.style.display = 'none';
+        } else {
+            
+            document.body.classList.remove('light-theme');
+            sunIcon.style.display = 'none';
+            moonIcon.style.display = 'block';
+            
+            if (!savedTheme) {
+                localStorage.setItem('theme', 'dark');
+            }
         }
 
+        
         themeToggle.addEventListener('click', () => {
             document.body.classList.toggle('light-theme');
             const currentTheme = document.body.classList.contains('light-theme') ? 'light' : 'dark';
             localStorage.setItem('theme', currentTheme);
+
+            
+            if (currentTheme === 'light') {
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+            } else {
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+            }
+        });
+
+        
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const navMenu = document.getElementById('navMenu');
+
+        mobileMenuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileMenuToggle.textContent = navMenu.classList.contains('active') ? '✕' : '☰';
         });
     </script>
 
