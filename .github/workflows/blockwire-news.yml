@@ -30,6 +30,11 @@ jobs:
       - run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+      - name: Randomize publish time (jitter)
+        run: |
+          JITTER=$((RANDOM % 1800))  # up to 30 minutes
+          echo "Sleeping ${JITTER}s to randomize publish time..."
+          sleep ${JITTER}
       - name: Run bot
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
