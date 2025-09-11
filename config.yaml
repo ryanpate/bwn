@@ -12,6 +12,17 @@ params:
   author: "BlockWire News"
   images:
     - "/img/blockwire-og.png"
+  keywords:
+    - crypto news
+    - bitcoin
+    - defi
+    - web3
+    - crypto regulation
+    - blockchain
+  siteLogo: "/img/blockwire-og.png"
+  siteBanner: "/img/blockwire-banner.png"
+  jsonLD: true
+  googleSiteVerification: "REPLACE_WITH_YOUR_CODE"
   
   # Social links
   socialLinks:
@@ -64,15 +75,27 @@ outputs:
     - HTML
     - RSS
     - JSON
+  section:
+    - HTML
+    - RSS
+    - JSON
+  taxonomy:
+    - HTML
+    - RSS
+  taxonomyTerm:
+    - HTML
+    - RSS
 
 # Permalinks
 permalinks:
   posts: "/:year/:month/:slug/"
+  news: "/news/:year/:month/:slug/"
 
 # RSS
-rssLimit: 20
+rssLimit: 50
 
 # Sitemap
 sitemap:
-  changefreq: "weekly"
-  priority: 0.5
+  changefreq: "daily"
+  priority: 0.8
+  filename: "sitemap.xml"
