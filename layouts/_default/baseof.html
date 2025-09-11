@@ -9,12 +9,30 @@
     <!-- Meta Tags -->
     <meta name="description" content="{{ .Params.description | default .Site.Params.description }}">
     <meta name="author" content="{{ .Site.Params.author }}">
+    <!-- Canonical -->
+    <link rel="canonical" href="{{ .Permalink }}">
+    <!-- RSS feed -->
+    <link rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" href="{{ .Site.BaseURL }}index.xml">
+    <!-- news_keywords for articles -->
+    {{ with .Params.tags -}}
+    <meta name="news_keywords" content="{{ delimit . ", " }}">
+    {{- end }}
 
     <!-- Open Graph -->
     <meta property="og:title" content="{{ .Title }}">
     <meta property="og:description" content="{{ .Params.description | default .Site.Params.description }}">
     <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
     <meta property="og:url" content="{{ .Permalink }}">
+    {{ $ogimg := (or (.Params.images | first) (index .Site.Params.images 0)) }}
+    {{ with $ogimg }}
+    <meta property="og:image" content="{{ . | absURL }}">
+    {{ end }}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ .Title }}">
+    <meta name="twitter:description" content="{{ .Params.description | default .Site.Params.description }}">
+    {{ with $ogimg }}
+    <meta name="twitter:image" content="{{ . | absURL }}">
+    {{ end }}
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -301,6 +319,38 @@
         }
     </style>
 
+    <!-- Structured Data: WebSite + SearchAction -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": {{ .Site.Title | jsonify }},
+      "url": {{ .Site.BaseURL | jsonify }},
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {{ (printf "%ssearch/?q={search_term_string}" .Site.BaseURL) | jsonify }},
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+    <!-- Structured Data: Organization (Publisher) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": {{ .Site.Title | jsonify }},
+      {{ with .Site.Params.socialLinks.twitter }}
+      "sameAs": [ {{ . | jsonify }} ],
+      {{ end }}
+      "url": {{ .Site.BaseURL | jsonify }},
+      {{ with (index .Site.Params.images 0) -}}
+      "logo": {
+        "@type": "ImageObject",
+        "url": {{ (. | absURL) | jsonify }}
+      }
+      {{- end }}
+    }
+    </script>
     {{ block "head" . }}{{ end }}
 </head>
 
