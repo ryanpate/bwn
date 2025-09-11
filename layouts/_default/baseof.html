@@ -23,7 +23,10 @@
     <meta property="og:description" content="{{ .Params.description | default .Site.Params.description }}">
     <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
     <meta property="og:url" content="{{ .Permalink }}">
-    {{ $ogimg := (or (.Params.images | first) (index .Site.Params.images 0)) }}
+    {{/* Resolve OG image without using `first` */}}
+    {{ $ogimg := "" }}
+    {{ with .Params.images }}{{ $ogimg = (index . 0) }}{{ end }}
+    {{ if eq $ogimg "" }}{{ with .Site.Params.images }}{{ $ogimg = (index . 0) }}{{ end }}{{ end }}
     {{ with $ogimg }}
     <meta property="og:image" content="{{ . | absURL }}">
     {{ end }}
