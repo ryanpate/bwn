@@ -128,14 +128,19 @@
   {{ $current := . }}
   {{ $byTags := slice }}
   {{ with .Params.tags }}
-    {{ $byTags = first 6 (where (where .Site.RegularPages "Section" "news") "Permalink" "ne" $current.Permalink | intersect (where .Site.RegularPages "Params.tags" "intersect" .)) }}
+    {{ $tags := . }}
+    {{ $pool := where $.Site.RegularPages "Section" "news" }}
+    {{ $pool = where $pool "Permalink" "ne" $current.Permalink }}
+    {{ $byTags = first 6 (where $pool "Params.tags" "intersect" $tags) }}
   {{ end }}
 
   {{ $related := $byTags }}
   {{ if lt (len $related) 3 }}
     {{ $need := sub 3 (len $related) }}
     {{ $cats := $current.Params.categories | default (slice) }}
-    {{ $byCats := where (where .Site.RegularPages "Section" "news") "Permalink" "ne" $current.Permalink | intersect (where .Site.RegularPages "Params.categories" "intersect" $cats) }}
+    {{ $pool2 := where $.Site.RegularPages "Section" "news" }}
+    {{ $pool2 = where $pool2 "Permalink" "ne" $current.Permalink }}
+    {{ $byCats := where $pool2 "Params.categories" "intersect" $cats }}
     {{ $related = uniq (append $related (first $need $byCats)) }}
   {{ end }}
 
