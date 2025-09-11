@@ -130,7 +130,10 @@
         <span>📅 {{ .Date.Format "Jan 2, 2006" }}</span>
         <span>📚 {{ .ReadingTime }} min read</span>
         {{ with .Params.categories }}
-        <span>🏷️ {{ index . 0 }}</span>
+        <span>🏷️ {{ delimit . ", " }}</span>
+        {{ end }}
+        {{ with .Params.tags }}
+        <span>🔖 {{ delimit . ", " }}</span>
         {{ end }}
       </div>
     </a>

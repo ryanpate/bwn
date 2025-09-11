@@ -5,7 +5,7 @@
   "feed_url": "{{ .Site.BaseURL }}index.json",
   "description": "{{ .Site.Params.description }}",
   "items": [
-    {{ range $index, $page := first 10 .Site.RegularPages }}
+    {{ range $index, $page := first 200 .Site.RegularPages }}
     {{ if $index }},{{ end }}
     {
       "id": "{{ $page.Permalink }}",
