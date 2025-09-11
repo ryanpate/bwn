@@ -22,7 +22,7 @@ params:
   siteLogo: "/img/blockwire-og.png"
   siteBanner: "/img/blockwire-banner.png"
   jsonLD: true
-  googleSiteVerification: "REPLACE_WITH_YOUR_CODE"
+  googleSiteVerification: "OawgpJnb59ZYuFmD7svzMa6WKUvp22XlzcdBQp1yFB4"
   
   # Social links
   socialLinks:

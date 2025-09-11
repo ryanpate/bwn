@@ -9,6 +9,9 @@
     <!-- Meta Tags -->
     <meta name="description" content="{{ .Params.description | default .Site.Params.description }}">
     <meta name="author" content="{{ .Site.Params.author }}">
+    {{ with .Site.Params.googleSiteVerification }}
+    <meta name="google-site-verification" content="{{ . }}">
+    {{ end }}
     <!-- Canonical -->
     <link rel="canonical" href="{{ .Permalink }}">
     <!-- RSS feed -->
