@@ -1,11 +1,12 @@
+
 #!/usr/bin/env python3
 """
-BlockWireNews Article Bot (millennial edition 🚀)
+BlockWireNews Article Bot (hardened)
 
 Key features
 - Pull headlines from RSS (scripts/sources.yaml)
 - Fetch & extract article text (BeautifulSoup or Trafilatura toggle)
-- Summarize with OpenAI (with personality and conversational tone)
+- Summarize with OpenAI (strict JSON schema enforced)
 - Write Hugo posts under content/news/YYYY/MM/slug/index.md
 - Guardrails: de-dupe (URL + title), domain whitelist, article age cap,
   min words, retries with exponential backoff, disclosure assertion,
@@ -13,7 +14,7 @@ Key features
 
 Env:
   OPENAI_API_KEY   (required)
-  OPENAI_MODEL     (optional, default: gpt-4o-mini)
+  OPENAI_MODEL     (optional, default: gpt-4.1-mini)
 """
 
 import os
@@ -32,51 +33,29 @@ import feedparser
 from slugify import slugify
 from tenacity import retry, stop_after_attempt, wait_exponential
 
+
 import yaml  # PyYAML
 
-# ==== DEFAULT PROMPTS (millennial voice edition) ====
+# ==== DEFAULT PROMPTS (used if prompts.yaml is missing or incomplete) ====
 DEFAULT_SYSTEM_PROMPT = (
-    "You're a millennial crypto enthusiast who writes engaging, conversational articles about crypto news. "
-    "You keep things real and relatable - no stuffy finance-bro talk. Think of yourself as explaining crypto "
-    "news to your smart friend who's interested but not obsessed. Use natural language, occasional humor "
-    "when appropriate (especially about market drama or crypto Twitter), and modern internet culture references. "
-    "Keep facts accurate but make them digestible. You're writing for people who get their news from group chats "
-    "and Reddit, not Bloomberg terminals."
+    "You are a careful financial news summarizer. Stay faithful to source facts; "
+    "do not invent numbers or quotes. Avoid advice. Keep tone neutral, professional, "
+    "and readable. US English."
 )
 
 DEFAULT_USER_TEMPLATE = (
-    "Transform this crypto news into an engaging, conversational article that millennials will actually want to read.\n\n"
-    "Return a JSON object with keys: \"title\", \"description\", \"bullets\" (3–5 items), \"body\".\n\n"
-    "Guidelines:\n"
-    "- \"title\": 60–70 chars, catchy but not clickbait. Think viral tweet energy.\n"
-    "- \"description\": 140–155 chars for SEO, include keywords like 'crypto', 'Bitcoin', 'DeFi' naturally\n"
-    "- \"bullets\": 3–5 quick takeaways in casual language. Start with action words or \"The\" statements\n"
-    "- \"body\": 700–900 words with this vibe:\n"
-    "  * Hook with a relatable opener (2-3 sentences that make people go \"oh, this affects me\")\n"
-    "  * Background context (but make it interesting - why should anyone care?)\n"
-    "  * The main story (what went down, with actual numbers and dates)\n"
-    "  * Why this matters to regular people (not just crypto degens)\n"
-    "  * Market vibes check (what's the mood? Are people panicking or celebrating?)\n"
-    "  * Wrap with a memorable takeaway or thought-provoking question\n\n"
-    "Style notes:\n"
-    "- Use conversational transitions (\"Here's the thing...\", \"But wait, it gets better/worse...\")\n"
-    "- Include appropriate pop culture references or memes if they fit naturally\n"
-    "- Acknowledge when things are confusing or ridiculous (\"Yes, this is as weird as it sounds\")\n"
-    "- Use parentheticals for quick asides (like this)\n"
-    "- Break up long sentences - we're not writing academic papers here\n"
-    "- It's okay to be slightly sarcastic about obvious scams or hype\n"
-    "- Use \"we\" and \"you\" to create connection\n"
-    "- Acknowledge market absurdity when relevant (\"another day in crypto\")\n\n"
-    "Include a \"Sources\" section at the end with the URL (keep it simple).\n\n"
-    "Don't:\n"
-    "- Give financial advice (seriously, we're not doing that)\n"
-    "- Make up facts or numbers\n"
-    "- Use outdated slang or try too hard to be cool\n"
-    "- Be mean-spirited (punching up is fine, punching down is not)\n\n"
+    "Summarize the following crypto news article faithfully and concisely for a general audience.\n"
+    "Return a JSON object with keys: \"title\", \"description\", \"bullets\" (3–5 items), \"body\".\n"
+    "- \"title\": punchy 60–70 characters, include the main entity/event.\n"
+    "- \"description\": SEO meta, 140–155 chars, include a keyword like ‘crypto’, ‘Bitcoin’, ‘DeFi’.\n"
+    "- \"bullets\": 3–5 item TL;DR with concrete facts.\n"
+    "- \"body\": 700–900 words. Structure: intro; context; what happened; why it matters; market context; one-line takeaway.\n"
+    "Include a short \"Sources\" section at the end with the provided URL.\n"
+    "Do NOT add financial advice. Do NOT create data that isn’t in the text.\n\n"
     "Source title: {source_title}\n"
     "Source URL: {source_url}\n\n"
     "Article text:\n---\n{article_text}\n---\n\n"
-    "Respond ONLY with a fenced JSON block:\n```json\n{{ ... }}\n```\n"
+    "Respond ONLY with a fenced JSON block:\n```json\n{ ... }\n```\n"
 )
 
 # Safely format the user prompt: only our three placeholders are substituted.
@@ -159,37 +138,10 @@ BLOCKED_DOMAINS = {
     "youtube.com", "www.youtube.com", "youtu.be",
 }
 
-# Monetization / disclosure blocks (updated with conversational tone)
-AFFILIATE_BLOCK = '''{{< aff-cta >}}
+# Monetization / disclosure blocks
+AFFILIATE_BLOCK = '{{< aff-cta >}}'
 
-### Quick Crypto Resources 🔥
-
-Looking to actually get into crypto? Here are some solid places to start:
-- **Learn the basics**: Check out our [What is DeFi?](/pages/what-is-defi/) guide
-- **Keep your crypto safe**: Don't get rekt - read [How to store Bitcoin safely](/pages/how-to-store-bitcoin-safely/)
-'''
-
-# Updated disclaimer with millennial voice
-DISCLAIMERS = [
-    "_Not financial advice, obviously. We're just here for the vibes and information. Do your own research!_",
-    "_This is just news, not financial advice. DYOR and maybe don't bet the farm on magic internet money._",
-    "_Quick reminder: This isn't financial advice. We're just keeping you in the loop. Stay safe out there!_",
-    "_Not financial advice - we're just translating crypto chaos into English. Make your own (hopefully smart) choices._",
-    "_PSA: This is news, not investment advice. The crypto market does what it wants, regardless of our hot takes._",
-]
-
-def get_random_disclaimer():
-    """Get a random disclaimer to keep things fresh."""
-    return random.choice(DISCLAIMERS)
-
-# Conversational internal links with better context
-INTERNAL_LINKS = [
-    ("totally lost about DeFi", "/pages/what-is-defi/"),
-    ("need to secure your bags", "/pages/how-to-store-bitcoin-safely/"),
-    ("wondering about yield farming", "/pages/yield-farming-explained/"),
-    ("confused about gas fees", "/pages/ethereum-gas-fees-guide/"),
-    ("thinking about hardware wallets", "/pages/best-hardware-wallets/"),
-]
+DISCLAIMER = "_This article is a summarized news brief for informational purposes only. Not financial advice._"
 
 
  # ==== UTILS ====
@@ -391,8 +343,8 @@ def llm_summarize(article_text: str, source_title: str, source_url: str, prompts
     from openai import OpenAI
     client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
     resp = client.chat.completions.create(
-        model=os.environ.get("OPENAI_MODEL", "gpt-4o-mini"),
-        temperature=0.7,  # Slightly higher for more personality
+        model=os.environ.get("OPENAI_MODEL", "gpt-4.1-mini"),
+        temperature=0.4,
         messages=[
             {"role": "system", "content": sys_prompt},
             {"role": "user", "content": user_prompt},
@@ -410,33 +362,21 @@ def pick_sources():
     return feeds
 
 
+INTERNAL_LINKS = [
+    ("What is DeFi?", "/pages/what-is-defi/"),
+    ("How to store Bitcoin safely", "/pages/how-to-store-bitcoin-safely/")
+]
+
+
 def inject_internal_links(body: str, count: int = 2) -> str:
-    """Inject internal links with conversational context."""
     import random
-    
-    # Pick random links
     picks = random.sample(INTERNAL_LINKS, k=min(count, len(INTERNAL_LINKS)))
-    
-    # Create conversational link text
-    link_intros = [
-        "BTW, if you're",
-        "Quick note: if you're",
-        "Side note - if you're",
-        "Also, if you're",
-    ]
-    
-    links_parts = []
-    for i, (text, url) in enumerate(picks):
-        intro = random.choice(link_intros)
-        links_parts.append(f"{intro} {text}, [check out this guide]({url})")
-    
-    links_md = "\n\n".join(links_parts)
-    
-    # Add near the end, before Sources if present
+    links_md = "\n\n".join([f"See also: [{t}]({u})" for t, u in picks])
+    # add near the end, before Sources if present
     parts = body.split("\n### Sources", 1)
     if len(parts) == 2:
-        return parts[0].rstrip() + "\n\n---\n\n" + links_md + "\n\n### Sources" + parts[1]
-    return body.rstrip() + "\n\n---\n\n" + links_md + "\n"
+        return parts[0].rstrip() + "\n\n" + links_md + "\n\n### Sources" + parts[1]
+    return body.rstrip() + "\n\n" + links_md + "\n"
 
 def get_fresh_candidates(max_items=12):
     posted = load_json(POSTED_DB, default={})
@@ -530,7 +470,7 @@ title: "{title_esc}"
 date: {date.isoformat()}Z
 draft: false
 description: "{desc_esc}"
-tags: ["crypto","news","blockchain","defi","bitcoin"]
+tags: ["crypto","news","blockchain"]
 categories: ["News"]
 source_url: "{payload['source_url']}"
 canonicalURL: "{payload.get('canonical', payload['source_url'])}"
@@ -543,41 +483,28 @@ seo:
 
     bullets_section = ""
     if payload.get("bullets"):
-        bullets_section = "## The TL;DR 📝\n\n" + "\n".join([f"- {b}" for b in payload["bullets"]]) + "\n\n"
+        bullets_section = "### TL;DR\n" + "\n".join([f"- {b}" for b in payload["bullets"]]) + "\n\n"
 
-    # Newsletter injection with conversational tone
-    newsletter_snippet = """{{< newsletter-inline >}}
-
-📧 **Want crypto news that doesn't put you to sleep?** Get our weekly digest straight to your inbox. No spam, just the good stuff.
-
----
-
-"""
-    
+    # Newsletter injection directly after TL;DR (or at top if TL;DR absent)
+    newsletter_snippet = "{{< newsletter-inline >}}\n\n"
     if bullets_section:
         bullets_section = bullets_section + newsletter_snippet
 
     sources_section = f"""### Sources
-- [{payload['source_title']}]({payload['source_url']})
+- {payload['source_title']} — {payload['source_url']}
 """
-
-    # Get a random disclaimer
-    disclaimer = get_random_disclaimer()
 
     body = f"""{bullets_section if bullets_section else newsletter_snippet}{payload['body']}
 
 {AFFILIATE_BLOCK}
 
----
-
-{disclaimer}
+{DISCLAIMER}
 
 {sources_section}
 """
 
-    # Disclosure present check (now checks for multiple possible phrases)
-    disclosure_phrases = ["not financial advice", "isn't financial advice", "not investment advice", "DYOR"]
-    assert any(phrase.lower() in body.lower() for phrase in disclosure_phrases), "Disclosure missing; aborting write."
+    # Disclosure present?
+    assert "Not financial advice" in body, "Disclosure missing; aborting write."
 
     with md_path.open("w", encoding="utf-8") as f:
         f.write(front_matter)
@@ -655,7 +582,7 @@ def run_once():
         # Grounding: ensure body references the source
         body_text = llm.get("body", "")
         if url not in body_text:
-            body_text = body_text.rstrip() + f"\n\n### Sources\n- [{item['title']}]({url})\n"
+            body_text = body_text.rstrip() + f"\n\n### Sources\n- {item['title']} — {url}\n"
 
         # Length clamps
         words = body_text.split()
@@ -663,9 +590,7 @@ def run_once():
             print(f"[warn] body too short after LLM: {len(words)} words; skipping {url}")
             continue
         if len(words) > RUN_CONFIG["target_max_words"]:
-            # Add a conversational truncation message
-            body_text = " ".join(words[: RUN_CONFIG['target_max_words']]) + "\n\n*[Ed note: There's more to this story, check the source for the full scoop]*"
-        
+            body_text = " ".join(words[: RUN_CONFIG['target_max_words']]) + " …"
         body_text = inject_internal_links(body_text, count=2)
 
         payload = {
