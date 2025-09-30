@@ -1,0 +1,5 @@
+# Updated _redirects
+/feed           /index.xml    200
+/rss            /index.xml    200
+/rss.xml        /index.xml    200
+/feed.xml       /index.xml    200
