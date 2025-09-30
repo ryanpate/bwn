@@ -1,44 +1,56 @@
 ---
-title: "Wall Street Analysts Compare Crypto's Growth to Early Internet Days"
-date: 2025-09-22T03:50:18.724013Z
+canonicalURL: https://www.coindesk.com/business/2025/09/19/am-i-too-late-to-invest-in-crypto-here-s-what-tradfi-is-asking-wall-street-analysts
+categories:
+- News
+date: 2025-09-22 03:50:18.724013+00:00
+description: Jefferies analysts see huge growth ahead for crypto, just like the early
+  internet days. Here's what you need to know!
 draft: false
-description: "Wall Street analysts explore crypto investment potential, likening it to the early internet boom, suggesting significant growth ahead."
-tags: ["crypto","news","blockchain"]
-categories: ["News"]
-source_url: "https://www.coindesk.com/business/2025/09/19/am-i-too-late-to-invest-in-crypto-here-s-what-tradfi-is-asking-wall-street-analysts"
-canonicalURL: "https://www.coindesk.com/business/2025/09/19/am-i-too-late-to-invest-in-crypto-here-s-what-tradfi-is-asking-wall-street-analysts"
+last_rewrite: '2025-09-30T01:21:08.322490Z'
 seo:
-  meta_description: "Wall Street analysts explore crypto investment potential, likening it to the early internet boom, suggesting significant growth ahead."
-  og_type: "article"
-  og_image: ""
+  meta_description: Jefferies analysts see huge growth ahead for crypto, just like
+    the early internet days. Here's what you need to know!
+  og_image: ''
+  og_type: article
+source_url: https://www.coindesk.com/business/2025/09/19/am-i-too-late-to-invest-in-crypto-here-s-what-tradfi-is-asking-wall-street-analysts
+tags:
+- crypto
+- news
+- blockchain
+title: 'Crypto''s 1996 Moment: Get Ready for the Next Big Wave'
 ---
 
-### TL;DR
-- Jefferies analysts liken current crypto state to 1996 internet phase.
-- Institutional interest is growing, with focus beyond just Bitcoin.
-- Predictions include a $1 trillion public market sector in five years.
-- Tokenization and IPOs expected to drive future crypto growth.
-- Clients advised to prioritize utility and adoption over short-term gains.
 
 {{< newsletter-inline >}}
 
-In a recent analysis, Jefferies, a prominent investment bank, has drawn parallels between the current state of the cryptocurrency market and the early days of the internet. Analysts suggest that the digital asset ecosystem is in a 1996-like phase, indicating substantial growth potential ahead. This perspective is particularly relevant as institutional investors increasingly inquire about the timing of their entry into the crypto market, with many asking, "Am I too late to invest?"
+📧 **Want crypto news that doesn't put you to sleep?** Get our weekly digest straight to your inbox. No spam, just the good stuff.
 
-Jefferies' analysts, led by Andrew Moss, responded by emphasizing that the next significant growth phase for digital assets has just begun. They noted that only a small number of traditional funds currently have exposure to the crypto sector, but this is changing. The firm launched full coverage of the digital assets sector in September and has seen a diverse range of interest from clients. The comparison to 1996 highlights a time when the internet was just becoming mainstream, with companies like Amazon preparing for their initial public offerings (IPOs) and Netscape Navigator competing for dominance in web browsing.
+---
 
-The analysts argue that institutional investors should look beyond Bitcoin and its primary use case as a payment method. They caution that focusing too heavily on Bitcoin's price may distract from the broader disruptive potential of blockchain technology across various industries. Jefferies noted that clients are exploring investment strategies that include exchange-traded funds (ETFs) and digital asset treasury (DAT) companies, which could serve as a short-term bullish case for the sector. The introduction of ETFs is seen as a potential catalyst for institutional investment, while DATs are actively acquiring tokens, increasing demand in the market.
+### TL;DR
+- Jefferies analysts are saying crypto is in a 1996 internet vibe.
+- Institutional interest is on the rise, and it's not just about Bitcoin anymore.
+- They predict a $1 trillion public market sector in five years. Yup, you read that right.
+- Tokenization and IPOs are set to supercharge crypto growth.
+- Clients are advised to focus on utility and adoption, not just quick bucks.
 
-Looking ahead, Jefferies forecasts significant developments in tokenization and IPOs. They predict that financial institutions will increasingly tokenize assets, enabling continuous trading and real-time settlement, which could lead to a paradigm shift in blockchain activity and higher transaction volumes. The firm expects a surge in IPOs over the next 18 to 24 months, with estimates of 10 to 15 new public offerings in the digital asset space. This trend is anticipated to grow into a $1 trillion public market sector within five years, encompassing a variety of companies, from exchanges to tokenization platforms and custodians.
+Okay, friends, so check this out! In a recent analysis, Jefferies, which is like one of those big investment banks you hear about, has made a wild comparison between where crypto is right now and the internet back in 1996. I mean, talk about a throwback! They’re saying we’re at that sweet spot with tons of room to grow. And get this—lots of institutional investors are peeking into the crypto world and asking, "Am I too late to jump on this train?" 
 
-The analysts also emphasize the importance of selective investment strategies, drawing lessons from the dot-com era. They point out that only a fraction of the top tokens from early 2018 remain relevant today, mirroring the early internet landscape where many initial leaders were eventually supplanted. Investors are encouraged to analyze tokens similarly to early-stage tech startups, focusing on factors such as adoption, development, and real-world applications rather than transient revenue spikes.
+So, Jefferies' analysts, led by Andrew Moss (who's basically the crypto oracle now), are like, "Nah, fam, the real growth is just getting started!" They pointed out that only a handful of traditional funds have dipped their toes into crypto, but that’s changing faster than you can say 'blockchain.' They started fully covering the digital assets sector in September and have seen a super diverse range of interest from clients. Think about it—this is like when Amazon was prepping to go public and Netscape was battling it out for web browsing glory. 
 
-In summary, Jefferies' analysis presents a hopeful outlook for the cryptocurrency market, suggesting that we are still in the early stages of a significant transformation akin to the internet boom. As institutional interest grows and new investment vehicles emerge, the potential for digital assets to reshape various industries appears promising.
+Now, here’s the kicker: they’re telling institutional investors not to get tunnel vision stuck on Bitcoin. Sure, Bitcoin is cool, but focusing solely on its price might blind you to the epic potential of blockchain tech across all kinds of industries. Jefferies mentioned that clients are all about exploring new investment strategies, like ETFs and digital asset treasury (DAT) companies. These could totally amp up the market's bullish vibes. ETFs, in particular, are being seen as a game-changer for institutional investment, and DATs are out there scooping up tokens like they’re limited-edition sneakers! 
 
-Market context: The cryptocurrency market continues to evolve, with increasing regulatory clarity and institutional engagement. As more traditional financial entities explore crypto investments, the landscape is likely to shift, fostering innovation and growth.
+Looking to the future, Jefferies is buzzing about tokenization and IPOs. They’re predicting that financial institutions are going to start tokenizing assets, which means we could see trading happening non-stop and settlements happening in real-time. This could seriously shake things up in the blockchain game and lead to way more transactions. They’re forecasting a wave of IPOs coming in the next 18 to 24 months—like 10 to 15 new public offerings in the digital asset world. And brace yourselves—this all might snowball into a $1 trillion public market sector in just five years, covering everything from exchanges to tokenization platforms and custodians. 
 
-One-line takeaway: Jefferies analysts believe the cryptocurrency market is at a pivotal moment, akin to the early internet, with substantial growth opportunities ahead.
+But hold up! Jefferies also dropped some wisdom bombs about being picky with investments, taking notes from the dot-com era. They reminded us that only a small fraction of the top tokens from early 2018 are still relevant today. It’s like how many of those early internet darlings got replaced as the market matured. So, if you’re investing, treat tokens like you would a start-up—look for solid adoption, development, and real-world applications instead of just chasing those quick cash grabs. 
 
-See also: [What is DeFi?](/pages/what-is-defi/)
+In a nutshell, Jefferies is throwing some serious optimism into the crypto pool, suggesting we’re still at the start of something huge, much like the internet boom. As institutional interest ramps up and new investment options pop up, it looks like digital assets are on track to reshape a ton of industries.  
+
+Market context: The crypto landscape is evolving like crazy, with clearer regulations and more institutional players getting in on the action. As traditional finance dips its toes into crypto, we can expect even more innovation and growth. 
+
+One-line takeaway: Jefferies analysts are convinced we’re at a pivotal moment in crypto, much like the early internet, with massive growth opportunities ahead. 
+
+See also: [What is DeFi?](/pages/what-is-defi/)  
 
 See also: [How to store Bitcoin safely](/pages/how-to-store-bitcoin-safely/)
 
@@ -49,6 +61,8 @@ See also: [How to store Bitcoin safely](/pages/how-to-store-bitcoin-safely/)
 
 _This article is a summarized news brief for informational purposes only. Not financial advice._
 
-### Sources
-- 'Am I Too Late to Invest' in Crypto? Here's What TradFi Is Asking Wall Street Analysts — https://www.coindesk.com/business/2025/09/19/am-i-too-late-to-invest-in-crypto-here-s-what-tradfi-is-asking-wall-street-analysts
 
+
+---
+
+_Not financial advice, obviously. We're just here for the vibes and information. Do your own research!_
