@@ -8,9 +8,11 @@ Usage:
   python rewrite_articles.py --limit 5           # Rewrite only 5 articles
   python rewrite_articles.py --since 2024-01-01  # Only articles after date
   python rewrite_articles.py --backup            # Create backups before rewriting
+  python rewrite_articles.py --auto-confirm      # Skip confirmation (for CI/automation)
 """
 
 import os
+import sys
 import re
 import json
 import shutil
@@ -351,6 +353,8 @@ def main():
                         help='Skip creating backups')
     parser.add_argument('--specific', type=str,
                         help='Rewrite specific article by path relative to content/news/')
+    parser.add_argument('--auto-confirm', '-y', action='store_true',
+                        help='Skip confirmation prompt (for automation)')
 
     args = parser.parse_args()
 
@@ -384,9 +388,18 @@ def main():
         if args.dry_run:
             print("🔍 DRY RUN MODE - No files will be modified")
 
-        if input("\nProceed? (y/n): ").lower() != 'y':
-            print("Cancelled")
-            return
+        # Skip confirmation if auto-confirm flag is set, in dry-run mode, or in CI environment
+        is_ci = os.environ.get('CI') == 'true' or os.environ.get(
+            'GITHUB_ACTIONS') == 'true'
+
+        if not args.auto_confirm and not args.dry_run and not is_ci:
+            if input("\nProceed? (y/n): ").lower() != 'y':
+                print("Cancelled")
+                return
+        elif is_ci:
+            print("Running in CI environment - auto-confirming...")
+        elif args.auto_confirm:
+            print("Auto-confirm flag set - proceeding...")
 
         # Process articles
         success_count = 0
