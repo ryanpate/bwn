@@ -1,0 +1,153 @@
+name: Rewrite Articles with PR
+
+on:
+  # Manual trigger with inputs
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: 'Number of articles to rewrite'
+        required: false
+        default: '5'
+      since_date:
+        description: 'Only rewrite articles after this date (YYYY-MM-DD)'
+        required: false
+        default: ''
+      specific_article:
+        description: 'Specific article path (e.g., 2024/10/bitcoin-news)'
+        required: false
+        default: ''
+
+jobs:
+  rewrite-articles:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 0
+
+    - name: Create new branch
+      run: |
+        BRANCH_NAME="rewrite-articles-$(date +%Y%m%d-%H%M%S)"
+        git checkout -b $BRANCH_NAME
+        echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        pip install --upgrade pip
+        pip install openai pyyaml slugify-python tenacity feedparser requests beautifulsoup4 lxml
+
+    - name: Create required directories
+      run: |
+        mkdir -p data
+        mkdir -p backups/articles
+
+    - name: Run rewrite script
+      env:
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        OPENAI_MODEL: gpt-4o-mini
+      run: |
+        # Check if script exists
+        if [ ! -f "scripts/rewrite_articles.py" ]; then
+          echo "Error: scripts/rewrite_articles.py not found"
+          echo "Please add the rewrite script to your repository first"
+          exit 1
+        fi
+        
+        # Build command
+        CMD="python scripts/rewrite_articles.py --backup"
+        
+        if [ -n "${{ github.event.inputs.limit }}" ]; then
+          CMD="$CMD --limit ${{ github.event.inputs.limit }}"
+        fi
+        
+        if [ -n "${{ github.event.inputs.since_date }}" ]; then
+          CMD="$CMD --since ${{ github.event.inputs.since_date }}"
+        fi
+        
+        if [ -n "${{ github.event.inputs.specific_article }}" ]; then
+          CMD="$CMD --specific ${{ github.event.inputs.specific_article }}"
+        fi
+        
+        echo "Running: $CMD"
+        $CMD
+
+    - name: Commit changes
+      run: |
+        git config --global user.name 'GitHub Actions Bot'
+        git config --global user.email 'actions@github.com'
+        
+        # Check for changes
+        if [[ `git status --porcelain` ]]; then
+          git add content/news/
+          git add data/rewrite_log.json
+          
+          # Create detailed commit message
+          if [ -n "${{ github.event.inputs.specific_article }}" ]; then
+            COMMIT_MSG="🔄 Rewrite article: ${{ github.event.inputs.specific_article }}"
+          elif [ -n "${{ github.event.inputs.limit }}" ]; then
+            COMMIT_MSG="🔄 Rewrite ${{ github.event.inputs.limit }} articles with millennial voice"
+          else
+            COMMIT_MSG="🔄 Rewrite articles with millennial voice"
+          fi
+          
+          git commit -m "$COMMIT_MSG" \
+            -m "Automated rewrite via GitHub Actions" \
+            -m "Limit: ${{ github.event.inputs.limit }}" \
+            -m "Since: ${{ github.event.inputs.since_date }}"
+          
+          git push origin ${{ env.BRANCH_NAME }}
+          echo "CHANGES_MADE=true" >> $GITHUB_ENV
+        else
+          echo "No changes to commit"
+          echo "CHANGES_MADE=false" >> $GITHUB_ENV
+        fi
+
+    - name: Create Pull Request
+      if: env.CHANGES_MADE == 'true'
+      uses: peter-evans/create-pull-request@v5
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ env.BRANCH_NAME }}
+        title: '🔄 Rewrite articles with millennial voice'
+        body: |
+          ## Article Rewrite Summary
+          
+          This PR contains automated article rewrites to update the tone to be more conversational and millennial-friendly.
+          
+          ### Parameters Used
+          - **Limit**: ${{ github.event.inputs.limit || 'No limit' }}
+          - **Since Date**: ${{ github.event.inputs.since_date || 'All dates' }}
+          - **Specific Article**: ${{ github.event.inputs.specific_article || 'None' }}
+          
+          ### Changes Made
+          - Articles have been rewritten with millennial voice
+          - All facts, figures, and sources preserved
+          - Backups created in `/backups/articles/`
+          
+          ### Review Checklist
+          - [ ] Facts and figures remain accurate
+          - [ ] Sources are properly preserved
+          - [ ] Tone is consistent and appropriate
+          - [ ] No inappropriate humor
+          - [ ] SEO elements maintained
+          
+          ### Next Steps
+          1. Review a sample of the rewritten articles
+          2. Check that the voice feels authentic
+          3. Verify no technical information was lost
+          4. Merge if satisfied with the changes
+          
+          ---
+          *Automated PR created by GitHub Actions*
+        labels: |
+          content
+          automated
+          enhancement
