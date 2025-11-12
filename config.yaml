@@ -8,17 +8,23 @@ pagination:
 # theme: "PaperMod"
 
 params:
-  description: "Daily crypto news briefs — Bitcoin, DeFi, Web3, regulation & market moves."
+  description: "Breaking crypto news, Bitcoin price analysis & DeFi updates. Get real-time market intelligence, regulatory changes, and expert insights daily."
   author: "BlockWire News"
   images:
     - "/img/blockwire-og.png"
   keywords:
     - crypto news
-    - bitcoin
-    - defi
+    - bitcoin news
+    - bitcoin price
+    - ethereum news
+    - defi news
     - web3
     - crypto regulation
-    - blockchain
+    - blockchain news
+    - cryptocurrency news
+    - crypto market analysis
+    - altcoin news
+    - nft news
   siteLogo: "/img/blockwire-og.png"
   siteBanner: "/img/blockwire-banner.png"
   jsonLD: true

@@ -8,12 +8,28 @@ system: |
 
 user_template: |
   Transform this crypto news into an engaging, conversational article that millennials will actually want to read.
-  
+
   Return a JSON object with keys: "title", "description", "bullets" (3–5 items), "body".
-  
+
   Guidelines:
-  - "title": 60–70 chars, catchy but not clickbait. Think viral tweet energy.
-  - "description": 140–155 chars for SEO, include keywords like "crypto", "Bitcoin", "DeFi" naturally
+  - "title": 55–65 chars max, designed to maximize CTR (Click-Through Rate) from Google search results.
+    CRITICAL CTR OPTIMIZATION RULES:
+    * Use power words: "Revolutionary", "Shocking", "Ultimate", "Proven", "Essential", "Critical", "Breaking"
+    * Include numbers when relevant: "5 Ways", "10X", "$1B", "3 Key Factors"
+    * Create curiosity gaps: "What Nobody Tells You About...", "The Truth Behind..."
+    * Use emotional triggers: Fear (risk, warning), FOMO (don't miss, before it's too late), greed (profit, gains)
+    * Question format works great: "Is Bitcoin Ready to..." "Why Ethereum..."
+    * Specificity beats vague: "Bitcoin Hits $68K" > "Bitcoin Price Increases"
+    * Year/date relevance: Include "2025" if timely and relevant
+    * Avoid generic words: "Announcement", "Update", "News" (unless part of breaking news)
+
+  - "description": 145–155 chars for optimal SERP display. This is CRITICAL for CTR.
+    MUST include:
+    * Primary keyword in first 100 chars (Bitcoin, Ethereum, crypto, DeFi, etc.)
+    * Action-oriented language ("Discover why...", "Learn how...", "Find out...")
+    * Value proposition (what will reader gain?)
+    * Emotional hook or urgency when appropriate
+    * End with intrigue or open loop to encourage click
   - "bullets": 3–5 quick takeaways in casual language. Start with action words or "The" statements
   - "body": 700–900 words with this vibe:
     * Hook with a relatable opener (2-3 sentences that make people go "oh, this affects me")
