@@ -1,4 +1,41 @@
 {{ define "head" }}
+
+<!-- CollectionPage Schema for Homepage -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "BlockWire News - Crypto News & Market Intelligence",
+  "description": {{ .Site.Params.description | jsonify }},
+  "url": {{ .Site.BaseURL | jsonify }},
+  "publisher": {
+    "@type": "Organization",
+    "name": {{ .Site.Title | jsonify }},
+    "url": {{ .Site.BaseURL | jsonify }},
+    "logo": {
+      "@type": "ImageObject",
+      "url": {{ (index .Site.Params.images 0 | absURL) | jsonify }}
+    }
+  },
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": [
+      {{ range $index, $page := (first 10 (where .Site.RegularPages "Section" "news")) }}
+      {{ if $index }},{{ end }}
+      {
+        "@type": "ListItem",
+        "position": {{ add $index 1 }},
+        "url": {{ $page.Permalink | jsonify }},
+        "name": {{ $page.Title | jsonify }}
+      }
+      {{ end }}
+    ]
+  },
+  "inLanguage": "en-US",
+  "isAccessibleForFree": true
+}
+</script>
+
 <style>
     /* Hero Section */
     .hero {

@@ -44,7 +44,7 @@
 <!-- Canonical -->
 <link rel="canonical" href="{{ .Permalink }}"/>
 
-<!-- NewsArticle JSON-LD -->
+<!-- NewsArticle JSON-LD with Enhanced Schema -->
 {{/* Select a best-image: page param > resources > site param fallback */}}
 {{ $img := "" }}
 {{ with .Params.images }}
@@ -64,18 +64,101 @@
   "description": {{ ( .Params.description | default .Site.Params.description ) | jsonify }},
   "datePublished": "{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}",
   "dateModified": "{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}",
-  "author": { "@type": "Organization", "name": {{ .Site.Title | jsonify }} },
+  "author": {
+    "@type": "Organization",
+    "name": {{ .Site.Title | jsonify }},
+    "url": {{ .Site.BaseURL | jsonify }}
+  },
   "publisher": {
     "@type": "Organization",
     "name": {{ .Site.Title | jsonify }},
-    "logo": { "@type": "ImageObject", "url": {{ (or ($img | absURL) (.Site.Params.images | default (slice) | first | absURL)) | jsonify }} }
+    "url": {{ .Site.BaseURL | jsonify }},
+    "logo": {
+      "@type": "ImageObject",
+      "url": {{ (or ($img | absURL) (.Site.Params.images | default (slice) | first | absURL)) | jsonify }},
+      "width": 600,
+      "height": 60
+    }
   },
-  "mainEntityOfPage": { "@type": "WebPage", "@id": "{{ .Permalink }}" },
-  {{ with .Params.categories }}"articleSection": {{ . | jsonify }},{{ end }}
-  {{ with .Params.tags }}"keywords": {{ . | jsonify }},{{ end }}
-  {{ if $img }}"image": {{ $img | absURL | jsonify }}{{ end }}
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ .Permalink }}"
+  },
+  {{ with .Params.categories }}"articleSection": {{ index . 0 | jsonify }},{{ end }}
+  {{ with .Params.tags }}"keywords": {{ delimit . ", " | jsonify }},{{ end }}
+  {{ if $img }}"image": {
+    "@type": "ImageObject",
+    "url": {{ $img | absURL | jsonify }},
+    "width": 1200,
+    "height": 630
+  },{{ end }}
+  "wordCount": {{ .WordCount }},
+  "articleBody": {{ .Plain | jsonify }},
+  "inLanguage": "en-US",
+  "isAccessibleForFree": true,
+  "speakable": {
+    "@type": "SpeakableSpecification",
+    "cssSelector": [".article-title", ".article-content"]
+  }
 }
 </script>
+
+<!-- BreadcrumbList Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": {{ .Site.BaseURL | jsonify }}
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "News",
+      "item": {{ (printf "%snews/" .Site.BaseURL) | jsonify }}
+    }{{ with .Params.categories }},
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": {{ index . 0 | jsonify }},
+      "item": {{ (printf "%scategories/%s/" $.Site.BaseURL (index . 0 | urlize)) | jsonify }}
+    }{{ end }},
+    {
+      "@type": "ListItem",
+      "position": {{ if .Params.categories }}4{{ else }}3{{ end }},
+      "name": {{ .Title | jsonify }},
+      "item": {{ .Permalink | jsonify }}
+    }
+  ]
+}
+</script>
+
+<!-- FAQ Schema (if FAQ content exists) -->
+{{ if .Params.faq }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {{ range $index, $item := .Params.faq }}
+    {{ if $index }},{{ end }}
+    {
+      "@type": "Question",
+      "name": {{ $item.question | jsonify }},
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": {{ $item.answer | jsonify }}
+      }
+    }
+    {{ end }}
+  ]
+}
+</script>
+{{ end }}
 {{ end }}
 
 {{ define "main" }}
